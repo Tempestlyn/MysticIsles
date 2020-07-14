@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 public class BaseExemon : MonoBehaviour
@@ -17,6 +18,8 @@ public class BaseExemon : MonoBehaviour
     public float baseSpecialAttack;
     private float maxSpecialAttack;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +30,25 @@ public class BaseExemon : MonoBehaviour
     void Update()
     {
         
+        
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        var Player = collision.gameObject.GetComponent<PlayerMovement>();
+
+        if (Player != null)
+        {
+            
+        }
+
+    }
+
 }
 
 
 public enum PokemonType
 {
-    Fire, 
+Fire, 
 Water,
 Plant,
 Earth,
