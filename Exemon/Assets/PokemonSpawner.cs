@@ -5,7 +5,7 @@ using UnityEngine;
 public class PokemonSpawner : MonoBehaviour
 {
 
-    public BasePokemon[] pokemonToSpawn;
+    public BaseExemon[] pokemonToSpawn;
     
 
     // Start is called before the first frame update
