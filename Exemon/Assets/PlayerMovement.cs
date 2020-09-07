@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 0.5f;
     public Rigidbody rigidbody;
     private bool canRotateCamera;
+    public bool canMove;
     void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();

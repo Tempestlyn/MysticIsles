@@ -1,57 +1,87 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
-public class BaseExemon : MonoBehaviour
+
+[CreateAssetMenu(fileName = "Exemon", menuName = "Exemon/Create new exemon")]
+public class BaseExemon : ScriptableObject
 {
-    public float Rarity;
 
     public string Name;
-    public Sprite Image;
-
-    public PokemonType type;
+    public PowerType[] types;
     public float baseHP;
-    private float maxHP;
     public float baseAttack;
-    private float maxAttack;
     public float baseSpecialAttack;
-    private float maxSpecialAttack;
+    public float baseDefence;
+    public float baseSpecialDefence;
+    public float baseSpeed;
+    public float Obedience;
 
-    
-
-    // Start is called before the first frame update
-    void Start()
+    private float hpIV;
+    private float attackIV;
+    private float defenceIV;
+    private float specialAttackIV;
+    private float specialDefenceIV;
+    private float speedIV;
+    private int attackBuffs;
+    private int defenceBuffs;
+    private int specialAttackBuffs;
+    private int specialDefenceBuffs;
+    private int speedBuffs;
+    public void InitializeExemon()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-    }
-    void OnCollisionEnter(Collision collision)
-    {
-        var Player = collision.gameObject.GetComponent<PlayerMovement>();
-
-        if (Player != null)
+        for (int i = 0; i <= 64; i++)
         {
-            
+            var scoreIndex = UnityEngine.Random.Range(0, 6);
+
+            switch (scoreIndex)
+            {
+                case 0:
+                    hpIV += 1;
+                    break;
+                case 1:
+                    attackIV += 1;
+                    break;
+                case 2:
+                    defenceIV += 1;
+                    break;
+                case 3:
+                    specialAttackIV += 1;
+                    break;
+                case 4:
+                    specialDefenceIV += 1;
+                    break;
+                case 5:
+                    speedIV += 1;
+                    break;
+            }
+
         }
 
+        Obedience = 0;
+
+        attackBuffs = 0;
+        defenceBuffs = 0;
+        specialDefenceBuffs = 0;
+        specialAttackBuffs = 0;
+        speedBuffs = 0;
+        
     }
+
 
 }
 
 
-public enum PokemonType
+public enum PowerType
 {
 Fire, 
 Water,
 Plant,
 Earth,
+Poison,
 Lightning,
 Air,
 Frost,
@@ -60,3 +90,6 @@ Arcane,
 Light,
 Dark
 }
+
+
+
