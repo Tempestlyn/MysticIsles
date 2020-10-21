@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1854517645171207919}
   - component: {fileID: 1854517645171207916}
   - component: {fileID: 1854517645171207917}
-  - component: {fileID: 1854517645171207918}
   - component: {fileID: 8156079264116865247}
+  - component: {fileID: -8198323597796029303}
   m_Layer: 0
   m_Name: SlookyOverworld
   m_TagString: Untagged
@@ -104,27 +104,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1854517645171207918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854517645171207914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98d7e3e6fab15164585a65649e69fbe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Slooky
-  types: 
-  baseHP: 30
-  baseAttack: 15
-  baseSpecialAttack: 10
-  baseDefence: 40
-  baseSpecialDefence: 20
-  baseSpeed: 10
-  reach: 5
 --- !u!65 &8156079264116865247
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -138,3 +117,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-8198323597796029303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854517645171207914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c17b97cad38a3479d74443435455e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Exemon: {fileID: 11400000, guid: 079aefdb7dfcd914db7fb541fa040b79, type: 2}

@@ -72,6 +72,7 @@ public class BaseExemon : ScriptableObject
     }
 
 
+
 }
 
 

@@ -6,13 +6,20 @@ public class OverworldExemon : MonoBehaviour
 {
     public BaseExemon Exemon;
     // Start is called before the first frame update
-    void Start()
+    
+
+    public void Start()
     {
-        
+        Exemon.InitializeExemon();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
+    {
+
+    }
+
+
+    public void GetExemonStats()
     {
         
     }

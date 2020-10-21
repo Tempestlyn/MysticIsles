@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     public void EndBattle()
     {
-        playerMovement.canMove = true;
+        //playerMovement.canMove = true;
         playerCamera.SetActive(true);
         battleCamera.SetActive(false);
     }
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     public void StartBattle(BaseExemon exemon)
     {
 
-        playerMovement.canMove = false;
+        //playerMovement.canMove = false;
         battleCamera.SetActive(true);
         playerCamera.SetActive(false);
 
