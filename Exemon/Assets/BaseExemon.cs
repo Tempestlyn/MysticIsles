@@ -11,7 +11,7 @@ public class BaseExemon : ScriptableObject
 {
 
     public string Name;
-    public PowerType[] types;
+    public ElementalType[] types;
     public float baseHP;
     public float baseAttack;
     public float baseSpecialAttack;
@@ -20,17 +20,19 @@ public class BaseExemon : ScriptableObject
     public float baseSpeed;
     public float Obedience;
 
+    public float Reach;
     private float hpIV;
-    private float attackIV;
-    private float defenceIV;
-    private float specialAttackIV;
-    private float specialDefenceIV;
-    private float speedIV;
-    private int attackBuffs;
-    private int defenceBuffs;
-    private int specialAttackBuffs;
-    private int specialDefenceBuffs;
-    private int speedBuffs;
+
+    private float physicalMelee;
+    private float physicalRanged;
+    private float physicalDefence;
+    private float elementalMelee;
+    private float elementalRanged;
+    private float elementalDefence;
+    private float speed;
+
+    public Stance defaultStance;
+
     public void InitializeExemon()
     {
         for (int i = 0; i <= 64; i++)
@@ -40,22 +42,25 @@ public class BaseExemon : ScriptableObject
             switch (scoreIndex)
             {
                 case 0:
-                    hpIV += 1;
+                    physicalMelee += 1;
                     break;
                 case 1:
-                    attackIV += 1;
+                    physicalRanged += 1;
                     break;
                 case 2:
-                    defenceIV += 1;
+                    physicalDefence += 1;
                     break;
                 case 3:
-                    specialAttackIV += 1;
+                    elementalMelee += 1;
                     break;
                 case 4:
-                    specialDefenceIV += 1;
+                    elementalRanged += 1;
                     break;
                 case 5:
-                    speedIV += 1;
+                    elementalDefence += 1;
+                    break;
+                case 6:
+                    speed += 1;
                     break;
             }
 
@@ -63,11 +68,6 @@ public class BaseExemon : ScriptableObject
 
         Obedience = 0;
 
-        attackBuffs = 0;
-        defenceBuffs = 0;
-        specialDefenceBuffs = 0;
-        specialAttackBuffs = 0;
-        speedBuffs = 0;
         
     }
 
@@ -76,9 +76,9 @@ public class BaseExemon : ScriptableObject
 }
 
 
-public enum PowerType
+public enum ElementalType
 {
-Fire, 
+Fire,
 Water,
 Plant,
 Earth,
