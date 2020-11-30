@@ -13,6 +13,10 @@ public class BattleExemon : MonoBehaviour
     private Animator animator;
     public float speed;
 
+    public BoxCollider footAttack;
+    public BoxCollider headAttack;
+    public BoxCollider tailAttack;
+    
 
     public GameObject enemyExemon;
     // Start is called before the first frame update
@@ -93,5 +97,8 @@ public class BattleExemon : MonoBehaviour
     {
         Attack,
         Defend,
-        StayAway
+        StayAway,
+        
     }
+
+
