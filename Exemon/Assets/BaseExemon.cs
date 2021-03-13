@@ -32,6 +32,8 @@ public class BaseExemon : ScriptableObject
     private float speed;
 
     public Stance defaultStance;
+    public Animation[] AttackAnimations;
+
 
     public void InitializeExemon()
     {

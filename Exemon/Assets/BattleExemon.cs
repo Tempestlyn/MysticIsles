@@ -8,17 +8,17 @@ public class BattleExemon : MonoBehaviour
 
     public BaseExemon exemon;
     public Stance stance;
+    public State state;
     public GameObject move1;
     private Rigidbody2D rigidbody;
     private Animator animator;
     public float speed;
-
-    public BoxCollider footAttack;
-    public BoxCollider headAttack;
-    public BoxCollider tailAttack;
-    
-
+    public Move ActiveMove;
+    public List<int> LearnableMoveIds;
+    public List<GameObject> Moves;
     public GameObject enemyExemon;
+
+    public bool finishedAttack;
     // Start is called before the first frame update
 
 
@@ -32,66 +32,180 @@ public class BattleExemon : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
+            if (finishedAttack)
+            {
+                CancelAttack();
+            }
 
-            Move();
+        if (state != State.Falling)
+        {
+            if (stance == Stance.Attack)
+            {
+                if (ActiveMove != null)
+                {
+                    if (!ActiveMove.mustStandStill)
+                    {
+                        Move();
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    Move();
+                    SetWalking();
+                }
+                
+                    
+
+            }
+            if (stance == Stance.StayAway)
+
+            {
+                Move();
+                SetWalking();
+
+            }
+            if (stance == Stance.Defend)
+            {
+                SetIdle();
+            }
+        }
+            
 
         if (PlayerControlled)
         {
-            if (Input.GetKeyDown(KeyCode.A))
-                stance = Stance.Attack;
             if (Input.GetKeyDown(KeyCode.D))
-                stance = Stance.Defend;
+                stance = Stance.Attack;
             if (Input.GetKeyDown(KeyCode.S))
+                stance = Stance.Defend;
+            if (Input.GetKeyDown(KeyCode.A))
                 stance = Stance.StayAway;
+            if (Input.GetKeyDown(KeyCode.Alpha1)) 
+                Attack(Moves[0].GetComponent<Move>());
+            //if (Input.GetKeyDown(KeyCode.Q))
+                //CancelAttack();
         }
 
         }
         void Move()
         {
-            if (stance == Stance.Attack)
+
+
+        if (stance == Stance.Attack)
+        {
+            float dist = transform.position.x - enemyExemon.transform.position.x;
+
+
+
+            if (exemon.Reach < Mathf.Abs(dist))
             {
-                float dist = transform.position.x - enemyExemon.transform.position.x;
-
-                if (exemon.Reach < Mathf.Abs(dist)) 
+                float x = 0;
+                if (enemyExemon.transform.position.x > transform.position.x)
                 {
-                    float x = 0;
-                    if (enemyExemon.transform.position.x > transform.position.x)
-                    {
-                        x = 1;
-                    }
-                    else if (enemyExemon.transform.position.x < transform.position.x)
-                    {
-                        x = -1;
-                    }
-
-                    
-                    float moveBy = x * speed;
-                    rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
+                    x = 1;
                 }
+                else if (enemyExemon.transform.position.x < transform.position.x)
+                {
+                    x = -1;
+                }
+
+
+                float moveBy = x * speed;
+                rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
+            }
             else
             {
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+                Debug.Log("test");
+
+            }
+        }
+        if (stance == Stance.StayAway)
+        {
+
+            float dist = transform.position.x - enemyExemon.transform.position.x;
+
+
+
+            if (exemon.Reach < Mathf.Abs(dist))
+            {
+                float x = 0;
+                if (enemyExemon.transform.position.x > transform.position.x)
+                {
+                    x = -1;
+                }
+                else if (enemyExemon.transform.position.x < transform.position.x)
+                {
+                    x = 1;
+                }
+
+
+                float moveBy = x * speed;
+                rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
+            }
+            else
+            {
+                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+                Debug.Log("test");
+
             }
 
+
+        }
+         
             
 
 
-            }
+        }
+
+    void Attack(Move move)
+    {
+        if (move.mustStandStill)
+        {
+            rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        }
+        ActiveMove = move;
+        animator.SetInteger("MoveID", move.MoveID);
+
+    }
+
+    void SetWalking()
+    {
+        state = State.Walking;
+        animator.SetBool("IsMoving", true);
+    }
+
+    void SetIdle()
+    {
+        state = State.None;
+        animator.SetBool("IsMoving", false);
+    }
 
 
-        if (Mathf.Abs(rigidbody.velocity.x) >= .1)
-        {
-            animator.SetBool("IsMoving", true);
-        }
-        else
-        {
-            animator.SetBool("IsMoving", false);
-        }
+    public void StartWalkingBackwards()
+    {
+
+    }
+
+    public void CancelAttack()
+    {
+        ActiveMove = null;
+        animator.SetInteger("MoveID", 0);
+        finishedAttack = false;
+        
+        
     }
 
 
 
-    }
+ 
+
+}
+
+
 
     public enum Stance
     {
@@ -100,5 +214,38 @@ public class BattleExemon : MonoBehaviour
         StayAway,
         
     }
+
+public enum Command
+{
+    None,
+    Charge,
+    GetAway,
+
+
+}
+
+public enum State
+{
+
+    None, 
+    Attacking,
+    Walking,
+    Flying,
+    Staggered,
+    Falling,
+    
+
+}
+
+public struct MoveData
+{
+    public float hitTime;
+}
+
+
+
+
+
+
 
 
