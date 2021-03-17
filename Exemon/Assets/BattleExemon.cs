@@ -6,15 +6,16 @@ public class BattleExemon : MonoBehaviour
 {
     public bool PlayerControlled;
 
-    public BaseExemon exemon;
+    //public BaseExemon exemon;
     public Stance stance;
     public State state;
+    public float reach;
     public GameObject move1;
     private Rigidbody2D rigidbody;
     private Animator animator;
     public float speed;
+    public float health;
     public Move ActiveMove;
-    public List<int> LearnableMoveIds;
     public List<GameObject> Moves;
     public GameObject enemyExemon;
 
@@ -26,8 +27,18 @@ public class BattleExemon : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        stance = exemon.defaultStance;
+        //stance = exemon.defaultStance;
+        foreach (GameObject move in Moves)
+        {
+            move.GetComponent<Move>().AttachedExemon = gameObject;
+        }
     }
+
+    void SetStats()
+    {
+        //health = exemon.baseHP;
+    }
+
 
         // Update is called once per frame
         void Update()
@@ -36,6 +47,19 @@ public class BattleExemon : MonoBehaviour
             {
                 CancelAttack();
             }
+
+        if (enemyExemon.transform.position.x > transform.position.x)
+        {
+            transform.Rotate(transform.rotation.x, 0, transform.rotation.x);
+        }
+        else if (enemyExemon.transform.position.x < transform.position.x)
+        {
+            transform.Rotate(transform.rotation.x, 180, transform.rotation.z);
+        }
+
+
+
+
 
         if (state != State.Falling)
         {
@@ -93,14 +117,14 @@ public class BattleExemon : MonoBehaviour
         void Move()
         {
 
-
         if (stance == Stance.Attack)
         {
             float dist = transform.position.x - enemyExemon.transform.position.x;
 
+             
 
 
-            if (exemon.Reach < Mathf.Abs(dist))
+            if (reach < Mathf.Abs(dist))
             {
                 float x = 0;
                 if (enemyExemon.transform.position.x > transform.position.x)
@@ -119,19 +143,15 @@ public class BattleExemon : MonoBehaviour
             else
             {
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-                Debug.Log("test");
+                //Debug.Log("test");
 
             }
         }
         if (stance == Stance.StayAway)
         {
 
-            float dist = transform.position.x - enemyExemon.transform.position.x;
 
 
-
-            if (exemon.Reach < Mathf.Abs(dist))
-            {
                 float x = 0;
                 if (enemyExemon.transform.position.x > transform.position.x)
                 {
@@ -145,13 +165,8 @@ public class BattleExemon : MonoBehaviour
 
                 float moveBy = x * speed;
                 rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
-            }
-            else
-            {
-                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-                Debug.Log("test");
 
-            }
+
 
 
         }
@@ -160,6 +175,11 @@ public class BattleExemon : MonoBehaviour
 
 
         }
+
+    void TakeDamage(int health)
+    {
+        
+    }
 
     void Attack(Move move)
     {
@@ -182,6 +202,11 @@ public class BattleExemon : MonoBehaviour
     {
         state = State.None;
         animator.SetBool("IsMoving", false);
+    }
+
+    public void HitTest()
+    {
+        //Debug.Log("Hit!");
     }
 
 

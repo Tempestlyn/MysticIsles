@@ -17,20 +17,27 @@ public class Move : MonoBehaviour
     public bool ranged;
     public float PracticalityDamageModifyer;
     public bool mustStandStill;
+    public GameObject AttachedExemon;
 
-    public List<BoxCollider2D> colliders;
+    public List<HitBoxForce> hitBoxes;
 
+
+    
     private void Update()
+    {
+
+    }
+
+    public void ResolveHit(BattleExemon exemon)
+    {
+        exemon.HitTest();
+    }
+
+
+    public void AssignExemonHitBoxes()
     {
         
     }
-
-    private void ResolveHit(Move move)
-    {
-
-    }
-
-
 
 
 }

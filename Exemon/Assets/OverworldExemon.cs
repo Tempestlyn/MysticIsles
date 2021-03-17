@@ -11,6 +11,7 @@ public class OverworldExemon : MonoBehaviour
     public void Start()
     {
         Exemon.InitializeExemon();
+        
     }
 
     public void Update()
@@ -18,7 +19,11 @@ public class OverworldExemon : MonoBehaviour
 
     }
 
-
+    private void LateUpdate()
+    {
+        
+        //transform.forward = new Vector3(transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);
+    }
     public void GetExemonStats()
     {
         

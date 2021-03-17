@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - MoveColliders
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 359885625
+    locked: 0
+  - name: New Layer
+    uniqueID: 3860680121
     locked: 0

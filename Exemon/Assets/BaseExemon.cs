@@ -31,6 +31,8 @@ public class BaseExemon : ScriptableObject
     private float elementalDefence;
     private float speed;
 
+    public GameObject exemon;
+
     public Stance defaultStance;
     public Animation[] AttackAnimations;
 
@@ -73,6 +75,7 @@ public class BaseExemon : ScriptableObject
         
     }
 
+    
 
 
 }
