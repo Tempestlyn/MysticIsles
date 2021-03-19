@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera PlayerCamera;
     public GameObject BattleScene;
     public bool CanBattle;
-
+    
     public List<BaseExemon> Exemon = new List<BaseExemon>();
 
     private void Start()
@@ -45,14 +45,21 @@ public class PlayerMovement : MonoBehaviour
             if (baseExemon.exemon.GetComponent<BattleExemon>().health > 0)
             {
                 PlayerExemon = Instantiate(baseExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition1.transform);
+                
+                var battleExemon = PlayerExemon.GetComponent<BattleExemon>();
+                BattleScene.GetComponent<BattleScene>().P1Exemon = battleExemon;
+                battleExemon.PlayerControlled = true;
+                battleExemon.reach = baseExemon.Reach;
 
-                PlayerExemon.GetComponent<BattleExemon>().PlayerControlled = true;
                 
             }
         }
         var EnemyExemon = Instantiate(enemyExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition2.transform);
         PlayerExemon.GetComponent<BattleExemon>().enemyExemon = EnemyExemon;
-        EnemyExemon.GetComponent<BattleExemon>().enemyExemon = PlayerExemon;
+        var enemyBattleExemon = EnemyExemon.GetComponent<BattleExemon>();
+        BattleScene.GetComponent<BattleScene>().P2Exemon = enemyBattleExemon;
+        enemyBattleExemon.reach = enemyExemon.Reach;
+        enemyBattleExemon.enemyExemon = PlayerExemon; 
 
 
     }

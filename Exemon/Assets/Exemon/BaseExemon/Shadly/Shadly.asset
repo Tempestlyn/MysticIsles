@@ -21,5 +21,7 @@ MonoBehaviour:
   baseSpecialDefence: 10
   baseSpeed: 40
   Obedience: 0
-  Reach: 4
+  Reach: 2
+  exemon: {fileID: 0}
   defaultStance: 1
+  AttackAnimations: []

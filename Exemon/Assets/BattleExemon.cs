@@ -8,17 +8,24 @@ public class BattleExemon : MonoBehaviour
 
     //public BaseExemon exemon;
     public Stance stance;
-    public State state;
+    public State nextState;
+    public State currentState;
     public float reach;
     public GameObject move1;
     private Rigidbody2D rigidbody;
     private Animator animator;
     public float speed;
     public float health;
+    public float jumpHeight;
     public Move ActiveMove;
     public List<GameObject> Moves;
     public GameObject enemyExemon;
+    public bool TurnedAround;
+    public bool WithinReach;
 
+    public float TimeStunned;
+    public float AttackLockTime;
+    
     public bool finishedAttack;
     // Start is called before the first frame update
 
@@ -43,164 +50,145 @@ public class BattleExemon : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-            if (finishedAttack)
-            {
-                CancelAttack();
-            }
 
-        if (enemyExemon.transform.position.x > transform.position.x)
+        if (finishedAttack)
         {
-            transform.Rotate(transform.rotation.x, 0, transform.rotation.x);
+            EndAttack();
         }
-        else if (enemyExemon.transform.position.x < transform.position.x)
+        var canMove = true;
+
+        if (ActiveMove != null)
         {
-            transform.Rotate(transform.rotation.x, 180, transform.rotation.z);
+            canMove = !ActiveMove.mustStandStill;
         }
 
-
-
-
-
-        if (state != State.Falling)
+        if (nextState != currentState)
         {
-            if (stance == Stance.Attack)
+            if(currentState != State.Stunned)
             {
-                if (ActiveMove != null)
-                {
-                    if (!ActiveMove.mustStandStill)
-                    {
-                        Move();
-                    }
-                    else
-                    {
-                        
-                    }
-                }
-                else
-                {
-                    Move();
-                    SetWalking();
-                }
-                
-                    
+                currentState = nextState;
 
             }
-            if (stance == Stance.StayAway)
-
+            else
             {
-                Move();
-                SetWalking();
-
+                ResolveStun();
             }
-            if (stance == Stance.Defend)
+
+        }
+
+        if (currentState == State.Idle)
+        {
+            SetIdle();
+        }
+        if (currentState == State.WalkingForward)
+        {
+            if (canMove)
+                WalkForward();
+
+        }
+        if (currentState == State.RunningForward)
+        {
+            if (canMove)
             {
-                SetIdle();
+                FaceForward();
+                RunForward();
             }
         }
-            
+        if (currentState == State.WalkingBackward)
+        {
+            if (canMove)
+            {
+                WalkBackward();
+            }
+        }
+        if (currentState == State.RunningBackward)
+        {
+            if (canMove)
+            {
+                RunBackward();
+            }
+        }
+
+
 
         if (PlayerControlled)
         {
             if (Input.GetKeyDown(KeyCode.D))
-                stance = Stance.Attack;
+                nextState = State.WalkingForward;
             if (Input.GetKeyDown(KeyCode.S))
-                stance = Stance.Defend;
+                nextState = State.Idle;
             if (Input.GetKeyDown(KeyCode.A))
-                stance = Stance.StayAway;
+                nextState = State.WalkingBackward;
             if (Input.GetKeyDown(KeyCode.Alpha1)) 
                 Attack(Moves[0].GetComponent<Move>());
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
+                nextState = State.RunningForward;
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+                nextState = State.RunningBackward;
+            if (!Input.anyKey)
+            {
+                nextState = State.Idle;
+            }
             //if (Input.GetKeyDown(KeyCode.Q))
                 //CancelAttack();
-        }
 
-        }
-        void Move()
-        {
-
-        if (stance == Stance.Attack)
-        {
-            float dist = transform.position.x - enemyExemon.transform.position.x;
-
-             
-
-
-            if (reach < Mathf.Abs(dist))
-            {
-                float x = 0;
-                if (enemyExemon.transform.position.x > transform.position.x)
-                {
-                    x = 1;
-                }
-                else if (enemyExemon.transform.position.x < transform.position.x)
-                {
-                    x = -1;
-                }
-
-
-                float moveBy = x * speed;
-                rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
-            }
-            else
-            {
-                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-                //Debug.Log("test");
-
-            }
-        }
-        if (stance == Stance.StayAway)
-        {
-
-
-
-                float x = 0;
-                if (enemyExemon.transform.position.x > transform.position.x)
-                {
-                    x = -1;
-                }
-                else if (enemyExemon.transform.position.x < transform.position.x)
-                {
-                    x = 1;
-                }
-
-
-                float moveBy = x * speed;
-                rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
-
-
-
-
-        }
-         
             
-
-
         }
 
+        }
+    public void ResolveStun()
+    {
+        TimeStunned -= Time.deltaTime;
+        if(TimeStunned <= 0)
+        {
+            currentState = State.Idle;
+        }
+    }
+    public void ApplyStun()
+    {
+
+    }
     void TakeDamage(int health)
     {
         
     }
 
-    void Attack(Move move)
+    void WalkForward()
     {
-        if (move.mustStandStill)
-        {
-            rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-        }
-        ActiveMove = move;
-        animator.SetInteger("MoveID", move.MoveID);
-
-    }
-
-    void SetWalking()
-    {
-        state = State.Walking;
+        rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
         animator.SetBool("IsMoving", true);
     }
+    void RunForward()
+    {
+        rigidbody.velocity = new Vector2(speed * 1.5f, rigidbody.velocity.y);
+        transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+        animator.SetBool("IsMoving", true);
+
+    }
+    void WalkBackward()
+    {
+        rigidbody.velocity = new Vector2(-speed, rigidbody.velocity.y);
+        animator.SetBool("IsMoving", true);
+    }
+    void RunBackward()
+    {
+        rigidbody.velocity = new Vector2(-speed * 1.5f, rigidbody.velocity.y);
+        transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+        animator.SetBool("IsMoving", true);
+    }
+    void Attack(Move move)
+    {
+        if (ActiveMove == null)
+        {
+            ActiveMove = move;
+            animator.SetInteger("MoveID", move.MoveID);
+            finishedAttack = false;
+        }
+    }
+
 
     void SetIdle()
     {
-        state = State.None;
         animator.SetBool("IsMoving", false);
     }
 
@@ -215,16 +203,24 @@ public class BattleExemon : MonoBehaviour
 
     }
 
-    public void CancelAttack()
+    public void EndAttack()
     {
         ActiveMove = null;
         animator.SetInteger("MoveID", 0);
         finishedAttack = false;
         
         
+        
     }
 
+    public void FaceForward()
+    {
 
+    }
+    public void FaceBackward()
+    {
+
+    }
 
  
 
@@ -252,11 +248,14 @@ public enum Command
 public enum State
 {
 
-    None, 
+    Idle, 
     Attacking,
-    Walking,
+    WalkingForward,
+    WalkingBackward,
+    RunningForward,
+    RunningBackward,
     Flying,
-    Staggered,
+    Stunned,
     Falling,
     
 

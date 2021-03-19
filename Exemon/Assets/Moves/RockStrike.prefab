@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accuracy: 0
-  power: 0
+  power: 10
   chargeTime: 0
   hitTime: 0
   APCost: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   hp: 0
   projectile: {fileID: 0}
   ranged: 0
-  UtilityDamageModifyer: 0
+  PracticalityDamageModifyer: 0
   mustStandStill: 1
-  colliders:
-  - {fileID: 0}
+  AttachedExemon: {fileID: 0}
+  hitBoxes: []
