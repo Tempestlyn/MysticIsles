@@ -125,6 +125,17 @@ public class BattleExemon : MonoBehaviour
                 nextState = State.RunningForward;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
                 nextState = State.RunningBackward;
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                if(currentState == State.RunningBackward)
+                {
+                    nextState = State.WalkingBackward;
+                }
+                if (currentState == State.RunningForward)
+                {
+                    nextState = State.WalkingForward;
+                }
+            }
             if (!Input.anyKey)
             {
                 nextState = State.Idle;
@@ -144,13 +155,13 @@ public class BattleExemon : MonoBehaviour
             currentState = State.Idle;
         }
     }
-    public void ApplyStun()
+    public void ApplyStun(int duration)
     {
-
+        TimeStunned = duration;
     }
-    void TakeDamage(int health)
+    public void TakeDamage(float damage)
     {
-        
+        health -= damage;
     }
 
     void WalkForward()

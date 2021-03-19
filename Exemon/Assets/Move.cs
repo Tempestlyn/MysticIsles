@@ -30,7 +30,7 @@ public class Move : MonoBehaviour
 
     public void ResolveHit(BattleExemon exemon)
     {
-        exemon.health -= power;
+        exemon.TakeDamage(power);
     }
 
 

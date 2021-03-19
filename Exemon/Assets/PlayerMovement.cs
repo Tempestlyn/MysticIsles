@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (BaseExemon baseExemon in Exemon)
         {
-            Debug.Log(baseExemon);
+
             if (baseExemon.exemon.GetComponent<BattleExemon>().health > 0)
             {
                 PlayerExemon = Instantiate(baseExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition1.transform);
