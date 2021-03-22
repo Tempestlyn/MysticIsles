@@ -10,6 +10,7 @@ public class HitBoxForce : MonoBehaviour
     public bool isColliding;
     public bool continueous;
     public GameObject ControllingMove;
+    public float stunDuration;
  
     public void AddForceAtAngle(float force, float angle, Rigidbody2D exemon)
     {
@@ -39,10 +40,15 @@ public class HitBoxForce : MonoBehaviour
 
             
             
-            move.ResolveHit(hitExemon);
+            move.ResolveHit(hitExemon, stunDuration);
 
-            AddForceAtAngle(force, angle, hitExemon.gameObject.GetComponent<Rigidbody2D>());
+            if (!ControllingMove.GetComponent<Move>().AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
+                AddForceAtAngle(force, angle, hitExemon.gameObject.GetComponent<Rigidbody2D>());
             
+            if (ControllingMove.GetComponent<Move>().AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
+            {
+                AddForceAtAngle(-force, -angle, hitExemon.gameObject.GetComponent<Rigidbody2D>());
+            }
 
             
             

@@ -70,13 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358c26705b2372a449476616e2ed7b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitObjects: []
   force: 0
   angle: 0
   boxCollider: {fileID: 0}
   isColliding: 0
   continueous: 0
   ControllingMove: {fileID: 9102281993800010947}
-  hitObjects: []
+  stunDuration: 0
 --- !u!1 &9102281993800010947
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,4 +135,5 @@ MonoBehaviour:
   PracticalityDamageModifyer: 0
   mustStandStill: 1
   AttachedExemon: {fileID: 0}
+  resistance: 0
   hitBoxes: []

@@ -18,6 +18,7 @@ public class Move : MonoBehaviour
     public float PracticalityDamageModifyer;
     public bool mustStandStill;
     public GameObject AttachedExemon;
+    public float resistance;
 
     public List<HitBoxForce> hitBoxes;
 
@@ -28,9 +29,12 @@ public class Move : MonoBehaviour
 
     }
 
-    public void ResolveHit(BattleExemon exemon)
+    public void ResolveHit(BattleExemon exemon, float stunDuration)
     {
+        Debug.Log(stunDuration);
+        exemon.finishedAttack = true;
         exemon.TakeDamage(power);
+        exemon.ApplyStun(stunDuration);
     }
 
 

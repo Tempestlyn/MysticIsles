@@ -22,6 +22,7 @@ public class BattleExemon : MonoBehaviour
     public GameObject enemyExemon;
     public bool TurnedAround;
     public bool WithinReach;
+    
 
     public float TimeStunned;
     public float AttackLockTime;
@@ -90,7 +91,6 @@ public class BattleExemon : MonoBehaviour
         {
             if (canMove)
             {
-                FaceForward();
                 RunForward();
             }
         }
@@ -155,9 +155,11 @@ public class BattleExemon : MonoBehaviour
             currentState = State.Idle;
         }
     }
-    public void ApplyStun(int duration)
+    public void ApplyStun(float duration)
     {
+        EndAttack();
         TimeStunned = duration;
+        currentState = State.Stunned;
     }
     public void TakeDamage(float damage)
     {
@@ -174,6 +176,7 @@ public class BattleExemon : MonoBehaviour
         rigidbody.velocity = new Vector2(speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
         animator.SetBool("IsMoving", true);
+        TurnedAround = false;
 
     }
     void WalkBackward()
@@ -186,11 +189,13 @@ public class BattleExemon : MonoBehaviour
         rigidbody.velocity = new Vector2(-speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
         animator.SetBool("IsMoving", true);
+        TurnedAround = true;
     }
-    void Attack(Move move)
+    public void Attack(Move move)
     {
-        if (ActiveMove == null)
+        if (ActiveMove == null && TimeStunned <= 0)
         {
+            
             ActiveMove = move;
             animator.SetInteger("MoveID", move.MoveID);
             finishedAttack = false;
@@ -224,14 +229,6 @@ public class BattleExemon : MonoBehaviour
         
     }
 
-    public void FaceForward()
-    {
-
-    }
-    public void FaceBackward()
-    {
-
-    }
 
  
 
