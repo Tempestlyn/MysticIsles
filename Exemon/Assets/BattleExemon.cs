@@ -121,6 +121,8 @@ public class BattleExemon : MonoBehaviour
                 nextState = State.WalkingBackward;
             if (Input.GetKeyDown(KeyCode.Alpha1)) 
                 Attack(Moves[0].GetComponent<Move>());
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                Attack(Moves[1].GetComponent<Move>());
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
                 nextState = State.RunningForward;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
@@ -208,29 +210,33 @@ public class BattleExemon : MonoBehaviour
         animator.SetBool("IsMoving", false);
     }
 
-    public void HitTest()
-    {
-        //Debug.Log("Hit!");
-    }
-
-
-    public void StartWalkingBackwards()
-    {
-
-    }
 
     public void EndAttack()
     {
         ActiveMove = null;
         animator.SetInteger("MoveID", 0);
         finishedAttack = false;
+
+    }
+
+    public void LaunchProjectile(int MoveID)
+    {
+        foreach (GameObject move in Moves)
+        {
+            if (MoveID == move.GetComponent<Move>().MoveID)
+            {
+                var moveScript = move.GetComponent<Move>();
+                var projectile = Instantiate(moveScript.Projectile, moveScript.ProjectileSpawn);
+                projectile.GetComponent<Projectile>().SetValues(gameObject, moveScript, moveScript.ProjectileForce, moveScript.ProjectileAngle);
+            }
+        }
         
-        
-        
+
+
     }
 
 
- 
+
 
 }
 
@@ -244,14 +250,7 @@ public class BattleExemon : MonoBehaviour
         
     }
 
-public enum Command
-{
-    None,
-    Charge,
-    GetAway,
 
-
-}
 
 public enum State
 {

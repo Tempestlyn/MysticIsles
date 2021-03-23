@@ -13,17 +13,22 @@ public class Move : MonoBehaviour
     public ElementalType type;
     public int MoveID;
     public float hp;
-    public GameObject projectile;
+    public GameObject Projectile;
     public bool ranged;
     public float PracticalityDamageModifyer;
     public bool mustStandStill;
     public GameObject AttachedExemon;
     public float resistance;
 
+    public bool canExitAttack;
+
+    public float ProjectileForce;
+    public float ProjectileAngle;
+    public Transform ProjectileSpawn;
+
     public List<HitBoxForce> hitBoxes;
 
 
-    
     private void Update()
     {
 
@@ -31,7 +36,7 @@ public class Move : MonoBehaviour
 
     public void ResolveHit(BattleExemon exemon, float stunDuration)
     {
-        Debug.Log(stunDuration);
+        //Debug.Log(stunDuration);
         exemon.finishedAttack = true;
         exemon.TakeDamage(power);
         exemon.ApplyStun(stunDuration);
@@ -43,6 +48,10 @@ public class Move : MonoBehaviour
         
     }
 
+    
+
+    
+    
 
 }
 

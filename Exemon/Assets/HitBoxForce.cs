@@ -38,8 +38,6 @@ public class HitBoxForce : MonoBehaviour
             }
                 var hitExemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
 
-            
-            
             move.ResolveHit(hitExemon, stunDuration);
 
             if (!ControllingMove.GetComponent<Move>().AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
@@ -49,9 +47,6 @@ public class HitBoxForce : MonoBehaviour
             {
                 AddForceAtAngle(-force, -angle, hitExemon.gameObject.GetComponent<Rigidbody2D>());
             }
-
-            
-            
 
         }
         
