@@ -22,7 +22,7 @@ MonoBehaviour:
   baseSpeed: 10
   Obedience: 0
   Reach: 2.5
-  exemon: {fileID: 9197750804430447716, guid: 6e120584c0179ef4fb86612145784c4a, type: 3}
+  exemon: {fileID: 8582759530556452989, guid: 7a04bd20313e4b9489ff02717652274c, type: 3}
   defaultStance: 1
   AttackAnimations:
   - {fileID: 0}

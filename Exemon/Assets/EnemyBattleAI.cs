@@ -22,7 +22,7 @@ public class EnemyBattleAI : MonoBehaviour
     void Update()
     {
         nextMoveDelay -= Time.deltaTime;
-        Debug.Log(nextMoveDelay);
+
 
         if (battleExemon.PlayerControlled != true)
         {

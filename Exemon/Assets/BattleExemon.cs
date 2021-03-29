@@ -28,6 +28,8 @@ public class BattleExemon : MonoBehaviour
     public float AttackLockTime;
     
     public bool finishedAttack;
+
+    public Animator hairAnimator;
     // Start is called before the first frame update
 
 
@@ -119,6 +121,12 @@ public class BattleExemon : MonoBehaviour
                 nextState = State.Idle;
             if (Input.GetKeyDown(KeyCode.A))
                 nextState = State.WalkingBackward;
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                StopWalking();
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha1)) 
                 Attack(Moves[0].GetComponent<Move>());
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -172,12 +180,21 @@ public class BattleExemon : MonoBehaviour
     {
         rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
         animator.SetBool("IsMoving", true);
+        if (hairAnimator != null)
+        {
+            Debug.Log("Hair");
+            hairAnimator.SetBool("IsMoving", true);
+        }
     }
     void RunForward()
     {
         rigidbody.velocity = new Vector2(speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
         animator.SetBool("IsMoving", true);
+        if (hairAnimator != null)
+        {
+            hairAnimator.SetBool("IsMoving", true);
+        }
         TurnedAround = false;
 
     }
@@ -185,12 +202,20 @@ public class BattleExemon : MonoBehaviour
     {
         rigidbody.velocity = new Vector2(-speed, rigidbody.velocity.y);
         animator.SetBool("IsMoving", true);
+        if (hairAnimator != null)
+        {
+            hairAnimator.SetBool("IsMoving", true);
+        }
     }
     void RunBackward()
     {
         rigidbody.velocity = new Vector2(-speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
         animator.SetBool("IsMoving", true);
+        if(hairAnimator != null)
+        {
+            hairAnimator.SetBool("IsMoving", true);
+        }
         TurnedAround = true;
     }
     public void Attack(Move move)
@@ -208,6 +233,10 @@ public class BattleExemon : MonoBehaviour
     void SetIdle()
     {
         animator.SetBool("IsMoving", false);
+        if (hairAnimator != null)
+        {
+            hairAnimator.SetBool("IsMoving", false);
+        }
     }
 
 
@@ -226,8 +255,7 @@ public class BattleExemon : MonoBehaviour
             if (MoveID == move.GetComponent<Move>().MoveID)
             {
                 var moveScript = move.GetComponent<Move>();
-                var projectile = Instantiate(moveScript.Projectile, moveScript.ProjectileSpawn);
-                projectile.GetComponent<Projectile>().SetValues(gameObject, moveScript, moveScript.ProjectileForce, moveScript.ProjectileAngle);
+                moveScript.LaunchRangedAttack();
             }
         }
         
@@ -236,7 +264,10 @@ public class BattleExemon : MonoBehaviour
     }
 
 
-
+    public void StopWalking()
+    {
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+    }
 
 }
 

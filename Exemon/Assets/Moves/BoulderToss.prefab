@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3923176307860319564}
-  - component: {fileID: 3923176307860319565}
+  - component: {fileID: 1636171731068784230}
   m_Layer: 0
   m_Name: BoulderToss
   m_TagString: Untagged
@@ -55,14 +55,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3923176307860319566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.5, y: 3.15, z: -7.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1641150899164935623}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3923176307860319565
+--- !u!114 &1636171731068784230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,25 +71,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 3923176307860319566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f96ae6a1cc72bf04595f81d58fe6e0dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b81dfa5ad1e392489d16a1d66a90f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accuracy: 50
-  power: 20
+  accuracy: 0
+  power: 0
   chargeTime: 0
   hitTime: 0
-  APCost: 10
+  APCost: 0
   type: 3
   MoveID: 2
-  hp: 5
-  Projectile: {fileID: 0}
-  ranged: 1
+  hp: 0
+  Projectile: {fileID: 8345755791157914883, guid: 91a2ff52df7c80f49ac93ba477171ab7, type: 3}
+  ranged: 0
   PracticalityDamageModifyer: 0
   mustStandStill: 0
   AttachedExemon: {fileID: 0}
   resistance: 0
   canExitAttack: 0
-  ProjectileForce: 0
+  ProjectileForce: 500
   ProjectileAngle: 0
   ProjectileSpawn: {fileID: 0}
   hitBoxes: []
+  HitBoulder: 0
+  lProjectile: {fileID: 0}

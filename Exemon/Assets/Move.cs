@@ -29,10 +29,6 @@ public class Move : MonoBehaviour
     public List<HitBoxForce> hitBoxes;
 
 
-    private void Update()
-    {
-
-    }
 
     public void ResolveHit(BattleExemon exemon, float stunDuration)
     {
@@ -48,10 +44,19 @@ public class Move : MonoBehaviour
         
     }
 
-    
+    public void PowerUpMove()
+    {
 
-    
-    
+    }
+
+
+
+    public virtual void LaunchRangedAttack()
+    {
+
+    }
+
+
 
 }
 

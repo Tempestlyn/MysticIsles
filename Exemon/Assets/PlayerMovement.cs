@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera PlayerCamera;
     public GameObject BattleScene;
     public bool CanBattle;
-    
+    public BaseExemon BaseMage;
     public List<BaseExemon> Exemon = new List<BaseExemon>();
 
     private void Start()
