@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Robe
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 359885625
+    locked: 0
+  - name: Robe
+    uniqueID: 1053077715
     locked: 0
   - name: Hair
     uniqueID: 3860680121

@@ -30,6 +30,7 @@ public class BattleExemon : MonoBehaviour
     public bool finishedAttack;
 
     public Animator hairAnimator;
+    public Animator RobeAnimator;
     // Start is called before the first frame update
 
 
@@ -179,43 +180,31 @@ public class BattleExemon : MonoBehaviour
     void WalkForward()
     {
         rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
-        animator.SetBool("IsMoving", true);
-        if (hairAnimator != null)
-        {
-            Debug.Log("Hair");
-            hairAnimator.SetBool("IsMoving", true);
-        }
+        animator.SetInteger("IsMoving", 1);
+        SetChildAnimations("IsMoving", 1);
+
     }
     void RunForward()
     {
         rigidbody.velocity = new Vector2(speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
-        animator.SetBool("IsMoving", true);
-        if (hairAnimator != null)
-        {
-            hairAnimator.SetBool("IsMoving", true);
-        }
+        animator.SetInteger("IsMoving", 1);
+        SetChildAnimations("IsMoving", 1);
         TurnedAround = false;
 
     }
     void WalkBackward()
     {
         rigidbody.velocity = new Vector2(-speed, rigidbody.velocity.y);
-        animator.SetBool("IsMoving", true);
-        if (hairAnimator != null)
-        {
-            hairAnimator.SetBool("IsMoving", true);
-        }
+        animator.SetInteger("IsMoving", 1);
+        SetChildAnimations("IsMoving", 1);
     }
     void RunBackward()
     {
         rigidbody.velocity = new Vector2(-speed * 1.5f, rigidbody.velocity.y);
         transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
-        animator.SetBool("IsMoving", true);
-        if(hairAnimator != null)
-        {
-            hairAnimator.SetBool("IsMoving", true);
-        }
+        animator.SetInteger("IsMoving", 1);
+        SetChildAnimations("IsMoving", 1);
         TurnedAround = true;
     }
     public void Attack(Move move)
@@ -232,11 +221,8 @@ public class BattleExemon : MonoBehaviour
 
     void SetIdle()
     {
-        animator.SetBool("IsMoving", false);
-        if (hairAnimator != null)
-        {
-            hairAnimator.SetBool("IsMoving", false);
-        }
+        animator.SetInteger("IsMoving", 0);
+        SetChildAnimations("IsMoving", 0);
     }
 
 
@@ -267,6 +253,18 @@ public class BattleExemon : MonoBehaviour
     public void StopWalking()
     {
         rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+    }
+
+    public void SetChildAnimations(string id, int value)
+    {
+        
+        foreach(Transform child in gameObject.transform)
+        {
+            if (child.tag == "Robe")
+            {
+                child.gameObject.GetComponent<Animator>().SetInteger(id, value);
+            }
+        }
     }
 
 }
