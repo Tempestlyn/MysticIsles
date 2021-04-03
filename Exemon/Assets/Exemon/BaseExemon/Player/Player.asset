@@ -19,9 +19,10 @@ MonoBehaviour:
   baseSpecialAttack: 0
   baseDefence: 0
   baseSpecialDefence: 0
-  baseSpeed: 0
+  baseSpeed: 10
   Obedience: 0
   Reach: 0
-  exemon: {fileID: 0}
+  Robe: {fileID: 2965875638792102577, guid: 369e08908b9de3348b6b43b328b4d415, type: 3}
+  exemon: {fileID: 5751090196079135217, guid: 40a2400e93ffc6843b6ac35c91eb9439, type: 3}
   defaultStance: 0
   AttackAnimations: []

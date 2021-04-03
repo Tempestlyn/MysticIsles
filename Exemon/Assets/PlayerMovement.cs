@@ -13,9 +13,15 @@ public class PlayerMovement : MonoBehaviour
     public bool CanBattle;
     public BaseExemon BaseMage;
     public List<BaseExemon> Exemon = new List<BaseExemon>();
+    public Animator spriteAnimator;
 
+    private GameObject Robe;
     private void Start()
     {
+        if (BaseMage.Robe != null)
+        {
+            Robe = Instantiate(BaseMage.Robe, transform);
+        }
         myRigidbody = GetComponent<Rigidbody>();
     }
     void Update()
@@ -26,6 +32,38 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            spriteAnimator.SetInteger("MoveDirection", 2);
+            
+            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+            spriteAnimator.SetInteger("MoveDirection", 2);
+            spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, gameObject.transform.rotation.y + 180, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            spriteAnimator.SetInteger("MoveDirection", 3);
+            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            spriteAnimator.SetInteger("MoveDirection", 1);
+            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+        }
+        if (!Input.GetKeyDown(KeyCode.A))
+        {
+
+        }
+        if (!Input.anyKey)
+        {
+            spriteAnimator.SetInteger("MoveDirection", 0);
+            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+        }
+
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
         Vector3 playerMovement = new Vector3(hor, 0, ver).normalized * Speed * Time.deltaTime;
@@ -39,11 +77,17 @@ public class PlayerMovement : MonoBehaviour
 
         var PlayerExemon = new GameObject();
 
+        PlayerExemon = Instantiate(BaseMage.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition1.transform);
+
+        var battleExemon = PlayerExemon.GetComponent<BattleExemon>();
+        BattleScene.GetComponent<BattleScene>().P1Exemon = battleExemon;
+        battleExemon.PlayerControlled = true;
+        battleExemon.reach = BaseMage.Reach;
+        /*
         foreach (BaseExemon baseExemon in Exemon)
         {
 
-            if (baseExemon.exemon.GetComponent<BattleExemon>().health > 0)
-            {
+
                 PlayerExemon = Instantiate(baseExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition1.transform);
                 
                 var battleExemon = PlayerExemon.GetComponent<BattleExemon>();
@@ -52,8 +96,9 @@ public class PlayerMovement : MonoBehaviour
                 battleExemon.reach = baseExemon.Reach;
 
                 
-            }
+            
         }
+        */
         var EnemyExemon = Instantiate(enemyExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition2.transform);
         PlayerExemon.GetComponent<BattleExemon>().enemyExemon = EnemyExemon;
         var enemyBattleExemon = EnemyExemon.GetComponent<BattleExemon>();

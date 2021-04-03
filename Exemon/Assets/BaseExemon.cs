@@ -31,6 +31,8 @@ public class BaseExemon : ScriptableObject
     private float elementalDefence;
     private float speed;
 
+    public GameObject Robe;
+
     public GameObject exemon;
 
     public Stance defaultStance;

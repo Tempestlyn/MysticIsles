@@ -14,17 +14,16 @@ public class OverworldExemon : MonoBehaviour
         MainCamera = Camera.main;
     }
 
-    public void Update()
+    public void LateUpdate()
     {
-        if (MainCamera != null)
-            transform.rotation = new Quaternion(MainCamera.transform.rotation.x, MainCamera.transform.rotation.y, MainCamera.transform.rotation.z, MainCamera.transform.rotation.w);
+         
+        if (MainCamera != null) {
+            transform.rotation = MainCamera.transform.rotation;
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+        }
     }
 
-    private void LateUpdate()
-    {
-        
-        //transform.forward = new Vector3(transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);
-    }
+
     public void GetExemonStats()
     {
         

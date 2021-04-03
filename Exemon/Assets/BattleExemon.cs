@@ -260,7 +260,7 @@ public class BattleExemon : MonoBehaviour
         
         foreach(Transform child in gameObject.transform)
         {
-            if (child.tag == "Robe")
+            if (child.tag == "Robe" && child.gameObject.activeSelf)
             {
                 child.gameObject.GetComponent<Animator>().SetInteger(id, value);
             }
