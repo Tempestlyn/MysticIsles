@@ -21,8 +21,10 @@ public class PlayerMovement : MonoBehaviour
         if (BaseMage.Robe != null)
         {
             Robe = Instantiate(BaseMage.Robe, transform);
+            Robe.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
         myRigidbody = GetComponent<Rigidbody>();
+        
     }
     void Update()
     {
@@ -35,14 +37,23 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             spriteAnimator.SetInteger("MoveDirection", 2);
-            
-            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+            if (Robe != null)
+            {
+                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+                Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
+            }
+            spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+            
             spriteAnimator.SetInteger("MoveDirection", 2);
-            spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, gameObject.transform.rotation.y + 180, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+            spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
+            if (Robe != null)
+            {
+                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+                Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
+            }
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -60,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (!Input.anyKey)
         {
+            if (Robe != null)
+            {
+                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 0);
+            }
             spriteAnimator.SetInteger("MoveDirection", 0);
             //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
         }
@@ -78,7 +93,11 @@ public class PlayerMovement : MonoBehaviour
         var PlayerExemon = new GameObject();
 
         PlayerExemon = Instantiate(BaseMage.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition1.transform);
-
+        
+        if (BaseMage.Robe != null)
+        {
+            var battleRobe = Instantiate(BaseMage.Robe, PlayerExemon.transform);
+        }
         var battleExemon = PlayerExemon.GetComponent<BattleExemon>();
         BattleScene.GetComponent<BattleScene>().P1Exemon = battleExemon;
         battleExemon.PlayerControlled = true;

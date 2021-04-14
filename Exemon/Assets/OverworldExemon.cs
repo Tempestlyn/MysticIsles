@@ -10,7 +10,7 @@ public class OverworldExemon : MonoBehaviour
 
     public void Start()
     {
-        Exemon.InitializeExemon();
+        //Exemon.InitializeExemon();
         MainCamera = Camera.main;
     }
 

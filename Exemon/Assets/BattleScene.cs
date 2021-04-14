@@ -14,9 +14,13 @@ public class BattleScene : MonoBehaviour
 
     public TMP_Text PlayerHealth;
     public TMP_Text EnemyHealth;
+
+    public Camera Battle;
+    public static Camera BattleCam;
     // Start is called before the first frame update
     void Start()
     {
+        BattleCam = Battle;
         
     }
 

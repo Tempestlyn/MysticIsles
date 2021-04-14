@@ -13,8 +13,8 @@ public class BaseExemon : ScriptableObject
     public string Name;
     public ElementalType[] types;
     public float baseHP;
-    public float baseAttack;
-    public float baseSpecialAttack;
+    public float baseStrength;
+    public float baseIntellect;
     public float baseDefence;
     public float baseSpecialDefence;
     public float baseSpeed;
@@ -23,12 +23,12 @@ public class BaseExemon : ScriptableObject
     public float Reach;
     private float hpIV;
 
-    private float physicalMelee;
-    private float physicalRanged;
-    private float physicalDefence;
-    private float elementalMelee;
-    private float elementalRanged;
-    private float elementalDefence;
+    private float Strength;
+    private float Intellect;
+    private float LightningMastery;
+    private float FireMastery;
+    private float WaterMastery;
+    private float EarthMaster;
     private float speed;
 
     public GameObject Robe;
@@ -38,7 +38,7 @@ public class BaseExemon : ScriptableObject
     public Stance defaultStance;
     public Animation[] AttackAnimations;
 
-
+    /*
     public void InitializeExemon()
     {
         for (int i = 0; i <= 64; i++)
@@ -76,6 +76,7 @@ public class BaseExemon : ScriptableObject
 
         
     }
+    */
 
     
 

@@ -63,11 +63,11 @@ public class Projectile : MonoBehaviour
             //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, UpMovement.Evaluate(TimeElapsed) * Force));
         //}
     }
-    public void ArcFire(Transform enemyExemon, float initialAngle)
+    public void ArcFire(Transform target, float initialAngle)
     {
         var rigid = GetComponent<Rigidbody2D>();
 
-        Vector3 p = enemyExemon.position;
+        Vector3 p = target.position;
 
         float gravity = Physics.gravity.magnitude;
         // Selected angle in radians

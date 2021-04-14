@@ -22,7 +22,6 @@ public class BattleExemon : MonoBehaviour
     public GameObject enemyExemon;
     public bool TurnedAround;
     public bool WithinReach;
-    
 
     public float TimeStunned;
     public float AttackLockTime;
@@ -214,6 +213,7 @@ public class BattleExemon : MonoBehaviour
             
             ActiveMove = move;
             animator.SetInteger("MoveID", move.MoveID);
+            ActiveMove.LaunchRangedAttack();
             finishedAttack = false;
         }
     }
@@ -265,6 +265,15 @@ public class BattleExemon : MonoBehaviour
                 child.gameObject.GetComponent<Animator>().SetInteger(id, value);
             }
         }
+    }
+
+    public void SetVelocity()
+    {
+
+    }
+    public void AddToVelocity(Vector2 force)
+    {
+
     }
 
 }
