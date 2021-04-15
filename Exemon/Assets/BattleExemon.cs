@@ -23,6 +23,8 @@ public class BattleExemon : MonoBehaviour
     public bool TurnedAround;
     public bool WithinReach;
 
+
+
     public float TimeStunned;
     public float AttackLockTime;
     

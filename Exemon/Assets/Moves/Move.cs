@@ -5,7 +5,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
 
-    public float accuracy;
+    public float Accuracy;
     public float power;
     public float chargeTime;
     public float hitTime;
@@ -27,9 +27,11 @@ public class Move : MonoBehaviour
     public Transform ProjectileSpawn;
     public float ProjectileDelay;
 
-    private float DelayTime;
-    private float shotsLeft;
-   
+    public float DelayTime;
+    public float shotsLeft;
+
+    public float MaxAimAngle;
+    public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
 
     public List<HitBoxForce> hitBoxes;
 
@@ -38,28 +40,7 @@ public class Move : MonoBehaviour
     public void Update()
     {
         
-        if (shotsLeft > 0 && AttachedExemon && AttachedExemon.GetComponent<BattleExemon>().ActiveMove == this)
-        {
-            
-            if (DelayTime <= 0)
-            {
-                Vector3 worldPoint = BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 worldPoint2d = new Vector2(worldPoint.x, worldPoint.y);
 
-                Vector3 targetDir = ProjectileSpawn.position - worldPoint;
-                float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
-                var projectile = Instantiate(Projectile, ProjectileSpawn);
-                projectile.GetComponent<Projectile>().ApplyForce(ProjectileForce, angle);
-
-                DelayTime += ProjectileDelay;
-                
-            }  
-        }
-        else if (shotsLeft <= 0)
-        {
-            AttachedExemon.GetComponent<BattleExemon>().EndAttack();
-        }
-        DelayTime -= Time.deltaTime;
     }
     public void ResolveHit(BattleExemon exemon, float stunDuration)
     {

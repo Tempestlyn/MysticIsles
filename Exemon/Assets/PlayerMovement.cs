@@ -87,6 +87,9 @@ public class PlayerMovement : MonoBehaviour
 
     void InitiateBattle(BaseExemon enemyExemon)
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         BattleScene.SetActive(true);
         PlayerCamera.gameObject.SetActive(false);
 

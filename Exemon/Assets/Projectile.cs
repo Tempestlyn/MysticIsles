@@ -56,11 +56,13 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+
         //if (InitialMovement)
         //{
-            
-            //TimeElapsed += Time.deltaTime;
-            //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, UpMovement.Evaluate(TimeElapsed) * Force));
+
+        //TimeElapsed += Time.deltaTime;
+        //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, UpMovement.Evaluate(TimeElapsed) * Force));
         //}
     }
     public void ArcFire(Transform target, float initialAngle)
