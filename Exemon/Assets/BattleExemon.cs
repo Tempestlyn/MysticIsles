@@ -64,7 +64,7 @@ public class BattleExemon : MonoBehaviour
 
         if (ActiveMove != null)
         {
-            canMove = !ActiveMove.mustStandStill;
+            canMove = ActiveMove.movementDelay <= ActiveMove.moveTime;
         }
 
         if (nextState != currentState)
@@ -210,14 +210,17 @@ public class BattleExemon : MonoBehaviour
     }
     public void Attack(Move move)
     {
-        if (ActiveMove == null && TimeStunned <= 0)
+        
+        if ((ActiveMove == null || (ActiveMove.GetComponent<Move>().lockedTime <= ActiveMove.GetComponent<Move>().moveTime)) && TimeStunned <= 0)
         {
-            
+
             ActiveMove = move;
-            animator.SetInteger("MoveID", move.MoveID);
-            ActiveMove.LaunchRangedAttack();
+            ActiveMove.GetComponent<Move>().moveTime = 0;
+            animator.SetInteger("MoveID", move.GetComponent<Move>().MoveID);
+            ActiveMove.GetComponent<Move>().InitiateAttack();
             finishedAttack = false;
         }
+        
     }
 
 
@@ -235,6 +238,12 @@ public class BattleExemon : MonoBehaviour
         finishedAttack = false;
 
     }
+    public void EndAttackAnimation()
+    {
+        animator.SetInteger("MoveID", 0);
+        finishedAttack = false;
+    }
+        
 
     public void LaunchProjectile(int MoveID)
     {
@@ -247,8 +256,6 @@ public class BattleExemon : MonoBehaviour
             }
         }
         
-
-
     }
 
 

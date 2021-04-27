@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9157413736615063958}
   - component: {fileID: 1333667382907960552}
   - component: {fileID: 1131092038753199400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlameSpewProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   damage: 5
   controllingExemon: {fileID: 0}
   controllingMove: {fileID: 0}
-  DestroyOnHit: 0
+  DestroyOnHit: 1
   StunDuration: 0
   UpMovement:
     serializedVersion: 2

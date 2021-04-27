@@ -16,10 +16,13 @@ public class Move : MonoBehaviour
     public GameObject Projectile;
     public bool ranged;
     public float PracticalityDamageModifyer;
-    public bool mustStandStill;
+    public bool canMove;
     public GameObject AttachedExemon;
 
     public bool canExitAttack;
+    public float lockedTime;
+    public float startDelay;
+    public float movementDelay;
 
     public float ProjectileForce;
     public float ProjectileAngle;
@@ -30,6 +33,8 @@ public class Move : MonoBehaviour
     public float DelayTime;
     public float shotsLeft;
 
+    public float moveTime;
+
     public float MaxAimAngle;
     public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
 
@@ -39,12 +44,11 @@ public class Move : MonoBehaviour
 
     public void Update()
     {
-        
-
+        moveTime += Time.deltaTime;
     }
     public void ResolveHit(BattleExemon exemon, float stunDuration)
     {
-        //Debug.Log(stunDuration);
+        Debug.Log(exemon);
         exemon.finishedAttack = true;
         exemon.TakeDamage(power);
         exemon.ApplyStun(stunDuration);
@@ -65,9 +69,13 @@ public class Move : MonoBehaviour
     
     public virtual void LaunchRangedAttack()
     {
-        shotsLeft += ProjectileAmount;
+
         
     } 
+    public virtual void InitiateAttack()
+    {
+        shotsLeft = ProjectileAmount;
+    }
 
 
 

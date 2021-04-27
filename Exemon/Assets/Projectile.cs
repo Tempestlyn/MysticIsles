@@ -25,11 +25,11 @@ public class Projectile : MonoBehaviour
     }
          
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingExemon)
+        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon)
         {
-            var exemon = collider.gameObject.GetComponent<BattleExemon>();
+            var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
             controllingMove.ResolveHit(exemon, StunDuration);
 
             if (DestroyOnHit)
@@ -37,6 +37,10 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
             
+        }
+        else if (!collider.gameObject.GetComponent<BattleExemon>())
+        {
+            Destroy(gameObject);
         }
 
         

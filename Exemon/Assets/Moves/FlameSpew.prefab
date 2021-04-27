@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2844411822385040991
+--- !u!1 &5675038388996782294
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2844411822385040989}
-  - component: {fileID: -4964123021644002846}
+  - component: {fileID: 5675038388996782292}
+  - component: {fileID: 8265346013138184551}
   m_Layer: 0
   m_Name: FlameSpew
   m_TagString: Untagged
@@ -17,35 +17,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2844411822385040989
+--- !u!4 &5675038388996782292
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844411822385040991}
+  m_GameObject: {fileID: 5675038388996782294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.32, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 562395145360201430}
+  - {fileID: 314729280989459616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4964123021644002846
+--- !u!114 &8265346013138184551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844411822385040991}
+  m_GameObject: {fileID: 5675038388996782294}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2880fd28c2ec0e148a4f6d424f950d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accuracy: 10
-  power: 0
+  Accuracy: 30
+  power: 5
   chargeTime: 0
   hitTime: 0
   APCost: 0
@@ -55,20 +55,24 @@ MonoBehaviour:
   Projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
   ranged: 0
   PracticalityDamageModifyer: 0
-  mustStandStill: 0
+  canMove: 0
   AttachedExemon: {fileID: 0}
   canExitAttack: 0
-  ProjectileForce: 10
+  lockedTime: 1
+  startDelay: 1
+  movementDelay: 1
+  ProjectileForce: 600
   ProjectileAngle: 0
-  ProjectileAmount: 5
-  ProjectileSpawn: {fileID: 562395145360201430}
-  ProjectileDelay: 0.3
+  ProjectileAmount: 6
+  ProjectileSpawn: {fileID: 314729280989459616}
+  ProjectileDelay: 0.2
   DelayTime: 0
   shotsLeft: 0
+  moveTime: 0
   MaxAimAngle: 0
   MinAimAngle: 0
   hitBoxes: []
---- !u!1 &3902255026064796966
+--- !u!1 &7138295978799984994
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,7 +80,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 562395145360201430}
+  - component: {fileID: 314729280989459616}
   m_Layer: 0
   m_Name: ProjectileSpawn
   m_TagString: Untagged
@@ -84,17 +88,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &562395145360201430
+--- !u!4 &314729280989459616
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902255026064796966}
+  m_GameObject: {fileID: 7138295978799984994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2844411822385040989}
+  m_Father: {fileID: 5675038388996782292}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
