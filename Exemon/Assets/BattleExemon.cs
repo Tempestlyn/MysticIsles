@@ -191,7 +191,8 @@ public class BattleExemon : MonoBehaviour
         transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
         animator.SetInteger("IsMoving", 1);
         SetChildAnimations("IsMoving", 1);
-        TurnedAround = false;
+        if (!PlayerControlled)
+            TurnedAround = false;
 
     }
     void WalkBackward()
@@ -206,7 +207,8 @@ public class BattleExemon : MonoBehaviour
         transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
         animator.SetInteger("IsMoving", 1);
         SetChildAnimations("IsMoving", 1);
-        TurnedAround = true;
+        if (!PlayerControlled)
+            TurnedAround = true;
     }
     public void Attack(Move move)
     {

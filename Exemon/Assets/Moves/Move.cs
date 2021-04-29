@@ -32,8 +32,10 @@ public class Move : MonoBehaviour
 
     public float DelayTime;
     public float shotsLeft;
+    public float maxmoveTime;
 
     public float moveTime;
+
 
     public float MaxAimAngle;
     public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 

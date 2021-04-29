@@ -34,55 +34,58 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (!BattleScene.activeSelf)
         {
-            spriteAnimator.SetInteger("MoveDirection", 2);
-            if (Robe != null)
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
-                Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
+                spriteAnimator.SetInteger("MoveDirection", 2);
+                if (Robe != null)
+                {
+                    Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+                    Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
+                }
+                spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
             }
-            spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            
-            spriteAnimator.SetInteger("MoveDirection", 2);
-            spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
-            if (Robe != null)
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
-                Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            spriteAnimator.SetInteger("MoveDirection", 3);
-            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            spriteAnimator.SetInteger("MoveDirection", 1);
-            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
-        }
-        if (!Input.GetKeyDown(KeyCode.A))
-        {
 
-        }
-        if (!Input.anyKey)
-        {
-            if (Robe != null)
-            {
-                Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 0);
+                spriteAnimator.SetInteger("MoveDirection", 2);
+                spriteAnimator.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
+                if (Robe != null)
+                {
+                    Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 1);
+                    Robe.gameObject.transform.rotation = Quaternion.Euler(0, PlayerCamera.transform.rotation.eulerAngles.y + 180, 0);
+                }
             }
-            spriteAnimator.SetInteger("MoveDirection", 0);
-            //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
-        }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                spriteAnimator.SetInteger("MoveDirection", 3);
+                //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                spriteAnimator.SetInteger("MoveDirection", 1);
+                //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+            }
+            if (!Input.GetKeyDown(KeyCode.A))
+            {
 
-        float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");
-        Vector3 playerMovement = new Vector3(hor, 0, ver).normalized * Speed * Time.deltaTime;
-        transform.Translate(playerMovement, Space.Self);
+            }
+            if (!Input.anyKey)
+            {
+                if (Robe != null)
+                {
+                    Robe.gameObject.GetComponent<Animator>().SetInteger("IsMoving", 0);
+                }
+                spriteAnimator.SetInteger("MoveDirection", 0);
+                //spriteAnimator.gameObject.transform.rotation = new Quaternion(spriteAnimator.transform.rotation.x, 0, spriteAnimator.transform.rotation.z, spriteAnimator.transform.rotation.w);
+            }
+
+            float hor = Input.GetAxisRaw("Horizontal");
+            float ver = Input.GetAxisRaw("Vertical");
+            Vector3 playerMovement = new Vector3(hor, 0, ver).normalized * Speed * Time.deltaTime;
+            transform.Translate(playerMovement, Space.Self);
+        }
     }
 
     void InitiateBattle(BaseExemon enemyExemon)
@@ -125,9 +128,10 @@ public class PlayerMovement : MonoBehaviour
         PlayerExemon.GetComponent<BattleExemon>().enemyExemon = EnemyExemon;
         var enemyBattleExemon = EnemyExemon.GetComponent<BattleExemon>();
         BattleScene.GetComponent<BattleScene>().P2Exemon = enemyBattleExemon;
+        BattleScene.GetComponent<BattleScene>().P1Exemon = PlayerExemon.GetComponent<BattleExemon>();
+        BattleScene.GetComponent<BattleScene>().OverworldCam = PlayerCamera;
         enemyBattleExemon.reach = enemyExemon.Reach;
-        enemyBattleExemon.enemyExemon = PlayerExemon; 
-
+        enemyBattleExemon.enemyExemon = PlayerExemon;
 
     }
 

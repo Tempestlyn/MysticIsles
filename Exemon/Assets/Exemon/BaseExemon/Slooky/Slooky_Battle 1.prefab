@@ -243,7 +243,7 @@ MonoBehaviour:
   stance: 0
   nextState: 0
   currentState: 0
-  reach: 2.5
+  reach: 3.5
   move1: {fileID: 0}
   speed: 2
   health: 50
@@ -258,6 +258,8 @@ MonoBehaviour:
   TimeStunned: 0
   AttackLockTime: 0
   finishedAttack: 0
+  hairAnimator: {fileID: 0}
+  RobeAnimator: {fileID: 0}
 --- !u!114 &8582759530556452987
 MonoBehaviour:
   m_ObjectHideFlags: 0
