@@ -41,7 +41,7 @@ public class EnemyBattleAI : MonoBehaviour
             }
             else if (nextMoveDelay <= 0)
             {
-                battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)].GetComponent<Move>());
+                battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
                 WaitForNextAttack(UnityEngine.Random.Range(0, 3));
                 //battleExemon.nextState = State.Idle;
 

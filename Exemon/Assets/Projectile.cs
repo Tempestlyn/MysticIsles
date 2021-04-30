@@ -40,7 +40,13 @@ public class Projectile : MonoBehaviour
         }
         else if (!collider.gameObject.GetComponent<BattleExemon>())
         {
-            Destroy(gameObject);
+            if (collider.gameObject.GetComponent<Projectile>())
+            {
+                if(collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
+                {
+                    //TODO: Move Collision
+                }
+            }
         }
 
         

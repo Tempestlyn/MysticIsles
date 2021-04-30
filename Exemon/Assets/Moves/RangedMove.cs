@@ -36,8 +36,10 @@ public class RangedMove : Move
                     //float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
                     var projectile = Instantiate(Projectile, ProjectileSpawn.transform);
                     projectile.gameObject.transform.parent = null;
+                    
                     projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
                     projectile.GetComponent<Projectile>().controllingMove = this;
+                    projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
 
                     shotsLeft -= 1;
                     DelayTime = ProjectileDelay;

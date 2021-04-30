@@ -18,10 +18,11 @@ public class BattleExemon : MonoBehaviour
     public float health;
     public float jumpHeight;
     public Move ActiveMove;
-    public List<GameObject> Moves;
+    public List<Move> Moves;
     public GameObject enemyExemon;
     public bool TurnedAround;
     public bool WithinReach;
+    public GameObject MoveSpawn;
 
 
 
@@ -40,11 +41,11 @@ public class BattleExemon : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         //stance = exemon.defaultStance;
-        foreach (GameObject move in Moves)
-        {
-            move.GetComponent<Move>().AttachedExemon = gameObject;
-        }
+        
     }
+
+            
+
 
     void SetStats()
     {
@@ -130,9 +131,9 @@ public class BattleExemon : MonoBehaviour
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) 
-                Attack(Moves[0].GetComponent<Move>());
+                Attack(Moves[0]);
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                Attack(Moves[1].GetComponent<Move>());
+                Attack(Moves[1]);
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
                 nextState = State.RunningForward;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
@@ -210,16 +211,18 @@ public class BattleExemon : MonoBehaviour
         if (!PlayerControlled)
             TurnedAround = true;
     }
-    public void Attack(Move move)
+    public void Attack(Move selectedMove)
     {
         
-        if ((ActiveMove == null || (ActiveMove.GetComponent<Move>().lockedTime <= ActiveMove.GetComponent<Move>().moveTime)) && TimeStunned <= 0)
+        if ((ActiveMove == null || (ActiveMove.lockedTime <= ActiveMove.moveTime)) && TimeStunned <= 0)
         {
-
+            var move = Instantiate(selectedMove, gameObject.transform);
+            move.AttachedExemon = gameObject;
+            move.moveTime = 0;
+            move.ProjectileSpawn = MoveSpawn.transform;
             ActiveMove = move;
-            ActiveMove.GetComponent<Move>().moveTime = 0;
-            animator.SetInteger("MoveID", move.GetComponent<Move>().MoveID);
-            ActiveMove.GetComponent<Move>().InitiateAttack();
+            animator.SetInteger("MoveID", move.MoveID);
+            ActiveMove.InitiateAttack();
             finishedAttack = false;
         }
         
@@ -249,11 +252,11 @@ public class BattleExemon : MonoBehaviour
 
     public void LaunchProjectile(int MoveID)
     {
-        foreach (GameObject move in Moves)
+        foreach (Move move in Moves)
         {
-            if (MoveID == move.GetComponent<Move>().MoveID)
+            if (MoveID == move.MoveID)
             {
-                var moveScript = move.GetComponent<Move>();
+                var moveScript = move;
                 moveScript.LaunchRangedAttack();
             }
         }
