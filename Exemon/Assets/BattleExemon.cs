@@ -23,13 +23,14 @@ public class BattleExemon : MonoBehaviour
     public bool TurnedAround;
     public bool WithinReach;
     public GameObject MoveSpawn;
+    public bool IsTryingToExitAttack;
 
-
+    public int SelectedAttackIndex;
+    public bool isAttacking;
 
     public float TimeStunned;
     public float AttackLockTime;
     
-    public bool finishedAttack;
 
     public Animator hairAnimator;
     public Animator RobeAnimator;
@@ -57,17 +58,25 @@ public class BattleExemon : MonoBehaviour
         void Update()
         {
 
-        if (finishedAttack)
-        {
-            EndAttack();
-        }
-        var canMove = true;
+        var CanMove = true;
 
         if (ActiveMove != null)
         {
-            canMove = ActiveMove.movementDelay <= ActiveMove.moveTime;
-        }
+            if (!ActiveMove.CanMove)
+            {
+                if (ActiveMove.canExitAttack && nextState != State.Idle)
+                {
+                    IsTryingToExitAttack = true;
+                }
+            }
+            CanMove = ActiveMove.CanMove;
 
+            if (IsTryingToExitAttack && ActiveMove.canExitAttack)
+            {
+                EndAttack();
+            }
+        }
+        
         if (nextState != currentState)
         {
             if(currentState != State.Stunned)
@@ -88,31 +97,45 @@ public class BattleExemon : MonoBehaviour
         }
         if (currentState == State.WalkingForward)
         {
-            if (canMove)
+            if (CanMove)
                 WalkForward();
 
         }
         if (currentState == State.RunningForward)
         {
-            if (canMove)
+            if (CanMove)
             {
                 RunForward();
             }
         }
         if (currentState == State.WalkingBackward)
         {
-            if (canMove)
+            if (CanMove)
             {
                 WalkBackward();
             }
         }
         if (currentState == State.RunningBackward)
         {
-            if (canMove)
+            if (CanMove)
             {
                 RunBackward();
             }
         }
+
+        IsTryingToExitAttack = false;
+
+
+
+        if (!Input.GetMouseButton(0))
+        {
+            IsTryingToExitAttack = true;
+        }
+
+
+
+        
+
 
 
 
@@ -130,14 +153,15 @@ public class BattleExemon : MonoBehaviour
                 StopWalking();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1)) 
-                Attack(Moves[0]);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                SelectedAttackIndex = 0;
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                Attack(Moves[1]);
+                SelectedAttackIndex = 0;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
                 nextState = State.RunningForward;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
                 nextState = State.RunningBackward;
+            
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 if(currentState == State.RunningBackward)
@@ -153,6 +177,13 @@ public class BattleExemon : MonoBehaviour
             {
                 nextState = State.Idle;
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Attack(Moves[SelectedAttackIndex]);
+            }
+
+
             //if (Input.GetKeyDown(KeyCode.Q))
                 //CancelAttack();
 
@@ -219,11 +250,9 @@ public class BattleExemon : MonoBehaviour
             var move = Instantiate(selectedMove, gameObject.transform);
             move.AttachedExemon = gameObject;
             move.moveTime = 0;
-            move.ProjectileSpawn = MoveSpawn.transform;
             ActiveMove = move;
             animator.SetInteger("MoveID", move.MoveID);
             ActiveMove.InitiateAttack();
-            finishedAttack = false;
         }
         
     }
@@ -240,13 +269,11 @@ public class BattleExemon : MonoBehaviour
     {
         ActiveMove = null;
         animator.SetInteger("MoveID", 0);
-        finishedAttack = false;
 
     }
     public void EndAttackAnimation()
     {
         animator.SetInteger("MoveID", 0);
-        finishedAttack = false;
     }
         
 

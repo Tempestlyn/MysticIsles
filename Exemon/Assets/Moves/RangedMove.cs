@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class RangedMove : Move
 {
+    public float ProjectileAngle;
+    public int ProjectileAmount;
+    public GameObject Projectile;
+    public float ProjectileForce;
+    public Transform ProjectileSpawn;
+    public float ProjectileDelay;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         moveTime += Time.deltaTime;
+        CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
+        canExitAttack = moveTime >= lockedTime;
+
+
         if (shotsLeft > 0 && AttachedExemon && AttachedExemon.GetComponent<BattleExemon>().ActiveMove == this)
         {
             if (startDelay <= moveTime) {
@@ -47,16 +58,15 @@ public class RangedMove : Move
                 
             }
         }
-        if(moveTime >= lockedTime && AttachedExemon.GetComponent<BattleExemon>().nextState != State.Idle)
-        {
-            
-            canExitAttack = true;
-            AttachedExemon.GetComponent<BattleExemon>().EndAttackAnimation();
-        }
-        
+
         var battleExemon = AttachedExemon.GetComponent<BattleExemon>();
 
         
         DelayTime -= Time.deltaTime;
+    }
+
+    public override void InitiateAttack()
+    {
+        shotsLeft = ProjectileAmount;
     }
 }

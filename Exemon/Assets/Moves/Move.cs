@@ -13,22 +13,17 @@ public class Move : MonoBehaviour
     public ElementalType type;
     public int MoveID;
     public float hp;
-    public GameObject Projectile;
     public bool ranged;
     public float PracticalityDamageModifyer;
-    public bool canMove;
+    public bool CanMove;
     public GameObject AttachedExemon;
 
     public bool canExitAttack;
+
     public float lockedTime;
     public float startDelay;
     public float movementDelay;
-
-    public float ProjectileForce;
-    public float ProjectileAngle;
-    public int ProjectileAmount;
-    public Transform ProjectileSpawn;
-    public float ProjectileDelay;
+    public float HitDelay;
 
     public float DelayTime;
     public float shotsLeft;
@@ -40,27 +35,22 @@ public class Move : MonoBehaviour
     public float MaxAimAngle;
     public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
 
-    public List<HitBoxForce> hitBoxes;
 
     
 
     public void Update()
     {
         moveTime += Time.deltaTime;
+        CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
     }
     public void ResolveHit(BattleExemon exemon, float stunDuration)
     {
         Debug.Log(exemon);
-        exemon.finishedAttack = true;
         exemon.TakeDamage(power);
         exemon.ApplyStun(stunDuration);
     }
     
 
-    public void AssignExemonHitBoxes()
-    {
-        
-    }
 
     public void PowerUpMove()
     {
@@ -76,7 +66,7 @@ public class Move : MonoBehaviour
     } 
     public virtual void InitiateAttack()
     {
-        shotsLeft = ProjectileAmount;
+
     }
 
 
