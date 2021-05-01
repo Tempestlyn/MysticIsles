@@ -20,7 +20,7 @@ public class Move : MonoBehaviour
 
     public bool canExitAttack;
 
-    public float lockedTime;
+    public List<Vector2> lockedTimes;
     public float startDelay;
     public float movementDelay;
     public float HitDelay;

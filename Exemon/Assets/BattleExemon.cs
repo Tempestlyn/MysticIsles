@@ -245,8 +245,9 @@ public class BattleExemon : MonoBehaviour
     public void Attack(Move selectedMove)
     {
         
-        if ((ActiveMove == null || (ActiveMove.lockedTime <= ActiveMove.moveTime)) && TimeStunned <= 0)
+        if ((ActiveMove == null || ActiveMove.canExitAttack) && TimeStunned <= 0)
         {
+            EndAttack();
             var move = Instantiate(selectedMove, gameObject.transform);
             move.AttachedExemon = gameObject;
             move.moveTime = 0;

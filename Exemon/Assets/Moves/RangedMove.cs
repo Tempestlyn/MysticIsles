@@ -22,8 +22,19 @@ public class RangedMove : Move
     {
         moveTime += Time.deltaTime;
         CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
-        canExitAttack = moveTime >= lockedTime;
 
+        foreach (Vector2 time in lockedTimes)
+        {
+            if (moveTime >= time[0] && moveTime <= time[1])
+            {
+                canExitAttack = false;
+            }
+            else
+            {
+                canExitAttack = true;
+            }
+
+        }
 
         if (shotsLeft > 0 && AttachedExemon && AttachedExemon.GetComponent<BattleExemon>().ActiveMove == this)
         {
