@@ -4,49 +4,71 @@ using UnityEngine;
 
 public class MeleeAttack : Move
 {
-    public List<HitBox> HitBoxes;
-    
+    public List<GameObject> HitBoxes;
 
-    private float MoveTime;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach (GameObject hitBox in HitBoxes)
+        {
+            hitBox.GetComponent<HitBox>().AttachedMove = this;
+                
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
+
+        foreach (Vector2 time in NoMovementTimes)
+        {
+            if (moveTime < time[0] || moveTime > time[1])
+            {
+                CanMove = true;
+            }
+            else
+            {
+                CanMove = false;
+            }
+        }
         moveTime += Time.deltaTime;
-        HitDelay -= Time.deltaTime;
-        CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
+            HitDelay -= Time.deltaTime;
 
-        foreach (Vector2 time in lockedTimes)
+        if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleExemon>().ActiveMove != this)
         {
-            if (moveTime >= time[0] && moveTime <= time[1])
-            {
-                canExitAttack = false;
-            }
-            else
-            {
-                canExitAttack = true;
-            }
-            
+            Destroy(gameObject);
         }
 
-        foreach (HitBox hitBox in HitBoxes)
-        {
-            if ((MoveTime >= hitBox.StartTime) && (MoveTime <= hitBox.EndTime))
+            foreach (Vector2 time in lockedTimes)
             {
-                hitBox.IsActive = true;
-                //hitBox.
+                if (moveTime >= time[0] && moveTime <= time[1])
+                {
+                    canExitAttack = false;
+                }
+                else
+                {
+                    canExitAttack = true;
+                }
+
             }
-            else
+
+            foreach (GameObject hitBox in HitBoxes)
             {
-                hitBox.IsActive = false;
+            var hitBoxScript = hitBox.GetComponent<HitBox>();
+                if ((moveTime >= hitBoxScript.StartTime) && (moveTime <= hitBoxScript.EndTime))
+                {
+                hitBoxScript.IsActive = true;
+
+                }
+                else
+                {
+                hitBoxScript.IsActive = false;
+                }
             }
+
+
         }
-
-
     }
-}
+

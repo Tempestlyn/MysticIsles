@@ -14,7 +14,6 @@ public class Projectile : MonoBehaviour
     public float StunDuration;
     public AnimationCurve UpMovement;
     public bool InitialMovement;
-    public float TimeElapsed;
     public void SetValues(GameObject lControllingExemon, Move lControllingMove, float force, float forceAngle)
     {
         controllingExemon = lControllingExemon;
@@ -30,7 +29,7 @@ public class Projectile : MonoBehaviour
         if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon)
         {
             var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
-            controllingMove.ResolveHit(exemon, StunDuration);
+            controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
 
             if (DestroyOnHit)
             {
@@ -52,29 +51,7 @@ public class Projectile : MonoBehaviour
         
     }
 
-    public void ApplyForce(float force, float forceAngle)
-    {
-        //Force = force;
-        //InitialMovement = true;
-        //Debug.Log(Force);
-        float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
-        float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
 
-
-    }
-
-    private void FixedUpdate()
-    {
-
-
-        //if (InitialMovement)
-        //{
-
-        //TimeElapsed += Time.deltaTime;
-        //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, UpMovement.Evaluate(TimeElapsed) * Force));
-        //}
-    }
     public void ArcFire(Transform target, float initialAngle)
     {
         var rigid = GetComponent<Rigidbody2D>();

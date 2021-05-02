@@ -21,7 +21,13 @@ public class RangedMove : Move
     void Update()
     {
         moveTime += Time.deltaTime;
-        CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
+        foreach (Vector2 time in NoMovementTimes)
+        {
+            if (moveTime < time[0] || moveTime > time[1])
+            {
+                CanMove = true;
+            }
+        }//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
 
         foreach (Vector2 time in lockedTimes)
         {
@@ -62,7 +68,7 @@ public class RangedMove : Move
                     projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
                     projectile.GetComponent<Projectile>().controllingMove = this;
                     projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-
+                    projectile.GetComponent<Projectile>().damage = Damage;
                     shotsLeft -= 1;
                     DelayTime = ProjectileDelay;
                 }

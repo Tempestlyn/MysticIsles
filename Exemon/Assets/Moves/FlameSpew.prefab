@@ -44,29 +44,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Accuracy: 40
-  power: 5
-  chargeTime: 1
+  Damage: 0
+  StunTime: 0
   hitTime: 0
   APCost: 0
   type: 0
   MoveID: 3
   hp: 0
-  ranged: 0
   PracticalityDamageModifyer: 0
-  CanMove: 0
   AttachedExemon: {fileID: 0}
-  canExitAttack: 0
   lockedTimes:
   - {x: 0, y: 1}
+  NoMovementTimes:
+  - {x: 0, y: 1}
   startDelay: 1
-  movementDelay: 1
-  HitDelay: 0
   DelayTime: 1
   shotsLeft: 0
-  maxmoveTime: 3
-  moveTime: 0
+  MaxMoveTime: 0
   MaxAimAngle: 0
   MinAimAngle: 0
+  moveTime: 0
+  canExitAttack: 0
+  CanMove: 0
   ProjectileAngle: 0
   ProjectileAmount: 5
   Projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}

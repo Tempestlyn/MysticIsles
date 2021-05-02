@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class HitBox : MonoBehaviour
 {
-    public BoxCollider Collider;
+    public BoxCollider2D Collider;
     public float Force;
     public float Angle;
-    public int Damage;
+    public float Damage;
     public float StartTime;
     public float EndTime;
     public Vector2 StartPosition;
@@ -15,27 +15,71 @@ public class HitBox : MonoBehaviour
 
     public float DamageDifferencial;
     public float ForceDifferencial;
+    public float StunDifferencial;
 
-    private bool HitObject;
+    public bool HitObject = false;
     public bool IsActive;
 
+    public bool DestroyOnHit;
+    public MeleeAttack AttachedMove;
+    List<GameObject> CurrentCollisions = new List<GameObject>();
 
     void Start()
     {
-        
+        Collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().ActiveMove != AttachedMove)
+        {
+            Debug.Log(IsActive);
+            IsActive = false;
+        }
+        if (HitObject && DestroyOnHit)
+        {
+            return;
+        }
+        if (AttachedMove.HitDelay <= 0)
+        {
+            foreach (GameObject exemon in CurrentCollisions)
+            {
+                if (!exemon.GetComponent<BattleExemon>().TurnedAround)
+                {
+                    AttachedMove.ResolveHit(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, -Force, -Angle);
+                    HitObject = true;
+                }
+                else
+                {
+                    AttachedMove.ResolveHit(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, Force, Angle);
+                    HitObject = true;
+                }
+            }
+
+            AttachedMove.HitDelay = AttachedMove.DelayTime;
+        }
+
+        
         
     }
 
-    private void OnTriggerStay(Collider collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
-        if (IsActive)
+        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != AttachedMove.AttachedExemon && IsActive)
         {
-        
+            
+            CurrentCollisions.Add(collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject);
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<ExemonHitbox>() && collision.gameObject.GetComponent<ExemonHitbox>().battleExemon != AttachedMove.AttachedExemon && IsActive)
+        {
+
+            CurrentCollisions.Remove(collision.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject);
 
         }
     }

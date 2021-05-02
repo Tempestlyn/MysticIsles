@@ -6,50 +6,67 @@ public class Move : MonoBehaviour
 {
 
     public float Accuracy;
-    public float power;
-    public float chargeTime;
+    public float Damage;
+    public float StunTime;
     public float hitTime;
     public int APCost;
     public ElementalType type;
     public int MoveID;
     public float hp;
-    public bool ranged;
     public float PracticalityDamageModifyer;
-    public bool CanMove;
+ 
     public GameObject AttachedExemon;
 
-    public bool canExitAttack;
+    
 
     public List<Vector2> lockedTimes;
+    public List<Vector2> NoMovementTimes;
     public float startDelay;
-    public float movementDelay;
-    public float HitDelay;
+    
+    
 
     public float DelayTime;
     public float shotsLeft;
-    public float maxmoveTime;
+    public float MaxMoveTime;
 
-    public float moveTime;
+    
 
 
     public float MaxAimAngle;
     public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
 
-
-    
+    [System.NonSerialized]
+    public float HitDelay;
+    public float moveTime = 0;
+    public bool canExitAttack;
+    public bool CanMove;
 
     public void Update()
     {
         moveTime += Time.deltaTime;
-        CanMove = moveTime >= movementDelay;//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
+        
     }
-    public void ResolveHit(BattleExemon exemon, float stunDuration)
+    public void ResolveHit(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
     {
         Debug.Log(exemon);
-        exemon.TakeDamage(power);
+        exemon.TakeDamage(Damage);
         exemon.ApplyStun(stunDuration);
+        ApplyForce(exemon.gameObject, force, forceAngle);
     }
-    
+
+    public void ApplyForce(GameObject exemon, float force, float forceAngle)
+    {
+        //Force = force;
+        //InitialMovement = true;
+        //Debug.Log(Force);
+        float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+        float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+        exemon.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+        Debug.Log("Test");
+
+
+    }
+
 
 
     public void PowerUpMove()

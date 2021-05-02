@@ -59,7 +59,10 @@ public class BattleExemon : MonoBehaviour
         {
 
         var CanMove = true;
-
+        if (ActiveMove == null)
+        {
+            EndAttack();
+        }
         if (ActiveMove != null)
         {
             if (!ActiveMove.CanMove)
