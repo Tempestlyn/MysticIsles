@@ -21,12 +21,10 @@ public class Move : MonoBehaviour
 
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
-    public float startDelay;
     
     
 
     public float DelayTime;
-    public float shotsLeft;
     public float MaxMoveTime;
 
     
@@ -37,8 +35,11 @@ public class Move : MonoBehaviour
 
     [System.NonSerialized]
     public float HitDelay;
+    [System.NonSerialized]
     public float moveTime = 0;
+    [System.NonSerialized]
     public bool canExitAttack;
+    [System.NonSerialized]
     public bool CanMove;
 
     public void Update()

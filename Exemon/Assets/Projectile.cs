@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
     private float Force;
     public float StunDuration;
 
-    [System.NonSerialized]
     public int Index;
     public void SetValues(GameObject lControllingExemon, Move lControllingMove, float force, float forceAngle)
     {

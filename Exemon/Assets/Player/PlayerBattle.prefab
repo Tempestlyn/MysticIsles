@@ -61,7 +61,7 @@ MonoBehaviour:
   jumpHeight: 0
   ActiveMove: {fileID: 0}
   Moves:
-  - {fileID: 6048259281238964016, guid: 43d3f10f701bfcb4cb94ebf339a68119, type: 3}
+  - {fileID: 2768713184587787268, guid: 36622ad0182b7db44bc365dfb102eb4b, type: 3}
   enemyExemon: {fileID: 0}
   TurnedAround: 0
   WithinReach: 0

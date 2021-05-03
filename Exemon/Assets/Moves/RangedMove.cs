@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class RangedMove : Move
 {
-    public int ProjectileAmount;
-    public List<float> ForceStrengths;
     public Transform ProjectileSpawn;
-    public float ProjectileDelay;
     public List<TimesToAddForce> TimesToAddForces;
-    public List<ProjectileShootData> Projectiles;
+    public List<ProjectileShootData> ProjectileData;
+
 
     [System.Serializable]
-    public struct TimesToAddForce { public int ProjectileIndex; public float time; public float ForceSelectionIndex; public Direction projectileDirection; }
+    public struct TimesToAddForce { public int ProjectileIndex; public float time; public Direction projectileDirection; public float force; }
 
     [System.Serializable]
-    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public float force; }
+    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public Direction projectileDirection; public float force; }
 
     // Start is called before the first frame update
     void Start()
     {
 
 
-        foreach(ProjectileShootData projectileShootData in Projectiles)
+        foreach(ProjectileShootData projectileShootData in ProjectileData)
         {
             projectileShootData.projectile.GetComponent<Projectile>().Index = projectileShootData.ProjectileIndex;
             StartCoroutine(Shoot(projectileShootData));
+        }
+
+        foreach(TimesToAddForce timesToAddForce in TimesToAddForces)
+        {
+            StartCoroutine(ApplyForceToProjectile(timesToAddForce));
         }
 
 
@@ -68,37 +71,84 @@ public class RangedMove : Move
 
     IEnumerator Shoot(ProjectileShootData shootData)
     {
+
         yield return new WaitForSeconds(shootData.TimeToShoot);
 
-        Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-        Vector2 myPos = ProjectileSpawn.transform.position;
+        if (shootData.projectileDirection == Direction.Mouse)
+        {
+            Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            Vector2 myPos = ProjectileSpawn.transform.position;
 
-        Vector2 difference = target - myPos;
-        float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
-        var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
-        baseAngle += (Random.Range(-Accuracy, Accuracy));
-        float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
-        float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
+            Vector2 difference = target - myPos;
+            float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
+            var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+            baseAngle += (Random.Range(-Accuracy, Accuracy));
+            float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
+            float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
 
-        var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-        projectile.gameObject.transform.parent = null;
+            var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
+            projectile.gameObject.transform.parent = null;
 
-        projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
-        projectile.GetComponent<Projectile>().controllingMove = this;
-        projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-        projectile.GetComponent<Projectile>().damage = Damage;
+            projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+            projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
+            projectile.GetComponent<Projectile>().controllingMove = this;
+            projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
+            projectile.GetComponent<Projectile>().damage = Damage;
 
+        }
+        if(shootData.projectileDirection == Direction.Up)
+        {
+            var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
+            projectile.gameObject.transform.parent = null;
+
+            projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
+            projectile.GetComponent<Projectile>().controllingMove = this;
+            projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
+            projectile.GetComponent<Projectile>().damage = Damage;
+        }
+
+    }
+
+    IEnumerator ApplyForceToProjectile(TimesToAddForce forceData)
+    {
+        yield return new WaitForSeconds(forceData.time);
+        if (forceData.projectileDirection == Direction.Mouse)
+        {
+            
+
+            foreach(ProjectileShootData projectileShootData in ProjectileData)
+            {
+                if(projectileShootData.ProjectileIndex == forceData.ProjectileIndex)
+                {
+                    Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                    Vector2 position = projectileShootData.projectile.gameObject.transform.position;
+
+                    yield return new WaitForSeconds(forceData.time);
+                    Vector2 difference = target - position;
+                    float sign = (target.y < position.y) ? -1.0f : 1.0f;
+                    var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+                    baseAngle += (Random.Range(-Accuracy, Accuracy));
+                    float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
+                    float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
+
+                    projectileShootData.projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+                }
+                else if(projectileShootData.ProjectileIndex == -1)
+                {
+                    //Make EVERY projectile change direction;
+                }
+
+            }
+            
+        }
+        
     }
 
     public override void InitiateAttack()
     {
-        shotsLeft = ProjectileAmount;
-    }
-
-    public void ApplyForceToProjectile( )
-    {
 
     }
+
     public enum Direction
     {
         Mouse,
