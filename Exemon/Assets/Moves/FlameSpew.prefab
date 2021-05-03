@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1642120434812617349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8815743207950785327}
+  m_Layer: 0
+  m_Name: FlameSpewSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8815743207950785327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642120434812617349}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7559572301632097410}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7058852590963432015
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,9 +55,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7058852590963432015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.113266, y: 4.5938835, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8815743207950785327}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,15 +91,35 @@ MonoBehaviour:
   startDelay: 1
   DelayTime: 1
   shotsLeft: 0
-  MaxMoveTime: 0
+  MaxMoveTime: 4
   MaxAimAngle: 0
   MinAimAngle: 0
   moveTime: 0
   canExitAttack: 0
   CanMove: 0
-  ProjectileAngle: 0
   ProjectileAmount: 5
-  Projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-  ProjectileForce: 500
-  ProjectileSpawn: {fileID: 0}
+  ForceStrengths: []
+  ProjectileSpawn: {fileID: 8815743207950785327}
   ProjectileDelay: 0.2
+  TimesToAddForces: []
+  Projectiles:
+  - ProjectileIndex: 1
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1
+    force: 500
+  - ProjectileIndex: 2
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.2
+    force: 500
+  - ProjectileIndex: 3
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.4
+    force: 500
+  - ProjectileIndex: 4
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.6
+    force: 500
+  - ProjectileIndex: 5
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.8
+    force: 500

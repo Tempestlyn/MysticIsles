@@ -12,8 +12,9 @@ public class Projectile : MonoBehaviour
     private float ForceAngle;
     private float Force;
     public float StunDuration;
-    public AnimationCurve UpMovement;
-    public bool InitialMovement;
+
+    [System.NonSerialized]
+    public int Index;
     public void SetValues(GameObject lControllingExemon, Move lControllingMove, float force, float forceAngle)
     {
         controllingExemon = lControllingExemon;
@@ -51,7 +52,20 @@ public class Projectile : MonoBehaviour
         
     }
 
+    public void ApplyForce(Vector2 target, Vector2 position, float force)
+    {
+        
 
+        Vector2 difference = target - position;
+        float sign = (target.y < position.y) ? -1.0f : 1.0f;
+        var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+        float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * force;
+        float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * force;
+
+        //float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+    }
     public void ArcFire(Transform target, float initialAngle)
     {
         var rigid = GetComponent<Rigidbody2D>();
@@ -81,6 +95,11 @@ public class Projectile : MonoBehaviour
 
         // Fire!
         rigid.velocity = finalVelocity;
+    }
+
+    public virtual void OnEndAttackEvent()
+    {
+
     }
 
 

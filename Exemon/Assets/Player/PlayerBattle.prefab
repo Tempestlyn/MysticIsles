@@ -66,9 +66,11 @@ MonoBehaviour:
   TurnedAround: 0
   WithinReach: 0
   MoveSpawn: {fileID: 8199044761570814682}
+  IsTryingToExitAttack: 0
+  SelectedAttackIndex: 0
+  isAttacking: 0
   TimeStunned: 0
   AttackLockTime: 0
-  finishedAttack: 0
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
 --- !u!212 &5751090196079135221

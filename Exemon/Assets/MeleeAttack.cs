@@ -21,6 +21,7 @@ public class MeleeAttack : Move
         // Update is called once per frame
         void Update()
         {
+        moveTime += Time.deltaTime;
 
         foreach (Vector2 time in NoMovementTimes)
         {
@@ -33,7 +34,7 @@ public class MeleeAttack : Move
                 CanMove = false;
             }
         }
-        moveTime += Time.deltaTime;
+
             HitDelay -= Time.deltaTime;
 
         if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleExemon>().ActiveMove != this)
