@@ -23,6 +23,7 @@ public class BattleExemon : MonoBehaviour
     public bool TurnedAround;
     public bool WithinReach;
     public GameObject MoveSpawn;
+    public GameObject MoveRotation;
     public bool IsTryingToExitAttack;
 
     public int SelectedAttackIndex;

@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class RangedMove : Move
 {
-    public Transform ProjectileSpawn;
+    public GameObject ProjectileSpawn;
     public List<TimesToAddForce> TimesToAddForces;
     public List<ProjectileShootData> ProjectileData;
 
+    private GameObject MoveRotation;
+    private List<GameObject> InstantiatedProjectiles = new List<GameObject>();
 
     [System.Serializable]
-    public struct TimesToAddForce { public int ProjectileIndex; public float time; public Direction projectileDirection; public float force; }
+    public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
-    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public Direction projectileDirection; public float force; }
+    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; }
 
     // Start is called before the first frame update
     void Start()
     {
 
-
+        if(ProjectileSpawn == null)
+        {
+            ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
+            
+        }
+        if(MoveRotation == null)
+        {
+            MoveRotation = AttachedExemon.GetComponent<BattleExemon>().MoveRotation;
+        }
         foreach(ProjectileShootData projectileShootData in ProjectileData)
         {
             projectileShootData.projectile.GetComponent<Projectile>().Index = projectileShootData.ProjectileIndex;
@@ -74,21 +84,30 @@ public class RangedMove : Move
 
         yield return new WaitForSeconds(shootData.TimeToShoot);
 
-        if (shootData.projectileDirection == Direction.Mouse)
+        if (shootData.projectileDirection == SpawnDirection.Mouse)
         {
-            Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-            Vector2 myPos = ProjectileSpawn.transform.position;
+            
 
+            Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+
+            Vector2 myPos = ProjectileSpawn.transform.position;
             Vector2 difference = target - myPos;
+
             float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
             var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+
+
             baseAngle += (Random.Range(-Accuracy, Accuracy));
+
+            
+            
+
             float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
             float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
 
             var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
             projectile.gameObject.transform.parent = null;
-
+            InstantiatedProjectiles.Add(projectile);
             projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
             projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
             projectile.GetComponent<Projectile>().controllingMove = this;
@@ -96,11 +115,11 @@ public class RangedMove : Move
             projectile.GetComponent<Projectile>().damage = Damage;
 
         }
-        if(shootData.projectileDirection == Direction.Up)
+        if(shootData.projectileDirection == SpawnDirection.Up)
         {
             var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
             projectile.gameObject.transform.parent = null;
-
+            InstantiatedProjectiles.Add(projectile);
             projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
             projectile.GetComponent<Projectile>().controllingMove = this;
             projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
@@ -111,35 +130,48 @@ public class RangedMove : Move
 
     IEnumerator ApplyForceToProjectile(TimesToAddForce forceData)
     {
-        yield return new WaitForSeconds(forceData.time);
-        if (forceData.projectileDirection == Direction.Mouse)
+        var startPosition = new Vector2(0, 0);
+        if (forceData.MustBeStationary)
         {
-            
+            startPosition = AttachedExemon.transform.position;
+        }
+        yield return new WaitForSeconds(forceData.time);
 
-            foreach(ProjectileShootData projectileShootData in ProjectileData)
+        if (!forceData.MustBeStationary || (forceData.MustBeStationary && (Vector2.Distance(startPosition, AttachedExemon.transform.position) < 2)))
+        {
+            if (forceData.projectileDirection == SpawnDirection.Mouse)
             {
-                if(projectileShootData.ProjectileIndex == forceData.ProjectileIndex)
-                {
-                    Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-                    Vector2 position = projectileShootData.projectile.gameObject.transform.position;
 
-                    yield return new WaitForSeconds(forceData.time);
-                    Vector2 difference = target - position;
-                    float sign = (target.y < position.y) ? -1.0f : 1.0f;
-                    var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
-                    baseAngle += (Random.Range(-Accuracy, Accuracy));
-                    float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
-                    float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
 
-                    projectileShootData.projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
-                }
-                else if(projectileShootData.ProjectileIndex == -1)
+                foreach (GameObject projectile in InstantiatedProjectiles)
                 {
-                    //Make EVERY projectile change direction;
+                    var projectileData = projectile.GetComponent<Projectile>();
+                    if (projectileData.Index == forceData.ProjectileIndex)
+                    {
+                        Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                        Vector2 position = projectile.gameObject.transform.position;
+                        Vector2 difference = target - position;
+                        float sign = (target.y < position.y) ? -1.0f : 1.0f;
+                        var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+                        baseAngle += (Random.Range(-Accuracy, Accuracy));
+                        float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
+                        float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
+
+                        projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+                    }
+                    else if (forceData.ProjectileIndex == -1)
+                    {
+                        //Make EVERY projectile change direction;
+                    }
+
                 }
 
             }
-            
+            if (forceData.doesRepeat && forceData.repeats != 0)
+            {
+                forceData.repeats -= 1;
+                StartCoroutine(ApplyForceToProjectile(forceData));
+            }
         }
         
     }
@@ -149,10 +181,12 @@ public class RangedMove : Move
 
     }
 
-    public enum Direction
+    public enum SpawnDirection
     {
         Mouse,
-        Up
+        Up,
+        Down,
+        MousePositionX
 
     }
     

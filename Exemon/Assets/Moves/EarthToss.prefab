@@ -97,10 +97,13 @@ MonoBehaviour:
   - ProjectileIndex: 1
     time: 2
     projectileDirection: 0
-    force: 300
+    force: 400
+    doesRepeat: 0
+    repeats: 0
+    MustBeStationary: 1
   ProjectileData:
   - ProjectileIndex: 1
     projectile: {fileID: 8345755791157914883, guid: 91a2ff52df7c80f49ac93ba477171ab7, type: 3}
     TimeToShoot: 0.5
     projectileDirection: 1
-    force: 300
+    force: 200
