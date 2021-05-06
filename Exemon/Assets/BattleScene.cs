@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
+
 public class BattleScene : MonoBehaviour
 {
 
@@ -18,13 +20,15 @@ public class BattleScene : MonoBehaviour
     public Camera Battle;
     public Camera OverworldCam;
     public static Camera BattleCam;
+    public CinemachineVirtualCamera VC;
 
     public GameObject BattleEndMenu;
     // Start is called before the first frame update
     void Start()
     {
         BattleCam = Battle;
-        
+
+        VC.Follow = P1Exemon.transform;
     }
 
     // Update is called once per frame
