@@ -29,6 +29,7 @@ public class BattleScene : MonoBehaviour
         BattleCam = Battle;
 
         VC.Follow = P1Exemon.transform;
+        VC.m_Lens.OrthographicSize = 18;
     }
 
     // Update is called once per frame
