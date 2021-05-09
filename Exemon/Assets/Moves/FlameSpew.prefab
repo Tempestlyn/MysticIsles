@@ -88,10 +88,16 @@ MonoBehaviour:
   - {x: 0, y: 1}
   NoMovementTimes:
   - {x: 0, y: 1}
+  LevelingValues:
+  - MaxLevel: 50
+    MoveLearnSpeed: 0.05
+    levelingType: 2
+    ProjectileIndex: 9
   DelayTime: 1
   MaxMoveTime: 4
   MaxAimAngle: 0
   MinAimAngle: 0
+  MoveExperience: 50
   ProjectileSpawn: {fileID: 0}
   TimesToAddForces: []
   ProjectileData:
@@ -100,23 +106,40 @@ MonoBehaviour:
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0
   - ProjectileIndex: 2
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0
   - ProjectileIndex: 3
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0
   - ProjectileIndex: 4
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0
   - ProjectileIndex: 5
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0
+  - ProjectileIndex: 9
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.5
+    projectileDirection: 0
+    force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 0

@@ -21,6 +21,9 @@ public class Move : MonoBehaviour
 
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
+
+    [SerializeField]
+    public List<LevelingValues> LevelingValues;
     
     
 
@@ -41,6 +44,8 @@ public class Move : MonoBehaviour
     public bool canExitAttack;
     [System.NonSerialized]
     public bool CanMove;
+
+    public float MoveExperience;
 
     public void Update()
     {
@@ -87,6 +92,18 @@ public class Move : MonoBehaviour
 
     }
 
+    public float ReturnLevelValue(LevelingValues levelingValues)
+    {
+        Debug.Log("MoveExperience" + MoveExperience);
+        return (levelingValues.MaxLevel * (((1 / ((((levelingValues.MoveLearnSpeed / 1) * MoveExperience +1)) + 1)))) );
+    }
+
+    public void LevelUpForce(float MoveExperience)
+    {
+
+    }
+
+
 
 
 }
@@ -98,5 +115,24 @@ public enum moveType
     Affliction,
 
 }
+
+public enum LevelingType
+{
+    MoveHealth,
+    MoveSpawnForce,
+    MoveSpawnChance
+}
+
+
+[System.Serializable]
+public struct LevelingValues
+{
+    public float MaxLevel;
+    public float MoveLearnSpeed;
+    public LevelingType levelingType;
+    public float ProjectileIndex;
+}
+
+
 
 

@@ -15,7 +15,15 @@ public class RangedMove : Move
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
-    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; }
+    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float LifeSpan; public float ChanceToSpawn;
+
+
+        public float IncreaseChanceToSpawn(float value)
+        {
+            return ChanceToSpawn += value;
+        }
+        
+         }
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +42,33 @@ public class RangedMove : Move
         {
             projectileShootData.projectile.GetComponent<Projectile>().Index = projectileShootData.ProjectileIndex;
             StartCoroutine(Shoot(projectileShootData));
+
         }
 
         foreach(TimesToAddForce timesToAddForce in TimesToAddForces)
         {
             StartCoroutine(ApplyForceToProjectile(timesToAddForce));
         }
-
+        
+        foreach(LevelingValues levelingValues in LevelingValues)
+        {
+            if (levelingValues.levelingType == LevelingType.MoveSpawnChance)
+            {
+                var value = ReturnLevelValue(levelingValues);
+                Debug.Log(value);
+                foreach(ProjectileShootData projectileShootData in ProjectileData)
+                {
+                    if (projectileShootData.ProjectileIndex == levelingValues.ProjectileIndex)
+                    {
+                        var remainder = projectileShootData.IncreaseChanceToSpawn(value) - 100;
+                        if ( remainder > 0)
+                        {
+                            value = remainder;
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
