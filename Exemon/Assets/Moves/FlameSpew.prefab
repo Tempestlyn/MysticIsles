@@ -85,7 +85,7 @@ MonoBehaviour:
   PracticalityDamageModifyer: 0
   AttachedExemon: {fileID: 0}
   lockedTimes:
-  - {x: 0, y: 1}
+  - {x: 0, y: 1.49}
   NoMovementTimes:
   - {x: 0, y: 1}
   LevelingValues:
@@ -95,7 +95,7 @@ MonoBehaviour:
     ProjectileIndex: 9
   DelayTime: 1
   MaxMoveTime: 4
-  MaxAimAngle: 0
+  MaxAimAngle: 90
   MinAimAngle: 0
   MoveExperience: 50
   ProjectileSpawn: {fileID: 0}
@@ -107,39 +107,46 @@ MonoBehaviour:
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 100
   - ProjectileIndex: 2
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 100
   - ProjectileIndex: 3
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 100
   - ProjectileIndex: 4
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 100
   - ProjectileIndex: 5
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 100
   - ProjectileIndex: 9
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1.5
+    TimeToShoot: 1
     projectileDirection: 0
     force: 300
     LifeSpan: 0
-    ChanceToSpawn: 0
+    ChanceToSpawn: 25
+  - ProjectileIndex: 9
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1
+    projectileDirection: 0
+    force: 300
+    LifeSpan: 0
+    ChanceToSpawn: 25

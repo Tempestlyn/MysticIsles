@@ -10,7 +10,6 @@ public class MultipleTargetCamera : MonoBehaviour
 
     private float distance = 1F;
 
-    Transform temptarget = null;
 
     void LateUpdate()
     {

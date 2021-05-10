@@ -15,12 +15,14 @@ public class RangedMove : Move
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
-    public struct ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float LifeSpan; public float ChanceToSpawn;
+    public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float LifeSpan; public float ChanceToSpawn;
 
 
         public float IncreaseChanceToSpawn(float value)
         {
-            return ChanceToSpawn += value;
+            ChanceToSpawn += value;
+            Debug.Log(ChanceToSpawn);
+            return ChanceToSpawn;
         }
         
          }
@@ -29,12 +31,41 @@ public class RangedMove : Move
     void Start()
     {
 
+
+
         if(ProjectileSpawn == null)
         {
             ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
             
         }
-        if(MoveRotation == null)
+
+
+        foreach (LevelingValues levelingValues in LevelingValues)
+        {
+            if (levelingValues.levelingType == LevelingType.MoveSpawnChance)
+            {
+                var value = ReturnLevelValue(levelingValues);
+                for (int i = 0; i< ProjectileData.Count; i++)
+                {
+                    if (ProjectileData[i].ProjectileIndex == levelingValues.ProjectileIndex)
+                    {
+                        var remainder = ProjectileData[i].IncreaseChanceToSpawn(value) - 100;
+                        Debug.Log(remainder);
+                        if (remainder > 0)
+                        {
+                            value = remainder;
+                            
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (MoveRotation == null)
         {
             MoveRotation = AttachedExemon.GetComponent<BattleExemon>().MoveRotation;
         }
@@ -42,6 +73,7 @@ public class RangedMove : Move
         {
             projectileShootData.projectile.GetComponent<Projectile>().Index = projectileShootData.ProjectileIndex;
             StartCoroutine(Shoot(projectileShootData));
+            Debug.Log(projectileShootData.ChanceToSpawn);
 
         }
 
@@ -50,25 +82,7 @@ public class RangedMove : Move
             StartCoroutine(ApplyForceToProjectile(timesToAddForce));
         }
         
-        foreach(LevelingValues levelingValues in LevelingValues)
-        {
-            if (levelingValues.levelingType == LevelingType.MoveSpawnChance)
-            {
-                var value = ReturnLevelValue(levelingValues);
-                Debug.Log(value);
-                foreach(ProjectileShootData projectileShootData in ProjectileData)
-                {
-                    if (projectileShootData.ProjectileIndex == levelingValues.ProjectileIndex)
-                    {
-                        var remainder = projectileShootData.IncreaseChanceToSpawn(value) - 100;
-                        if ( remainder > 0)
-                        {
-                            value = remainder;
-                        }
-                    }
-                }
-            }
-        }
+        
 
     }
 
@@ -110,48 +124,59 @@ public class RangedMove : Move
     IEnumerator Shoot(ProjectileShootData shootData)
     {
 
-        yield return new WaitForSeconds(shootData.TimeToShoot);
-
-        if (shootData.projectileDirection == SpawnDirection.Mouse)
-        {
+        if (Random.value < (shootData.ChanceToSpawn / 100)){
             
+            yield return new WaitForSeconds(shootData.TimeToShoot);
 
-            Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-
-            Vector2 myPos = ProjectileSpawn.transform.position;
-            Vector2 difference = target - myPos;
-
-            float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
-            var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+            if (shootData.projectileDirection == SpawnDirection.Mouse)
+            {
 
 
-            baseAngle += (Random.Range(-Accuracy, Accuracy));
+                Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
-            
-            
+                Vector2 myPos = ProjectileSpawn.transform.position;
+                Vector2 difference = target - myPos;
 
-            float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
-            float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
+                float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
+                var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+                if (baseAngle < MinAimAngle)
+                {
+                    baseAngle = MinAimAngle;
+                }
+                if (baseAngle > MaxAimAngle)
+                {
+                    baseAngle = MaxAimAngle;
+                }
 
-            var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-            projectile.gameObject.transform.parent = null;
-            InstantiatedProjectiles.Add(projectile);
-            projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
-            projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
-            projectile.GetComponent<Projectile>().controllingMove = this;
-            projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-            projectile.GetComponent<Projectile>().damage = Damage;
 
-        }
-        if(shootData.projectileDirection == SpawnDirection.Up)
-        {
-            var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-            projectile.gameObject.transform.parent = null;
-            InstantiatedProjectiles.Add(projectile);
-            projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
-            projectile.GetComponent<Projectile>().controllingMove = this;
-            projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-            projectile.GetComponent<Projectile>().damage = Damage;
+                baseAngle += (Random.Range(-Accuracy, Accuracy));
+
+
+
+
+                float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
+                float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
+
+                var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
+                projectile.gameObject.transform.parent = null;
+                InstantiatedProjectiles.Add(projectile);
+                projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+                projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
+                projectile.GetComponent<Projectile>().controllingMove = this;
+                projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
+                projectile.GetComponent<Projectile>().damage = Damage;
+
+            }
+            if (shootData.projectileDirection == SpawnDirection.Up)
+            {
+                var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
+                projectile.gameObject.transform.parent = null;
+                InstantiatedProjectiles.Add(projectile);
+                projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
+                projectile.GetComponent<Projectile>().controllingMove = this;
+                projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
+                projectile.GetComponent<Projectile>().damage = Damage;
+            }
         }
 
     }

@@ -54,7 +54,6 @@ public class Move : MonoBehaviour
     }
     public void ResolveHit(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
     {
-        Debug.Log(exemon);
         exemon.TakeDamage(Damage);
         exemon.ApplyStun(stunDuration);
         ApplyForce(exemon.gameObject, force, forceAngle);
@@ -68,7 +67,7 @@ public class Move : MonoBehaviour
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
         exemon.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
-        Debug.Log("Test");
+
 
 
     }
@@ -94,8 +93,7 @@ public class Move : MonoBehaviour
 
     public float ReturnLevelValue(LevelingValues levelingValues)
     {
-        Debug.Log("MoveExperience" + MoveExperience);
-        return (levelingValues.MaxLevel * (((1 / ((((levelingValues.MoveLearnSpeed / 1) * MoveExperience +1)) + 1)))) );
+        return (levelingValues.MaxLevel * (((((-1 / (((levelingValues.MoveLearnSpeed / 1) * MoveExperience +1)))) + 1))));
     }
 
     public void LevelUpForce(float MoveExperience)
