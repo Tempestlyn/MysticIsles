@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9157413736615063958}
   - component: {fileID: 1333667382907960552}
   - component: {fileID: 1131092038753199400}
+  - component: {fileID: 7966982431417598685}
   m_Layer: 8
   m_Name: FlameSpewProjectile
   m_TagString: Untagged
@@ -138,8 +139,23 @@ MonoBehaviour:
   controllingExemon: {fileID: 0}
   controllingMove: {fileID: 0}
   DestroyOnHit: 1
+  ForceAngle: 0
+  Force: 0
   StunDuration: 1
   Health: 10
+  LifeSpan: 0
   Index: 9
   HitBox: 0
   DamageDelay: 1
+--- !u!114 &7966982431417598685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6048882216130075492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a2feba95dcb644ab59e2c63b46c1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

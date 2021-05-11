@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Accuracy: 40
-  Damage: 0
+  Damage: 10
   StunTime: 0
   hitTime: 0
   APCost: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
     ChanceToSpawn: 100
   - ProjectileIndex: 3
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1
+    TimeToShoot: 1.2
     projectileDirection: 0
     force: 300
     forceAngle: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
     ChanceToSpawn: 100
   - ProjectileIndex: 4
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1
+    TimeToShoot: 1.2
     projectileDirection: 0
     force: 300
     forceAngle: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
     ChanceToSpawn: 100
   - ProjectileIndex: 5
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1
+    TimeToShoot: 1.3
     projectileDirection: 0
     force: 300
     forceAngle: 0
@@ -143,15 +143,15 @@ MonoBehaviour:
     ChanceToSpawn: 100
   - ProjectileIndex: 9
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1
+    TimeToShoot: 1.3
     projectileDirection: 0
     force: 300
     forceAngle: 0
     LifeSpan: 0
-    ChanceToSpawn: 25
+    ChanceToSpawn: 50
   - ProjectileIndex: 9
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1
+    TimeToShoot: 1.3
     projectileDirection: 0
     force: 300
     forceAngle: 0

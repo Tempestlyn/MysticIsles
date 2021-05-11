@@ -13,6 +13,7 @@ public class HitBox : MonoBehaviour
     public Vector2 StartPosition;
     public Vector2 EndPosition;
     public int hitBoxIndex;
+    public float Health;
 
     public float DamageDifferencial;
     public float ForceDifferencial;
@@ -48,12 +49,12 @@ public class HitBox : MonoBehaviour
             {
                 if (!exemon.GetComponent<BattleExemon>().TurnedAround)
                 {
-                    AttachedMove.ResolveHit(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, -Force, -Angle);
+                    AttachedMove.ResolveHitExemon(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, -Force, -Angle);
                     HitObject = true;
                 }
                 else
                 {
-                    AttachedMove.ResolveHit(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, Force, Angle);
+                    AttachedMove.ResolveHitExemon(exemon.GetComponent<BattleExemon>(), AttachedMove.Damage, AttachedMove.StunTime, Force, Angle);
                     HitObject = true;
                 }
             }
@@ -93,5 +94,16 @@ public class HitBox : MonoBehaviour
 
         }
     }
+
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
  

@@ -52,7 +52,7 @@ public class Move : MonoBehaviour
         moveTime += Time.deltaTime;
         
     }
-    public void ResolveHit(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
+    public void ResolveHitExemon(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
     {
 
         exemon.TakeDamage(Damage);
@@ -60,15 +60,27 @@ public class Move : MonoBehaviour
         ApplyForce(exemon.gameObject, force, forceAngle);
     }
 
+    public void ResolveHitProjectile(Projectile projectile, float Damage, float force, float forceAngle)
+    {
+        
+        projectile.TakeDamage(Damage);
+        ApplyForce(projectile.gameObject, force, forceAngle);
+    }
 
-    public void ApplyForce(GameObject exemon, float force, float forceAngle)
+    public void ResolveHitHitbox(HitBox hitBox, float Damage)
+    {
+
+    }
+
+
+    public void ApplyForce(GameObject target, float force, float forceAngle)
     {
         //Force = force;
         //InitialMovement = true;
         //Debug.Log(Force);
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
-        exemon.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
 
 
 
@@ -108,11 +120,11 @@ public class Move : MonoBehaviour
 
 }
  
-public enum moveType
+public enum DamageType
 {
-    Attack,
-    Enchant,
-    Affliction,
+    Exemon,
+    Projectile,
+    HitBox,
 
 }
 

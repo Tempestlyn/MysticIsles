@@ -33,8 +33,8 @@ public class Projectile : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
         {
-            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, false));
-            var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
+            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
+            //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
             //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
 
             if (DestroyOnHit)
@@ -49,8 +49,14 @@ public class Projectile : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
                 {
-                    StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, true));
+                    StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Projectile));
                 }
+
+                
+            }
+            if (collider.gameObject.GetComponent<HitBox>())
+            {
+
             }
         }
 
@@ -71,6 +77,9 @@ public class Projectile : MonoBehaviour
 
         GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
     }
+
+
+
     public void ArcFire(Transform target, float initialAngle)
     {
         var rigid = GetComponent<Rigidbody2D>();
@@ -107,15 +116,11 @@ public class Projectile : MonoBehaviour
 
     }
 
-    IEnumerator ApplyDamage(float delayTime, GameObject hitObject, bool IsMove)
+    IEnumerator ApplyDamage(float delayTime, GameObject hitObject, DamageType damageType)
     {
-        if (IsMove)
+        if (damageType == DamageType.Exemon)
         {
-
-        }
-        else
-        {
-            controllingMove.ResolveHit(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>(), damage, StunDuration, Force, ForceAngle);
+            controllingMove.ResolveHitExemon(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>(), damage, StunDuration, Force, ForceAngle);
         }
         HitObjects.Add(hitObject);
         yield return new WaitForSeconds(delayTime);
@@ -125,4 +130,12 @@ public class Projectile : MonoBehaviour
     }
 
 
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
