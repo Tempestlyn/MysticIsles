@@ -12,6 +12,7 @@ public class HitBox : MonoBehaviour
     public float EndTime;
     public Vector2 StartPosition;
     public Vector2 EndPosition;
+    public int hitBoxIndex;
 
     public float DamageDifferencial;
     public float ForceDifferencial;
@@ -68,8 +69,17 @@ public class HitBox : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != AttachedMove.AttachedExemon && IsActive)
         {
-            
+
             CurrentCollisions.Add(collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject);
+
+        }
+        if (collider.gameObject.GetComponent<HitBox>())
+        {
+            
+        }
+            
+        if(collider.gameObject.GetComponent<Projectile>())
+        {
 
         }
     }
@@ -84,3 +94,4 @@ public class HitBox : MonoBehaviour
         }
     }
 }
+ 

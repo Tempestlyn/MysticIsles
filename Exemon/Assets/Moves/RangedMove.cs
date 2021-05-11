@@ -15,13 +15,13 @@ public class RangedMove : Move
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
-    public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float LifeSpan; public float ChanceToSpawn;
+    public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float forceAngle; public float LifeSpan; public float ChanceToSpawn;
 
 
         public float IncreaseChanceToSpawn(float value)
         {
             ChanceToSpawn += value;
-            Debug.Log(ChanceToSpawn);
+
             return ChanceToSpawn;
         }
         
@@ -71,9 +71,12 @@ public class RangedMove : Move
         }
         foreach(ProjectileShootData projectileShootData in ProjectileData)
         {
-            projectileShootData.projectile.GetComponent<Projectile>().Index = projectileShootData.ProjectileIndex;
+            var projectile = projectileShootData.projectile.GetComponent<Projectile>();
+            projectile.Index = projectileShootData.ProjectileIndex;
+            projectile.Force = projectileShootData.force;
+            projectile.ForceAngle = projectileShootData.forceAngle;
+            projectile.LifeSpan = projectileShootData.LifeSpan;
             StartCoroutine(Shoot(projectileShootData));
-            Debug.Log(projectileShootData.ChanceToSpawn);
 
         }
 
@@ -139,14 +142,30 @@ public class RangedMove : Move
 
                 float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
                 var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
-                if (baseAngle < MinAimAngle)
+
+                if ((baseAngle < MinAimAngle && baseAngle > (-180 + MinAimAngle)))
                 {
-                    baseAngle = MinAimAngle;
+                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > AttachedExemon.transform.position.x )
+                    {
+                        baseAngle = MinAimAngle;
+                    }
+                    else
+                    {
+                        baseAngle = -180 + MinAimAngle;
+                    }
                 }
-                if (baseAngle > MaxAimAngle)
+                else if(((baseAngle > MaxAimAngle && baseAngle < (180 - MaxAimAngle))))
                 {
-                    baseAngle = MaxAimAngle;
+                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > AttachedExemon.transform.position.x)
+                    {
+                        baseAngle = MaxAimAngle;
+                    }
+                    else
+                    {
+                        baseAngle = 180 - MaxAimAngle;
+                    }
                 }
+                
 
 
                 baseAngle += (Random.Range(-Accuracy, Accuracy));
@@ -170,7 +189,7 @@ public class RangedMove : Move
             if (shootData.projectileDirection == SpawnDirection.Up)
             {
                 var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-                projectile.gameObject.transform.parent = null;
+                //projectile.gameObject.transform.parent = null;
                 InstantiatedProjectiles.Add(projectile);
                 projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
                 projectile.GetComponent<Projectile>().controllingMove = this;

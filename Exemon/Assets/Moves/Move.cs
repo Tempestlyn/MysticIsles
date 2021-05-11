@@ -54,10 +54,12 @@ public class Move : MonoBehaviour
     }
     public void ResolveHit(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
     {
+
         exemon.TakeDamage(Damage);
         exemon.ApplyStun(stunDuration);
         ApplyForce(exemon.gameObject, force, forceAngle);
     }
+
 
     public void ApplyForce(GameObject exemon, float force, float forceAngle)
     {

@@ -78,8 +78,11 @@ MonoBehaviour:
   EndTime: 1
   StartPosition: {x: 0, y: 0}
   EndPosition: {x: 0, y: 0}
+  hitBoxIndex: 1
   DamageDifferencial: 0
   ForceDifferencial: 0
   StunDifferencial: 0
+  HitObject: 0
   IsActive: 0
+  DestroyOnHit: 0
   AttachedMove: {fileID: 0}

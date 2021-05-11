@@ -9,11 +9,16 @@ public class Projectile : MonoBehaviour
     public GameObject controllingExemon;
     public Move controllingMove;
     public bool DestroyOnHit;
-    private float ForceAngle;
-    private float Force;
+    public float ForceAngle;
+    public float Force;
     public float StunDuration;
-
+    public float Health;
+    public float LifeSpan;
     public int Index;
+    public bool HitBox;
+    public float DamageDelay;
+
+    private List<GameObject> HitObjects = new List<GameObject>();
     public void SetValues(GameObject lControllingExemon, Move lControllingMove, float force, float forceAngle)
     {
         controllingExemon = lControllingExemon;
@@ -26,10 +31,11 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon)
+        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
         {
+            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, false));
             var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
-            controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
+            //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
 
             if (DestroyOnHit)
             {
@@ -43,7 +49,7 @@ public class Projectile : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
                 {
-                    //TODO: Move Collision
+                    StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, true));
                 }
             }
         }
@@ -99,6 +105,23 @@ public class Projectile : MonoBehaviour
     public virtual void OnEndAttackEvent()
     {
 
+    }
+
+    IEnumerator ApplyDamage(float delayTime, GameObject hitObject, bool IsMove)
+    {
+        if (IsMove)
+        {
+
+        }
+        else
+        {
+            controllingMove.ResolveHit(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>(), damage, StunDuration, Force, ForceAngle);
+        }
+        HitObjects.Add(hitObject);
+        yield return new WaitForSeconds(delayTime);
+
+        Debug.Log("Can be damaged");
+        HitObjects.Remove(hitObject);
     }
 
 

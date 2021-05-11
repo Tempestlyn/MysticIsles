@@ -19,15 +19,32 @@ public class RotateToMouse : MonoBehaviour
 
 
         if (gameObject.GetComponentInParent<BattleExemon>().ActiveMove != null)
-
         {
-            if (angle < gameObject.GetComponentInParent<BattleExemon>().ActiveMove.MinAimAngle)
+            var activeMove = gameObject.GetComponentInParent<BattleExemon>().ActiveMove;
+
+
+            if ((angle < activeMove.MinAimAngle && activeMove.MinAimAngle > (-180 + activeMove.MinAimAngle)))
             {
-                angle = gameObject.GetComponentInParent<BattleExemon>().ActiveMove.MinAimAngle;
+                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                {
+                    angle = activeMove.MinAimAngle;
+                }
+                else
+                {
+                    Debug.Log("Test");
+                    angle = -180 + activeMove.MinAimAngle;
+                }
             }
-            if (angle > gameObject.GetComponentInParent<BattleExemon>().ActiveMove.MaxAimAngle)
+            else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
             {
-                angle = gameObject.GetComponentInParent<BattleExemon>().ActiveMove.MaxAimAngle;
+                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                {
+                    angle = activeMove.MaxAimAngle;
+                }
+                else
+                {
+                    angle = 180 - activeMove.MaxAimAngle;
+                }
             }
         }
 

@@ -138,5 +138,8 @@ MonoBehaviour:
   controllingExemon: {fileID: 0}
   controllingMove: {fileID: 0}
   DestroyOnHit: 1
-  StunDuration: 0
-  Index: 1
+  StunDuration: 1
+  Health: 10
+  Index: 9
+  HitBox: 0
+  DamageDelay: 1

@@ -58,15 +58,12 @@ MonoBehaviour:
   - {x: 0, y: 1}
   NoMovementTimes:
   - {x: 0, y: 1}
-  startDelay: 0
+  LevelingValues: []
   DelayTime: 0
-  shotsLeft: 0
   MaxMoveTime: 1
   MaxAimAngle: 0
   MinAimAngle: 0
-  moveTime: 0
-  canExitAttack: 0
-  CanMove: 0
+  MoveExperience: 0
   HitBoxes:
   - {fileID: 3778316619399218529}
 --- !u!1001 &4607674191256730743

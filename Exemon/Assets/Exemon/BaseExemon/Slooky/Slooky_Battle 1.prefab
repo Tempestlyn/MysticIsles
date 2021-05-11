@@ -253,6 +253,7 @@ MonoBehaviour:
   TurnedAround: 0
   WithinReach: 0
   MoveSpawn: {fileID: 0}
+  MoveRotation: {fileID: 0}
   IsTryingToExitAttack: 0
   SelectedAttackIndex: 0
   isAttacking: 0
