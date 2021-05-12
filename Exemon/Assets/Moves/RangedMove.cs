@@ -50,7 +50,7 @@ public class RangedMove : Move
                     if (ProjectileData[i].ProjectileIndex == levelingValues.ProjectileIndex)
                     {
                         var remainder = ProjectileData[i].IncreaseChanceToSpawn(value) - 100;
-                        Debug.Log(remainder);
+
                         if (remainder > 0)
                         {
                             value = remainder;
@@ -126,16 +126,19 @@ public class RangedMove : Move
 
     IEnumerator Shoot(ProjectileShootData shootData)
     {
-
+        //Debug.Log(shootData.projectile);
         if (Random.value < (shootData.ChanceToSpawn / 100)){
             
             yield return new WaitForSeconds(shootData.TimeToShoot);
 
             if (shootData.projectileDirection == SpawnDirection.Mouse)
             {
-
-
-                Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                Vector2 target = new Vector2(0, 0);
+                if (AttachedExemon.gameObject.GetComponent<EnemyBattleAI>())
+                {
+                    target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
+                }
+                else { target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)); }
 
                 Vector2 myPos = ProjectileSpawn.transform.position;
                 Vector2 difference = target - myPos;
@@ -189,7 +192,7 @@ public class RangedMove : Move
             if (shootData.projectileDirection == SpawnDirection.Up)
             {
                 var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-                //projectile.gameObject.transform.parent = null;
+                projectile.gameObject.transform.parent = null;
                 InstantiatedProjectiles.Add(projectile);
                 projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
                 projectile.GetComponent<Projectile>().controllingMove = this;
@@ -220,7 +223,18 @@ public class RangedMove : Move
                     var projectileData = projectile.GetComponent<Projectile>();
                     if (projectileData.Index == forceData.ProjectileIndex)
                     {
-                        Vector2 target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                        Vector2 target = new Vector2(0, 0);
+                        if (AttachedExemon.gameObject.GetComponent<EnemyBattleAI>())
+                        {
+                            target = new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y);
+                        }
+                        else 
+                        {
+                            
+                            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)); 
+                        
+                        }
+                        Debug.Log(target);
                         Vector2 position = projectile.gameObject.transform.position;
                         Vector2 difference = target - position;
                         float sign = (target.y < position.y) ? -1.0f : 1.0f;

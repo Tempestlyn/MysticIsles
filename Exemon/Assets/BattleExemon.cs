@@ -131,7 +131,7 @@ public class BattleExemon : MonoBehaviour
 
 
 
-        if (!Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(0) && PlayerControlled)
         {
             IsTryingToExitAttack = true;
         }

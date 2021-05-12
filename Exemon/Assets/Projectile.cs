@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
                 {
                     StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Projectile));
                 }
-
+                
                 
             }
             if (collider.gameObject.GetComponent<HitBox>())

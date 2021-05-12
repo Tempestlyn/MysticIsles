@@ -80,19 +80,22 @@ MonoBehaviour:
   hitTime: 0
   APCost: 0
   type: 3
-  MoveID: 3
+  MoveID: 2
   hp: 0
   PracticalityDamageModifyer: 0
+  AIRange: 20
   AttachedExemon: {fileID: 0}
   lockedTimes:
   - {x: 0, y: 0.5}
   NoMovementTimes:
   - {x: 0, y: 0.5}
+  LevelingValues: []
   DelayTime: 0
-  MaxMoveTime: 5
+  MaxMoveTime: 3
   MaxAimAngle: 0
   MinAimAngle: 0
-  ProjectileSpawn: {fileID: 6772402992524483146}
+  MoveExperience: 0
+  ProjectileSpawn: {fileID: 27385081684961433}
   TimesToAddForces:
   - ProjectileIndex: 1
     time: 2
@@ -107,3 +110,6 @@ MonoBehaviour:
     TimeToShoot: 0.5
     projectileDirection: 1
     force: 200
+    forceAngle: 0
+    LifeSpan: 0
+    ChanceToSpawn: 100

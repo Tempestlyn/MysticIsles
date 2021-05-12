@@ -14,7 +14,7 @@ public class Move : MonoBehaviour
     public int MoveID;
     public float hp;
     public float PracticalityDamageModifyer;
- 
+    public float AIRange;
     public GameObject AttachedExemon;
 
     
