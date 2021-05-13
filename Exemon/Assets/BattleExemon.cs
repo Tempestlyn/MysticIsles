@@ -13,7 +13,7 @@ public class BattleExemon : MonoBehaviour
     public float reach;
     public GameObject move1;
     private Rigidbody2D rigidbody;
-    private Animator animator;
+    public Animator animator;
     public float speed;
     public float health;
     public float jumpHeight;

@@ -12,7 +12,7 @@ public class EnemyBattleAI : MonoBehaviour
     public bool AttacksUnprovoked;
     public float HostileRange;
     public Move nextMove;
-
+    private bool WasAttackingLastFrame;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +23,12 @@ public class EnemyBattleAI : MonoBehaviour
     void Update()
     {
         nextMoveDelay -= Time.deltaTime;
+        
+        if(battleExemon.ActiveMove == null && battleExemon.animator.GetInteger("MoveID") == 0 && WasAttackingLastFrame) //TODO: This is probably the most jankiest, cringiest, and most downright braindead solution I can
+        {                                                                                                               //come up with to keep the animations from gettings stuck... but It'll work for now. I really hope nobody ends up seeing this code.
+            WasAttackingLastFrame = false;
+            return;
+        }
 
         if (nextMove == null)
         {
@@ -60,10 +66,12 @@ public class EnemyBattleAI : MonoBehaviour
             else if (nextMoveDelay <= 0)
             {
 
-                if (battleExemon.ActiveMove == null)
+                if (battleExemon.ActiveMove == null && !WasAttackingLastFrame)
                 {
+                    battleExemon.EndAttack();
                     battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
                     Debug.Log("Test");
+                    WasAttackingLastFrame = true;
                     //WaitForNextAttack(UnityEngine.Random.Range(0, 3));
                 }
 
