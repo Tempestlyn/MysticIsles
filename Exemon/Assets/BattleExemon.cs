@@ -187,6 +187,37 @@ public class BattleExemon : MonoBehaviour
                 Attack(Moves[SelectedAttackIndex]);
             }
 
+            if (ActiveMove == null || !ActiveMove.GetComponent<RangedMove>())
+            {
+
+
+
+                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+                {
+                    TurnedAround = false;
+                    transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+                }
+                else
+                {
+                    TurnedAround = true;
+                    transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+                }
+
+            }
+            else if (ActiveMove.GetComponent<RangedMove>() && ActiveMove.GetComponent<RangedMove>().target != new Vector2(0, 0))
+            {
+                if (BattleScene.BattleCam.ScreenToWorldPoint(ActiveMove.GetComponent<RangedMove>().target).x > transform.position.x)
+                {
+                    transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+                    TurnedAround = false;
+                }
+                else
+                {
+                    transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+                    TurnedAround = true;
+                }
+            }
+
 
             //if (Input.GetKeyDown(KeyCode.Q))
                 //CancelAttack();
@@ -240,7 +271,7 @@ public class BattleExemon : MonoBehaviour
     void RunBackward()
     {
         rigidbody.velocity = new Vector2(-speed * 1.5f, rigidbody.velocity.y);
-        transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+        
         animator.SetInteger("IsMoving", 1);
         SetChildAnimations("IsMoving", 1);
         if (!PlayerControlled)

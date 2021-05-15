@@ -71,9 +71,9 @@ public class EnemyBattleAI : MonoBehaviour
                     battleExemon.EndAttack();
                     battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
                     Debug.Log("Test");
-                    WasAttackingLastFrame = true;
+                     WasAttackingLastFrame = true;
                     //WaitForNextAttack(UnityEngine.Random.Range(0, 3));
-                }
+                } 
 
                 
                 //battleExemon.nextState = State.Idle;

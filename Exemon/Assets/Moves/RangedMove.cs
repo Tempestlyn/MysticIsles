@@ -7,15 +7,24 @@ public class RangedMove : Move
     public GameObject ProjectileSpawn;
     public List<TimesToAddForce> TimesToAddForces;
     public List<ProjectileShootData> ProjectileData;
+    public Vector2 target = new Vector2(0, 0);
+    private bool AimLocked;
+    private Vector2 AimLockedPosition = new Vector2(0,0);
+    public List<AimLockedTime> AimLockedTimes;
+    private bool AIControlled;
 
     private GameObject MoveRotation;
     private List<GameObject> InstantiatedProjectiles = new List<GameObject>();
+
+    [System.Serializable]
+    public struct AimLockedTime { public float TimeStart; public float Duration; }
 
     [System.Serializable]
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
     public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float forceAngle; public float LifeSpan; public float ChanceToSpawn;
+
 
 
         public float IncreaseChanceToSpawn(float value)
@@ -31,9 +40,9 @@ public class RangedMove : Move
     void Start()
     {
 
+        AIControlled = AttachedExemon.gameObject.GetComponent<EnemyBattleAI>();
 
-
-        if(ProjectileSpawn == null)
+        if (ProjectileSpawn == null)
         {
             ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
             
@@ -79,12 +88,18 @@ public class RangedMove : Move
             StartCoroutine(Shoot(projectileShootData));
 
         }
+        foreach(AimLockedTime aimLockedTime in AimLockedTimes)
+        {
+            StartCoroutine(LockAim(aimLockedTime));
+        }
 
         foreach(TimesToAddForce timesToAddForce in TimesToAddForces)
         {
             StartCoroutine(ApplyForceToProjectile(timesToAddForce));
         }
-        
+
+
+     
         
 
     }
@@ -92,7 +107,6 @@ public class RangedMove : Move
     // Update is called once per frame
     void Update()
     {
-        
         moveTime += Time.deltaTime;
         foreach (Vector2 time in NoMovementTimes)
         {
@@ -100,7 +114,7 @@ public class RangedMove : Move
             {
                 CanMove = true;
             }
-        }//TODO: CAN MOVE WILL BE BASED OFF OF List OF VECTOR2s that indicates the times the player can/can't move
+        }
 
         foreach (Vector2 time in lockedTimes)
         {
@@ -121,7 +135,38 @@ public class RangedMove : Move
         }
 
 
+
         DelayTime -= Time.deltaTime;
+
+
+
+        if (AimLocked)
+        {
+            target = AimLockedPosition;
+
+        }
+        else if(AIControlled)
+        {
+            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
+        }
+        else
+        {
+            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        }
+    }
+
+
+
+    IEnumerator LockAim(AimLockedTime aimLockedTime)
+    {
+        yield return new WaitForSeconds(aimLockedTime.TimeStart);
+
+        AimLocked = true;
+        
+        AimLockedPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        yield return new WaitForSeconds(aimLockedTime.Duration);
+        AimLocked = false;
+
     }
 
     IEnumerator Shoot(ProjectileShootData shootData)
@@ -133,12 +178,7 @@ public class RangedMove : Move
 
             if (shootData.projectileDirection == SpawnDirection.Mouse)
             {
-                Vector2 target = new Vector2(0, 0);
-                if (AttachedExemon.gameObject.GetComponent<EnemyBattleAI>())
-                {
-                    target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
-                }
-                else { target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)); }
+               
 
                 Vector2 myPos = ProjectileSpawn.transform.position;
                 Vector2 difference = target - myPos;
@@ -223,17 +263,8 @@ public class RangedMove : Move
                     var projectileData = projectile.GetComponent<Projectile>();
                     if (projectileData.Index == forceData.ProjectileIndex)
                     {
-                        Vector2 target = new Vector2(0, 0);
-                        if (AttachedExemon.gameObject.GetComponent<EnemyBattleAI>())
-                        {
-                            target = new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y);
-                        }
-                        else 
-                        {
-                            
-                            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)); 
                         
-                        }
+
                         Debug.Log(target);
                         Vector2 position = projectile.gameObject.transform.position;
                         Vector2 difference = target - position;
