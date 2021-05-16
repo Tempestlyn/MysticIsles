@@ -7,17 +7,13 @@ public class RangedMove : Move
     public GameObject ProjectileSpawn;
     public List<TimesToAddForce> TimesToAddForces;
     public List<ProjectileShootData> ProjectileData;
-    public Vector2 target = new Vector2(0, 0);
-    private bool AimLocked;
-    private Vector2 AimLockedPosition = new Vector2(0,0);
-    public List<AimLockedTime> AimLockedTimes;
-    private bool AIControlled;
+    
 
+    public List<AimLockedTime> AimLockedTimes;
     private GameObject MoveRotation;
     private List<GameObject> InstantiatedProjectiles = new List<GameObject>();
 
-    [System.Serializable]
-    public struct AimLockedTime { public float TimeStart; public float Duration; }
+
 
     [System.Serializable]
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
@@ -39,8 +35,6 @@ public class RangedMove : Move
     // Start is called before the first frame update
     void Start()
     {
-
-        AIControlled = AttachedExemon.gameObject.GetComponent<EnemyBattleAI>();
 
         if (ProjectileSpawn == null)
         {
@@ -90,7 +84,7 @@ public class RangedMove : Move
         }
         foreach(AimLockedTime aimLockedTime in AimLockedTimes)
         {
-            StartCoroutine(LockAim(aimLockedTime));
+            StartCoroutine(AttachedExemon.GetComponent<BattleExemon>().LockAim(aimLockedTime));
         }
 
         foreach(TimesToAddForce timesToAddForce in TimesToAddForces)
@@ -140,34 +134,12 @@ public class RangedMove : Move
 
 
 
-        if (AimLocked)
-        {
-            target = AimLockedPosition;
-
-        }
-        else if(AIControlled)
-        {
-            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
-        }
-        else
-        {
-            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-        }
-    }
-
-
-
-    IEnumerator LockAim(AimLockedTime aimLockedTime)
-    {
-        yield return new WaitForSeconds(aimLockedTime.TimeStart);
-
-        AimLocked = true;
-        
-        AimLockedPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        yield return new WaitForSeconds(aimLockedTime.Duration);
-        AimLocked = false;
 
     }
+
+
+
+
 
     IEnumerator Shoot(ProjectileShootData shootData)
     {
@@ -181,9 +153,9 @@ public class RangedMove : Move
                
 
                 Vector2 myPos = ProjectileSpawn.transform.position;
-                Vector2 difference = target - myPos;
+                Vector2 difference = AttachedExemon.GetComponent<BattleExemon>().target - myPos;
 
-                float sign = (target.y < myPos.y) ? -1.0f : 1.0f;
+                float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < myPos.y) ? -1.0f : 1.0f;
                 var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
 
                 if ((baseAngle < MinAimAngle && baseAngle > (-180 + MinAimAngle)))
@@ -265,10 +237,9 @@ public class RangedMove : Move
                     {
                         
 
-                        Debug.Log(target);
                         Vector2 position = projectile.gameObject.transform.position;
-                        Vector2 difference = target - position;
-                        float sign = (target.y < position.y) ? -1.0f : 1.0f;
+                        Vector2 difference = AttachedExemon.GetComponent<BattleExemon>().target - position;
+                        float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < position.y) ? -1.0f : 1.0f;
                         var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
                         baseAngle += (Random.Range(-Accuracy, Accuracy));
                         float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;

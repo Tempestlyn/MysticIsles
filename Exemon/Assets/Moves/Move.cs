@@ -145,6 +145,3 @@ public struct LevelingValues
     public float ProjectileIndex;
 }
 
-
-
-

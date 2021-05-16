@@ -31,7 +31,11 @@ public class BattleExemon : MonoBehaviour
 
     public float TimeStunned;
     public float AttackLockTime;
-    
+
+    public Vector2 target;
+    public bool AimLocked;
+    private Vector2 AimLockedPosition = new Vector2(0, 0);
+    private bool AIControlled;
 
     public Animator hairAnimator;
     public Animator RobeAnimator;
@@ -40,6 +44,7 @@ public class BattleExemon : MonoBehaviour
 
     void Start()
     {
+        AIControlled = gameObject.GetComponent<EnemyBattleAI>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         //stance = exemon.defaultStance;
@@ -58,6 +63,21 @@ public class BattleExemon : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
+
+        if (AimLocked)
+        {
+            target = AimLockedPosition;
+
+        }
+        else if (AIControlled)
+        {
+            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(enemyExemon.transform.position.x, enemyExemon.transform.position.y));
+        }
+        else
+        {
+            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        }
+
 
         var CanMove = true;
         if (ActiveMove == null)
@@ -187,12 +207,11 @@ public class BattleExemon : MonoBehaviour
                 Attack(Moves[SelectedAttackIndex]);
             }
 
-            if (ActiveMove == null || !ActiveMove.GetComponent<RangedMove>())
-            {
 
 
 
-                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+
+                if (target.x > transform.position.x)
                 {
                     TurnedAround = false;
                     transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
@@ -203,20 +222,9 @@ public class BattleExemon : MonoBehaviour
                     transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
                 }
 
-            }
-            else if (ActiveMove.GetComponent<RangedMove>() && ActiveMove.GetComponent<RangedMove>().target != new Vector2(0, 0))
-            {
-                if (BattleScene.BattleCam.ScreenToWorldPoint(ActiveMove.GetComponent<RangedMove>().target).x > transform.position.x)
-                {
-                    transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
-                    TurnedAround = false;
-                }
-                else
-                {
-                    transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
-                    TurnedAround = true;
-                }
-            }
+            
+
+            
 
 
             //if (Input.GetKeyDown(KeyCode.Q))
@@ -353,6 +361,19 @@ public class BattleExemon : MonoBehaviour
 
     }
 
+
+    public IEnumerator LockAim(AimLockedTime aimLockedTime)
+    {
+        yield return new WaitForSeconds(aimLockedTime.TimeStart);
+
+        AimLocked = true;
+
+        AimLockedPosition = target;
+        yield return new WaitForSeconds(aimLockedTime.Duration);
+        AimLocked = false;
+
+    }
+
 }
 
 
@@ -389,6 +410,8 @@ public struct MoveData
 }
 
 
+[System.Serializable]
+public struct AimLockedTime { public float TimeStart; public float Duration; }
 
 
 

@@ -13,6 +13,7 @@ public class EnemyBattleAI : MonoBehaviour
     public float HostileRange;
     public Move nextMove;
     private bool WasAttackingLastFrame;
+    public Vector2 Target = new Vector2(0, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +24,10 @@ public class EnemyBattleAI : MonoBehaviour
     void Update()
     {
         nextMoveDelay -= Time.deltaTime;
-        
-        if(battleExemon.ActiveMove == null && battleExemon.animator.GetInteger("MoveID") == 0 && WasAttackingLastFrame) //TODO: This is probably the most jankiest, cringiest, and most downright braindead solution I can
+
+        Target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(gameObject.GetComponent<BattleExemon>().enemyExemon.transform.position.x, gameObject.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
+
+        if (battleExemon.ActiveMove == null && battleExemon.animator.GetInteger("MoveID") == 0 && WasAttackingLastFrame) //TODO: This is probably the most jankiest, cringiest, and most downright braindead solution I can
         {                                                                                                               //come up with to keep the animations from gettings stuck... but It'll work for now. I really hope nobody ends up seeing this code.
             WasAttackingLastFrame = false;
             return;
@@ -80,6 +83,8 @@ public class EnemyBattleAI : MonoBehaviour
 
             }
         }
+
+        //target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.x, AttachedExemon.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
 
     }
 
