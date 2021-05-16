@@ -25,7 +25,7 @@ public class EnemyBattleAI : MonoBehaviour
     {
         nextMoveDelay -= Time.deltaTime;
 
-        Target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(gameObject.GetComponent<BattleExemon>().enemyExemon.transform.position.x, gameObject.GetComponent<BattleExemon>().enemyExemon.transform.position.y));
+        
 
         if (battleExemon.ActiveMove == null && battleExemon.animator.GetInteger("MoveID") == 0 && WasAttackingLastFrame) //TODO: This is probably the most jankiest, cringiest, and most downright braindead solution I can
         {                                                                                                               //come up with to keep the animations from gettings stuck... but It'll work for now. I really hope nobody ends up seeing this code.

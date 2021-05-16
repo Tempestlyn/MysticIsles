@@ -40,7 +40,7 @@ public class BattleExemon : MonoBehaviour
     public Animator hairAnimator;
     public Animator RobeAnimator;
     // Start is called before the first frame update
-
+    public GameObject TargetTest;
 
     void Start()
     {
@@ -71,12 +71,25 @@ public class BattleExemon : MonoBehaviour
         }
         else if (AIControlled)
         {
-            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(enemyExemon.transform.position.x, enemyExemon.transform.position.y));
+            target = new Vector2(enemyExemon.transform.position.x, enemyExemon.transform.position.y);
         }
         else
         {
             target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
         }
+
+        if (target.x > transform.position.x)
+        {
+            TurnedAround = false;
+            transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+        }
+        else
+        {
+            TurnedAround = true;
+            transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+        }
+
+        TargetTest.transform.position = target;
 
 
         var CanMove = true;
@@ -211,16 +224,7 @@ public class BattleExemon : MonoBehaviour
 
 
 
-                if (target.x > transform.position.x)
-                {
-                    TurnedAround = false;
-                    transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
-                }
-                else
-                {
-                    TurnedAround = true;
-                    transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
-                }
+
 
             
 
