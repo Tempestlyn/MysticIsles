@@ -22,6 +22,8 @@ public class Move : MonoBehaviour
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
     public List<Vector2> MustBeStationaryTimes;
+
+
     public bool IsStationary;
 
     [SerializeField]
@@ -36,7 +38,7 @@ public class Move : MonoBehaviour
 
     public float MaxStationaryMoveDistance;
     public float MaxAimAngle;
-    public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
+    public float MinAimAngle; 
 
     [System.NonSerialized]
     public float HitDelay;

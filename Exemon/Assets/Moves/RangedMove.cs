@@ -173,7 +173,7 @@ public class RangedMove : Move
 
                 if ((baseAngle < MinAimAngle && baseAngle > (-180 + MinAimAngle)))
                 {
-                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > AttachedExemon.transform.position.x )
+                    if (AttachedExemon.GetComponent<BattleExemon>().target.x > AttachedExemon.transform.position.x )
                     {
                         baseAngle = MinAimAngle;
                     }
@@ -184,7 +184,7 @@ public class RangedMove : Move
                 }
                 else if(((baseAngle > MaxAimAngle && baseAngle < (180 - MaxAimAngle))))
                 {
-                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > AttachedExemon.transform.position.x)
+                    if (AttachedExemon.GetComponent<BattleExemon>().target.x > AttachedExemon.transform.position.x)
                     {
                         baseAngle = MaxAimAngle;
                     }
