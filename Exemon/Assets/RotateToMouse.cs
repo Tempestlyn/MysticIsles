@@ -13,45 +13,50 @@ public class RotateToMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.position;
-        Vector3 dir = BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition) - pos;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-
-        if (gameObject.GetComponentInParent<BattleExemon>().ActiveMove != null)
+        if (!gameObject.GetComponentInParent<BattleExemon>().AimLocked)
         {
-            var activeMove = gameObject.GetComponentInParent<BattleExemon>().ActiveMove;
 
 
-            if ((angle < activeMove.MinAimAngle && activeMove.MinAimAngle > (-180 + activeMove.MinAimAngle)))
+            Vector3 pos = transform.position;
+            Vector3 dir = BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition) - pos;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+
+            if (gameObject.GetComponentInParent<BattleExemon>().ActiveMove != null)
             {
-                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                var activeMove = gameObject.GetComponentInParent<BattleExemon>().ActiveMove;
+
+
+                if ((angle < activeMove.MinAimAngle && activeMove.MinAimAngle > (-180 + activeMove.MinAimAngle)))
                 {
-                    angle = activeMove.MinAimAngle;
+                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                    {
+                        angle = activeMove.MinAimAngle;
+                    }
+                    else
+                    {
+                        Debug.Log("Test");
+                        angle = -180 + activeMove.MinAimAngle;
+                    }
                 }
-                else
+                else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
                 {
-                    Debug.Log("Test");
-                    angle = -180 + activeMove.MinAimAngle;
+                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                    {
+                        angle = activeMove.MaxAimAngle;
+                    }
+                    else
+                    {
+                        angle = 180 - activeMove.MaxAimAngle;
+                    }
                 }
             }
-            else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
-            {
-                if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
-                {
-                    angle = activeMove.MaxAimAngle;
-                }
-                else
-                {
-                    angle = 180 - activeMove.MaxAimAngle;
-                }
-            }
+
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
         }
-
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-
         
 
 

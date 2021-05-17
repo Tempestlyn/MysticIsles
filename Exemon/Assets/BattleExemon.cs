@@ -317,6 +317,7 @@ public class BattleExemon : MonoBehaviour
     {
         ActiveMove = null;
         animator.SetInteger("MoveID", 0);
+        AimLocked = false;
 
     }
     public void EndAttackAnimation()

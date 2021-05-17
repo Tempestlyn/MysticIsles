@@ -35,7 +35,7 @@ public class RangedMove : Move
     // Start is called before the first frame update
     void Start()
     {
-
+        StartPosition = AttachedExemon.transform.position;
         if (ProjectileSpawn == null)
         {
             ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
@@ -92,6 +92,11 @@ public class RangedMove : Move
             StartCoroutine(ApplyForceToProjectile(timesToAddForce));
         }
 
+        foreach(Vector2 stationaryValues in MustBeStationaryTimes)
+        {
+            StartCoroutine(SetStationary(stationaryValues));
+        }
+
 
      
         
@@ -101,6 +106,12 @@ public class RangedMove : Move
     // Update is called once per frame
     void Update()
     {
+        if (IsStationary && MaxStationaryMoveDistance < Vector2.Distance(StartPosition, AttachedExemon.transform.position))
+        {
+            Debug.Log("Test");
+            AttachedExemon.GetComponent<BattleExemon>().EndAttack();
+        }
+
         moveTime += Time.deltaTime;
         foreach (Vector2 time in NoMovementTimes)
         {
@@ -127,6 +138,8 @@ public class RangedMove : Move
         {
             Destroy(gameObject);
         }
+
+
 
 
 
@@ -214,6 +227,8 @@ public class RangedMove : Move
         }
 
     }
+
+
 
     IEnumerator ApplyForceToProjectile(TimesToAddForce forceData)
     {

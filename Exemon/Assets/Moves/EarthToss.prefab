@@ -89,9 +89,13 @@ MonoBehaviour:
   - {x: 0, y: 0.5}
   NoMovementTimes:
   - {x: 0, y: 0.5}
+  MustBeStationaryTimes:
+  - {x: 0, y: 2}
+  IsStationary: 0
   LevelingValues: []
   DelayTime: 0
   MaxMoveTime: 3
+  MaxStationaryMoveDistance: 0.1
   MaxAimAngle: 0
   MinAimAngle: 0
   MoveExperience: 0
@@ -113,3 +117,4 @@ MonoBehaviour:
     forceAngle: 0
     LifeSpan: 0
     ChanceToSpawn: 100
+  AimLockedTimes: []

@@ -83,6 +83,7 @@ MonoBehaviour:
   MoveID: 3
   hp: 0
   PracticalityDamageModifyer: 0
+  AIRange: 0
   AttachedExemon: {fileID: 0}
   lockedTimes:
   - {x: 0, y: 1.49}
@@ -157,3 +158,6 @@ MonoBehaviour:
     forceAngle: 0
     LifeSpan: 0
     ChanceToSpawn: 25
+  AimLockedTimes:
+  - TimeStart: 1
+    Duration: 1.5

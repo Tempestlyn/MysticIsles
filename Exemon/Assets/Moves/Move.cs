@@ -21,6 +21,8 @@ public class Move : MonoBehaviour
 
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
+    public List<Vector2> MustBeStationaryTimes;
+    public bool IsStationary;
 
     [SerializeField]
     public List<LevelingValues> LevelingValues;
@@ -30,9 +32,9 @@ public class Move : MonoBehaviour
     public float DelayTime;
     public float MaxMoveTime;
 
-    
 
 
+    public float MaxStationaryMoveDistance;
     public float MaxAimAngle;
     public float MinAimAngle; //TODO: IMPLEMENT AIMING SYSTEM AND have the min and max angles the player can fire be move dependant; 
 
@@ -44,6 +46,9 @@ public class Move : MonoBehaviour
     public bool canExitAttack;
     [System.NonSerialized]
     public bool CanMove;
+    [System.NonSerialized]
+    public Vector2 StartPosition;
+    
 
     public float MoveExperience;
 
@@ -115,7 +120,17 @@ public class Move : MonoBehaviour
 
     }
 
+    public IEnumerator SetStationary(Vector2 StationaryValues)
+    {
+        yield return new WaitForSeconds(StationaryValues.x);
 
+        IsStationary = true;
+
+        StartPosition = AttachedExemon.transform.position;
+        yield return new WaitForSeconds(StationaryValues.y);
+        IsStationary = false;
+
+    }
 
 
 }
