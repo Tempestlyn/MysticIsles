@@ -16,6 +16,11 @@ public class MeleeAttack : Move
                 
 
         }
+
+        foreach (Vector2 noTurnTime in NoTurnTimes)
+        {
+            StartCoroutine(SetNoTurn(noTurnTime));
+        }
     }
 
         // Update is called once per frame

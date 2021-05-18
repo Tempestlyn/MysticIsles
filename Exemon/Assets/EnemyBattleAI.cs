@@ -92,7 +92,7 @@ public class EnemyBattleAI : MonoBehaviour
     {
         nextMoveDelay = time;
     }
-
+    
 
 
 }

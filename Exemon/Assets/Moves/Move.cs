@@ -22,9 +22,9 @@ public class Move : MonoBehaviour
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
     public List<Vector2> MustBeStationaryTimes;
+    public List<Vector2> NoTurnTimes;
 
 
-    public bool IsStationary;
 
     [SerializeField]
     public List<LevelingValues> LevelingValues;
@@ -38,7 +38,10 @@ public class Move : MonoBehaviour
 
     public float MaxStationaryMoveDistance;
     public float MaxAimAngle;
-    public float MinAimAngle; 
+    public float MinAimAngle;
+    public float AimHeightOffset;
+    public float MaxDistanceOffset;
+
 
     [System.NonSerialized]
     public float HitDelay;
@@ -50,7 +53,10 @@ public class Move : MonoBehaviour
     public bool CanMove;
     [System.NonSerialized]
     public Vector2 StartPosition;
-    
+    [System.NonSerialized]
+    public bool CanTurn;
+    [System.NonSerialized]
+    public bool IsStationary;
 
     public float MoveExperience;
 
@@ -134,7 +140,17 @@ public class Move : MonoBehaviour
 
     }
 
+    public IEnumerator SetNoTurn(Vector2 noTurnTimes)
+    {
+        yield return new WaitForSeconds(noTurnTimes.x);
 
+        CanTurn = false;
+
+        
+        yield return new WaitForSeconds(noTurnTimes.y);
+        CanTurn = true;
+
+    }
 }
  
 public enum DamageType

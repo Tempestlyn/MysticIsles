@@ -91,13 +91,15 @@ MonoBehaviour:
   - {x: 0, y: 0.5}
   MustBeStationaryTimes:
   - {x: 0, y: 2}
-  IsStationary: 0
+  NoTurnTimes: []
   LevelingValues: []
   DelayTime: 0
   MaxMoveTime: 3
   MaxStationaryMoveDistance: 0.1
-  MaxAimAngle: 0
+  MaxAimAngle: 80
   MinAimAngle: 0
+  AimHeightOffset: 3
+  MaxDistanceOffset: 16
   MoveExperience: 0
   ProjectileSpawn: {fileID: 27385081684961433}
   TimesToAddForces:

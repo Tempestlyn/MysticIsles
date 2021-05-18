@@ -80,13 +80,27 @@ public class BattleExemon : MonoBehaviour
 
         if (target.x > transform.position.x)
         {
-            TurnedAround = false;
-            transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+            if (ActiveMove == null || ActiveMove.CanTurn)
+            {
+                TurnedAround = false;
+                transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
+            }
+            else if(TurnedAround == true)
+            {
+                target = new Vector2(transform.position.x, target.y);
+            }
         }
-        else
+        else if (target.x < transform.position.x)
         {
-            TurnedAround = true;
-            transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+            if (ActiveMove == null || ActiveMove.CanTurn)
+            {
+                TurnedAround = true;
+                transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
+            }
+            else if (TurnedAround == false)
+            {
+                target = new Vector2(transform.position.x, target.y);
+            }
         }
 
         TargetTest.transform.position = target;
@@ -193,7 +207,7 @@ public class BattleExemon : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 SelectedAttackIndex = 0;
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                SelectedAttackIndex = 0;
+                SelectedAttackIndex = 1;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
                 nextState = State.RunningForward;
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
