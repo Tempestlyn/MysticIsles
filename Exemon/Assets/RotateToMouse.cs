@@ -36,7 +36,7 @@ public class RotateToMouse : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Test");
+
                         angle = -180 + activeMove.MinAimAngle;
                     }
                 }

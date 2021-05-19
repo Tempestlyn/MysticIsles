@@ -89,6 +89,8 @@ MonoBehaviour:
   - {x: 0, y: 1.49}
   NoMovementTimes:
   - {x: 0, y: 1}
+  MustBeStationaryTimes: []
+  NoTurnTimes: []
   LevelingValues:
   - MaxLevel: 50
     MoveLearnSpeed: 0.05
@@ -96,8 +98,11 @@ MonoBehaviour:
     ProjectileIndex: 9
   DelayTime: 1
   MaxMoveTime: 4
+  MaxStationaryMoveDistance: 0
   MaxAimAngle: 75
   MinAimAngle: 0
+  AimHeightOffset: 0
+  MaxDistanceOffset: 0
   MoveExperience: 50
   ProjectileSpawn: {fileID: 0}
   TimesToAddForces: []

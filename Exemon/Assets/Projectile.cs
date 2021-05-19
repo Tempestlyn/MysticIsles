@@ -49,6 +49,7 @@ public class Projectile : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
                 {
+                    Debug.Log("TEst");
                     StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Projectile));
                 }
                 
@@ -118,14 +119,16 @@ public class Projectile : MonoBehaviour
 
     IEnumerator ApplyDamage(float delayTime, GameObject hitObject, DamageType damageType)
     {
-        if (damageType == DamageType.Exemon)
+        //Debug.Log("test");
+        if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))
         {
             controllingMove.ResolveHitExemon(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>(), damage, StunDuration, Force, ForceAngle);
+            HitObjects.Add(hitObject);
         }
-        HitObjects.Add(hitObject);
+        
         yield return new WaitForSeconds(delayTime);
 
-        Debug.Log("Can be damaged");
+        //Debug.Log("Can be damaged");
         HitObjects.Remove(hitObject);
     }
 

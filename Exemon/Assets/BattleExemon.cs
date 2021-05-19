@@ -87,7 +87,7 @@ public class BattleExemon : MonoBehaviour
             }
             else if(TurnedAround == true)
             {
-                target = new Vector2(transform.position.x, target.y);
+                target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
             }
         }
         else if (target.x < transform.position.x)
@@ -99,7 +99,7 @@ public class BattleExemon : MonoBehaviour
             }
             else if (TurnedAround == false)
             {
-                target = new Vector2(transform.position.x, target.y);
+                target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
             }
         }
 
@@ -322,6 +322,7 @@ public class BattleExemon : MonoBehaviour
 
     void SetIdle()
     {
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
         animator.SetInteger("IsMoving", 0);
         SetChildAnimations("IsMoving", 0);
     }

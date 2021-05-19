@@ -68,14 +68,23 @@ public class EnemyBattleAI : MonoBehaviour
             }
             else if (nextMoveDelay <= 0)
             {
-
+                
                 if (battleExemon.ActiveMove == null && !WasAttackingLastFrame)
                 {
-                    battleExemon.EndAttack();
-                    battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
-                    Debug.Log("Test");
-                     WasAttackingLastFrame = true;
-                    //WaitForNextAttack(UnityEngine.Random.Range(0, 3));
+                    if (battleExemon.currentState != State.Idle)
+                    {
+                        battleExemon.nextState = State.Idle;
+                    }
+                    else
+                    {
+
+
+                        battleExemon.EndAttack();
+                        battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
+                        //Debug.Log("Test");
+                        WasAttackingLastFrame = true;
+                        WaitForNextAttack(UnityEngine.Random.Range(0, 3));
+                    }
                 } 
 
                 

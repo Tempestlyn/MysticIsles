@@ -36,7 +36,7 @@ public class HitBox : MonoBehaviour
     {
         if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().ActiveMove != AttachedMove)
         {
-            Debug.Log(IsActive);
+            //Debug.Log(IsActive);
             IsActive = false;
         }
         if (HitObject && DestroyOnHit)

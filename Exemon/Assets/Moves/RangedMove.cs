@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedMove : Move
 {
-    public GameObject ProjectileSpawn;
+    //public GameObject ProjectileSpawn;
     public List<TimesToAddForce> TimesToAddForces;
     public List<ProjectileShootData> ProjectileData;
     
@@ -76,7 +76,7 @@ public class RangedMove : Move
         {
             var projectile = projectileShootData.projectile.GetComponent<Projectile>();
             projectile.Index = projectileShootData.ProjectileIndex;
-            projectile.Force = projectileShootData.force;
+            //projectile.Force = projectileShootData.force;
             projectile.ForceAngle = projectileShootData.forceAngle;
             projectile.LifeSpan = projectileShootData.LifeSpan;
             StartCoroutine(Shoot(projectileShootData));

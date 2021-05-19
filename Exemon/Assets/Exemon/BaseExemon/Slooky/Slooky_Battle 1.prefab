@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8582759529774593061}
   - component: {fileID: 8582759529774593059}
   - component: {fileID: 8582759529774593060}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: SlookyHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,8 +180,7 @@ GameObject:
   - component: {fileID: 8582759530556452984}
   - component: {fileID: 8582759530556452985}
   - component: {fileID: 8582759530556452986}
-  - component: {fileID: 4571361589221967205}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Slooky_Battle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +281,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8582759530556452989}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -361,19 +360,3 @@ MonoBehaviour:
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
   TargetTest: {fileID: 7573896145012922052}
---- !u!114 &4571361589221967205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8582759530556452989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 776bc1b2c3e8ef94699af804c1a5e8c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttacksUnprovoked: 0
-  HostileRange: 0
-  nextMove: {fileID: 0}
-  Target: {x: 0, y: 0}

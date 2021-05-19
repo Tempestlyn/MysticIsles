@@ -16,8 +16,8 @@ public class Move : MonoBehaviour
     public float PracticalityDamageModifyer;
     public float AIRange;
     public GameObject AttachedExemon;
+    public GameObject ProjectileSpawn;
 
-    
 
     public List<Vector2> lockedTimes;
     public List<Vector2> NoMovementTimes;
@@ -93,7 +93,7 @@ public class Move : MonoBehaviour
         //Debug.Log(Force);
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
-        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+        target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
 
 
 
