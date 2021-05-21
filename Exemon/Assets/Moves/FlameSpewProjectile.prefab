@@ -140,7 +140,7 @@ MonoBehaviour:
   controllingMove: {fileID: 0}
   DestroyOnHit: 1
   ForceAngle: 0
-  Force: 2
+  Force: 5
   StunDuration: 1
   Health: 10
   LifeSpan: 0

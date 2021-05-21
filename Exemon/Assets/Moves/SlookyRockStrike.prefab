@@ -55,6 +55,7 @@ MonoBehaviour:
   PracticalityDamageModifyer: 0
   AIRange: 0
   AttachedExemon: {fileID: 0}
+  ProjectileSpawn: {fileID: 0}
   lockedTimes:
   - {x: 0, y: 1}
   NoMovementTimes:
@@ -62,14 +63,14 @@ MonoBehaviour:
   MustBeStationaryTimes: []
   NoTurnTimes:
   - {x: 0, y: 1}
-  IsStationary: 0
   LevelingValues: []
   DelayTime: 0
   MaxMoveTime: 1
   MaxStationaryMoveDistance: 0
   MaxAimAngle: 0
   MinAimAngle: 0
-  AngleModifyer: 0
+  AimHeightOffset: 0
+  MaxDistanceOffset: 0
   MoveExperience: 0
   HitBoxes:
   - {fileID: 3778316619399218529}
@@ -90,7 +91,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502706699314662180, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
       propertyPath: Force
-      value: 250
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5502706699314662180, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
       propertyPath: Angle

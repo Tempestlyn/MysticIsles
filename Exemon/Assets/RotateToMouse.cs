@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RotateToMouse : MonoBehaviour
 {
+
+    public GameObject SpawnPoint;
+    public float SpawnRadius;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,13 +16,13 @@ public class RotateToMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         if (!gameObject.GetComponentInParent<BattleExemon>().AimLocked)
         {
 
 
-            Vector3 pos = transform.position;
-            Vector3 dir = BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition) - pos;
+            Vector2 pos = transform.position;
+            Vector3 dir = gameObject.GetComponentInParent<BattleExemon>().target - pos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
 
@@ -30,7 +33,7 @@ public class RotateToMouse : MonoBehaviour
 
                 if ((angle < activeMove.MinAimAngle && activeMove.MinAimAngle > (-180 + activeMove.MinAimAngle)))
                 {
-                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                    if (!gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
                     {
                         angle = activeMove.MinAimAngle;
                     }
@@ -42,18 +45,20 @@ public class RotateToMouse : MonoBehaviour
                 }
                 else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
                 {
-                    if (BattleScene.BattleCam.ScreenToWorldPoint(Input.mousePosition).x > activeMove.AttachedExemon.transform.position.x)
+                    if (gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
                     {
-                        angle = activeMove.MaxAimAngle;
+                        
+                        angle = 180 - activeMove.MaxAimAngle;
                     }
                     else
                     {
-                        angle = 180 - activeMove.MaxAimAngle;
+                        angle = activeMove.MaxAimAngle;
                     }
                 }
             }
 
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
 
 
         }

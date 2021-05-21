@@ -65,19 +65,26 @@ public class Move : MonoBehaviour
         moveTime += Time.deltaTime;
         
     }
-    public void ResolveHitExemon(BattleExemon exemon, float Damage, float stunDuration, float force, float forceAngle)
+    public void ResolveHitExemon(GameObject target, GameObject CollidingEntity, float Damage, float stunDuration, float force, float forceAngle)
     {
+        if (target.GetComponent<BattleExemon>())
+        {
+            var exemon = target.GetComponent<BattleExemon>();
+            exemon.TakeDamage(Damage);
+            exemon.ApplyStun(stunDuration);
+            ApplyForce(exemon.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+        }
+        else if (target.GetComponent<Projectile>())
+        {
 
-        exemon.TakeDamage(Damage);
-        exemon.ApplyStun(stunDuration);
-        ApplyForce(exemon.gameObject, force, forceAngle);
+        }
     }
 
-    public void ResolveHitProjectile(Projectile projectile, float Damage, float force, float forceAngle)
+    public void ResolveHitProjectile(Projectile projectile, GameObject CollidingEntity, float Damage, float force, float forceAngle)
     {
         
         projectile.TakeDamage(Damage);
-        ApplyForce(projectile.gameObject, force, forceAngle);
+        ApplyForce(projectile.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
     }
 
     public void ResolveHitHitbox(HitBox hitBox, float Damage)
@@ -86,17 +93,38 @@ public class Move : MonoBehaviour
     }
 
 
-    public void ApplyForce(GameObject target, float force, float forceAngle)
+    public void ApplyForce(GameObject target, Vector2 CollidingVelocity, float force, float forceAngle)
     {
         //Force = force;
         //InitialMovement = true;
         //Debug.Log(Force);
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+        if (CollidingVelocity.x < 0)
+        {
+            xcomponent = -Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+        }
+
+
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+        if (CollidingVelocity.y < 0)
+        {
+            ycomponent = -Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+        }
         target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
 
 
 
+    } 
+
+    public void ApplyForceHitbox(GameObject target, float force, float forceAngle)
+    {
+        float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+        if (AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
+        {
+            xcomponent = -Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+        }
+        float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+        target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
     }
 
 

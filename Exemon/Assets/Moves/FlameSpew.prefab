@@ -85,6 +85,7 @@ MonoBehaviour:
   PracticalityDamageModifyer: 0
   AIRange: 0
   AttachedExemon: {fileID: 0}
+  ProjectileSpawn: {fileID: 0}
   lockedTimes:
   - {x: 0, y: 1.49}
   NoMovementTimes:
@@ -99,12 +100,11 @@ MonoBehaviour:
   DelayTime: 1
   MaxMoveTime: 4
   MaxStationaryMoveDistance: 0
-  MaxAimAngle: 75
+  MaxAimAngle: 100
   MinAimAngle: 0
   AimHeightOffset: 0
   MaxDistanceOffset: 0
   MoveExperience: 50
-  ProjectileSpawn: {fileID: 0}
   TimesToAddForces: []
   ProjectileData:
   - ProjectileIndex: 1

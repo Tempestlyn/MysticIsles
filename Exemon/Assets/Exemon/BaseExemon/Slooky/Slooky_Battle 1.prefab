@@ -281,7 +281,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8582759530556452989}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -291,7 +291,7 @@ Rigidbody2D:
   m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &8582759530556452985
@@ -339,12 +339,13 @@ MonoBehaviour:
   reach: 3.5
   move1: {fileID: 0}
   animator: {fileID: 0}
-  speed: 2
+  speed: 8
   health: 50
   jumpHeight: 0
   ActiveMove: {fileID: 0}
   Moves:
   - {fileID: 2768713184587787268, guid: 36622ad0182b7db44bc365dfb102eb4b, type: 3}
+  - {fileID: 7843450618338039677, guid: ac6acabc9769fe14e891a6ff1645a626, type: 3}
   enemyExemon: {fileID: 0}
   TurnedAround: 0
   WithinReach: 0

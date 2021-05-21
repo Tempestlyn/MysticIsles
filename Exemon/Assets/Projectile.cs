@@ -122,10 +122,9 @@ public class Projectile : MonoBehaviour
         //Debug.Log("test");
         if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))
         {
-            controllingMove.ResolveHitExemon(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>(), damage, StunDuration, Force, ForceAngle);
+            controllingMove.ResolveHitExemon(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject, gameObject, damage, StunDuration, Force, ForceAngle);
             HitObjects.Add(hitObject);
         }
-        
         yield return new WaitForSeconds(delayTime);
 
         //Debug.Log("Can be damaged");
