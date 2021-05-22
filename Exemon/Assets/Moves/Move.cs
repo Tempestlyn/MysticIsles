@@ -72,7 +72,16 @@ public class Move : MonoBehaviour
             var exemon = target.GetComponent<BattleExemon>();
             exemon.TakeDamage(Damage);
             exemon.ApplyStun(stunDuration);
-            ApplyForce(exemon.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+
+
+            if (!CollidingEntity.GetComponent<HitBox>())
+            {
+                ApplyForce(exemon.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+            }
+            else
+            {
+                ApplyForceHitbox(exemon.gameObject, force, forceAngle);
+            }
         }
         else if (target.GetComponent<Projectile>())
         {
@@ -119,10 +128,6 @@ public class Move : MonoBehaviour
     public void ApplyForceHitbox(GameObject target, float force, float forceAngle)
     {
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
-        if (AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
-        {
-            xcomponent = -Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
-        }
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
         target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
     }

@@ -111,7 +111,6 @@ public class RangedMove : Move
     {
         if (IsStationary && MaxStationaryMoveDistance < Vector2.Distance(StartPosition, AttachedExemon.transform.position))
         {
-            Debug.Log("Test");
             AttachedExemon.GetComponent<BattleExemon>().EndAttack();
         }
 
@@ -204,7 +203,7 @@ public class RangedMove : Move
                     }
                     else
                     {
-                        baseAngle = -180 + MinAimAngle;
+                        baseAngle = 180 - MinAimAngle;
 
                     }
 

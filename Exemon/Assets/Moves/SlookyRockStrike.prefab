@@ -53,7 +53,7 @@ MonoBehaviour:
   MoveID: 1
   hp: 0
   PracticalityDamageModifyer: 0
-  AIRange: 0
+  AIRange: 3
   AttachedExemon: {fileID: 0}
   ProjectileSpawn: {fileID: 0}
   lockedTimes:
@@ -91,11 +91,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502706699314662180, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
       propertyPath: Force
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5502706699314662180, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
       propertyPath: Angle
-      value: 30
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502706699314662180, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
+      propertyPath: StartTime
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6580587698182832943, guid: e0531179fabf35e46a8fee446792dc04, type: 3}
       propertyPath: m_LocalPosition.x

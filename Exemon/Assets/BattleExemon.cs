@@ -87,7 +87,14 @@ public class BattleExemon : MonoBehaviour
             }
             else if(TurnedAround == true)
             {
-                target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
+                if (ActiveMove.ProjectileSpawn == null)
+                {
+                    target = new Vector2(ActiveMove.AttachedExemon.transform.position.x, target.y);
+                }
+                else
+                {
+                    target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
+                }
             }
         }
         else if (target.x < transform.position.x)
@@ -99,7 +106,14 @@ public class BattleExemon : MonoBehaviour
             }
             else if (TurnedAround == false)
             {
-                target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
+                if (ActiveMove.ProjectileSpawn == null)
+                {
+                    target = new Vector2(ActiveMove.AttachedExemon.transform.position.x, target.y);
+                }
+                else
+                {
+                    target = new Vector2(ActiveMove.ProjectileSpawn.transform.position.x, target.y);
+                }
             }
         }
 
@@ -224,6 +238,8 @@ public class BattleExemon : MonoBehaviour
                     nextState = State.WalkingForward;
                 }
             }
+
+
             if (!Input.anyKey)
             {
                 nextState = State.Idle;
@@ -310,6 +326,10 @@ public class BattleExemon : MonoBehaviour
         {
             EndAttack();
             var move = Instantiate(selectedMove, gameObject.transform);
+            if (!move.CanMove)
+            {
+                SetIdle();
+            }
             move.AttachedExemon = gameObject;
             move.moveTime = 0;
             ActiveMove = move;

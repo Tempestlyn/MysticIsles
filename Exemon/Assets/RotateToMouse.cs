@@ -39,20 +39,22 @@ public class RotateToMouse : MonoBehaviour
                     }
                     else
                     {
-
-                        angle = -180 + activeMove.MinAimAngle;
+                        //angle = 180 + activeMove.MinAimAngle;
+                        angle = 180 - activeMove.MinAimAngle;
                     }
                 }
                 else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
                 {
-                    if (gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
-                    {
-                        
-                        angle = 180 - activeMove.MaxAimAngle;
-                    }
-                    else
+                    if (!gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
                     {
                         angle = activeMove.MaxAimAngle;
+                        
+                    }
+                    
+                    else
+                    {
+
+                        angle = 180 - activeMove.MaxAimAngle;
                     }
                 }
             }

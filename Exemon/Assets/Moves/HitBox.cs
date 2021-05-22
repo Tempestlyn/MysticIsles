@@ -23,12 +23,17 @@ public class HitBox : MonoBehaviour
     public bool IsActive;
 
     public bool DestroyOnHit;
+    private bool IsTurned;
     public MeleeAttack AttachedMove;
     List<GameObject> CurrentCollisions = new List<GameObject>();
 
     void Start()
     {
+
         Collider = GetComponent<BoxCollider2D>();
+        Debug.Log("Test");
+
+        
     }
 
     // Update is called once per frame
@@ -47,8 +52,9 @@ public class HitBox : MonoBehaviour
         {
             foreach (GameObject exemon in CurrentCollisions)
             {
-                if (!exemon.GetComponent<BattleExemon>().TurnedAround)
+                if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
                 {
+                    
                     AttachedMove.ResolveHitExemon(exemon, gameObject, AttachedMove.Damage, AttachedMove.StunTime, -Force, -Angle);
                     HitObject = true;
                 }

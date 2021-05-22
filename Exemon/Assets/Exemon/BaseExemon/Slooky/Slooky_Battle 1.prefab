@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 8582759530556452984}
   - component: {fileID: 8582759530556452985}
   - component: {fileID: 8582759530556452986}
+  - component: {fileID: -3970862445707213779}
   m_Layer: 10
   m_Name: Slooky_Battle 1
   m_TagString: Untagged
@@ -339,7 +340,7 @@ MonoBehaviour:
   reach: 3.5
   move1: {fileID: 0}
   animator: {fileID: 0}
-  speed: 8
+  speed: 2
   health: 50
   jumpHeight: 0
   ActiveMove: {fileID: 0}
@@ -361,3 +362,19 @@ MonoBehaviour:
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
   TargetTest: {fileID: 7573896145012922052}
+--- !u!114 &-3970862445707213779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8582759530556452989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776bc1b2c3e8ef94699af804c1a5e8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttacksUnprovoked: 0
+  HostileRange: 0
+  nextMove: {fileID: 0}
+  Target: {x: 0, y: 0}

@@ -42,12 +42,12 @@ public class EnemyBattleAI : MonoBehaviour
 
         if (battleExemon.PlayerControlled != true)
         {
-
+                
 
             battleExemon.nextState = State.Idle;
             var dist = Vector3.Distance(gameObject.transform.position, battleExemon.enemyExemon.gameObject.transform.position);
             if (Math.Abs(dist) > reach)
-
+                    
             {
                 if (battleExemon.ActiveMove == null)
                 {
@@ -80,7 +80,9 @@ public class EnemyBattleAI : MonoBehaviour
 
 
                         battleExemon.EndAttack();
-                        battleExemon.Attack(battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count - 1)]);
+                        Debug.Log("Attacking");
+                        battleExemon.Attack(nextMove);
+                        nextMove = null;
                         //Debug.Log("Test");
                         WasAttackingLastFrame = true;
                         WaitForNextAttack(UnityEngine.Random.Range(0, 3));
