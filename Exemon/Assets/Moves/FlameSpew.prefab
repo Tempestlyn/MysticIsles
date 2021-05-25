@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Accuracy: 40
-  Damage: 10
+  Damage: 5
   StunTime: 0
   hitTime: 0
   APCost: 0

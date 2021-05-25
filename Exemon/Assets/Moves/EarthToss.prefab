@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Accuracy: 0
-  Damage: 0
+  Damage: 10
   StunTime: 0
   hitTime: 0
   APCost: 0
@@ -85,6 +85,7 @@ MonoBehaviour:
   PracticalityDamageModifyer: 0
   AIRange: 20
   AttachedExemon: {fileID: 0}
+  ProjectileSpawn: {fileID: 27385081684961433}
   lockedTimes:
   - {x: 0, y: 0.5}
   NoMovementTimes:
@@ -101,12 +102,11 @@ MonoBehaviour:
   AimHeightOffset: 3
   MaxDistanceOffset: 16
   MoveExperience: 0
-  ProjectileSpawn: {fileID: 27385081684961433}
   TimesToAddForces:
   - ProjectileIndex: 1
     time: 2
     projectileDirection: 0
-    force: 400
+    force: 800
     doesRepeat: 0
     repeats: 0
     MustBeStationary: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
     projectile: {fileID: 8345755791157914883, guid: 91a2ff52df7c80f49ac93ba477171ab7, type: 3}
     TimeToShoot: 0.5
     projectileDirection: 1
-    force: 200
+    force: 600
     forceAngle: 0
     LifeSpan: 0
     ChanceToSpawn: 100

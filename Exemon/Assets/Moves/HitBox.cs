@@ -31,7 +31,6 @@ public class HitBox : MonoBehaviour
     {
 
         Collider = GetComponent<BoxCollider2D>();
-        Debug.Log("Test");
 
         
     }

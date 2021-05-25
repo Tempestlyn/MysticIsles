@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
+        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
         {
             StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
             //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
@@ -47,8 +47,7 @@ public class Projectile : MonoBehaviour
             }
             
         }
-        else if (!collider.gameObject.GetComponent<BattleExemon>())
-        {
+
             if (collider.gameObject.GetComponent<Projectile>())
             {
                 if(collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
@@ -63,7 +62,7 @@ public class Projectile : MonoBehaviour
             {
 
             }
-        }
+        
 
         
     }
@@ -126,8 +125,12 @@ public class Projectile : MonoBehaviour
         //Debug.Log("test");
         if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))
         {
-            controllingMove.ResolveHitExemon(hitObject.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject, gameObject, damage, StunDuration, Force, ForceAngle);
+            controllingMove.ResolveHitExemon(hitObject.gameObject, gameObject, damage, StunDuration, Force, ForceAngle);
             HitObjects.Add(hitObject);
+        }
+        if (damageType == DamageType.Projectile)
+        {
+            controllingMove.ResolveHitProjectile(hitObject.gameObject.GetComponent<Projectile>(), gameObject, damage);
         }
         yield return new WaitForSeconds(delayTime);
 

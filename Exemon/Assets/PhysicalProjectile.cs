@@ -13,9 +13,9 @@ public class PhysicalProjectile : Projectile
     }
     void OnCollisionEnter2D(Collision2D collider)
     {
+        Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
 
-        Debug.Log("Hit");
-        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != controllingMove.AttachedExemon && gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > DamageSpeed)
+        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon && gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > DamageSpeed)
         {
             Debug.Log("Hit2");
             StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));

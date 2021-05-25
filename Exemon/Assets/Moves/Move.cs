@@ -71,7 +71,10 @@ public class Move : MonoBehaviour
         {
             var exemon = target.GetComponent<BattleExemon>();
             exemon.TakeDamage(Damage);
-            exemon.ApplyStun(stunDuration);
+            if (stunDuration > 0)
+            {
+                exemon.ApplyStun(stunDuration);
+            }
 
 
             if (!CollidingEntity.GetComponent<HitBox>())
@@ -89,11 +92,17 @@ public class Move : MonoBehaviour
         }
     }
 
-    public void ResolveHitProjectile(Projectile projectile, GameObject CollidingEntity, float Damage, float force, float forceAngle)
+    public void ResolveHitProjectile(Projectile projectile, GameObject CollidingEntity, float Damage, float force = 0, float forceAngle = 0)
     {
         
         projectile.TakeDamage(Damage);
-        ApplyForce(projectile.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+
+        if (force > 0)
+        {
+
+
+            ApplyForce(projectile.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+        }
     }
 
     public void ResolveHitHitbox(HitBox hitBox, float Damage)
