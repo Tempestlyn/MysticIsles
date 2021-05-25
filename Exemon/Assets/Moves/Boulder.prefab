@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8345755791157915132}
   - component: {fileID: 8345755791157915128}
-  - component: {fileID: 8345755791157915135}
   - component: {fileID: 8345755791157915134}
   - component: {fileID: 8345755791157915133}
+  - component: {fileID: 7951634974355580426}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -85,24 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8345755791157915135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8345755791157914883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 681e74ace19267d47b6846c0a059e7e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  controllingExemon: {fileID: 0}
-  controllingMove: {fileID: 0}
-  DestroyOnHit: 0
-  StunDuration: 0
-  Index: 1
 --- !u!50 &8345755791157915134
 Rigidbody2D:
   serializedVersion: 4
@@ -134,9 +116,35 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.19126117, y: 0}
   serializedVersion: 2
   m_Radius: 0.84283173
+--- !u!114 &7951634974355580426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8345755791157914883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a729cc43d84c08843a9ed5c7d043891f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  controllingExemon: {fileID: 0}
+  controllingMove: {fileID: 0}
+  DestroyOnHit: 0
+  ForceAngle: 0
+  Force: 0
+  StunDuration: 0
+  Health: 0
+  LifeSpan: 0
+  Index: 1
+  HitBox: 0
+  DamageDelay: 0
+  DamageSpeed: 2
+  MinimumCollideSpeed: 1

@@ -18,7 +18,11 @@ public class Projectile : MonoBehaviour
     public bool HitBox;
     public float DamageDelay;
 
+    
     private List<GameObject> HitObjects = new List<GameObject>();
+
+
+
     public void SetValues(GameObject lControllingExemon, Move lControllingMove, float force, float forceAngle)
     {
         controllingExemon = lControllingExemon;
@@ -117,7 +121,7 @@ public class Projectile : MonoBehaviour
 
     }
 
-    IEnumerator ApplyDamage(float delayTime, GameObject hitObject, DamageType damageType)
+    public IEnumerator ApplyDamage(float delayTime, GameObject hitObject, DamageType damageType)
     {
         //Debug.Log("test");
         if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))

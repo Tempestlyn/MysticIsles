@@ -111,7 +111,7 @@ public class RangedMove : Move
     {
         if (IsStationary && MaxStationaryMoveDistance < Vector2.Distance(StartPosition, AttachedExemon.transform.position))
         {
-            AttachedExemon.GetComponent<BattleExemon>().EndAttack();
+            //AttachedExemon.GetComponent<BattleExemon>().EndAttack();
         }
 
         moveTime += Time.deltaTime;

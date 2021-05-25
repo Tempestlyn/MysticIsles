@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8582759530556452984}
   - component: {fileID: 8582759530556452985}
   - component: {fileID: 8582759530556452986}
-  - component: {fileID: -3970862445707213779}
+  - component: {fileID: 1459220100585196903}
   m_Layer: 10
   m_Name: Slooky_Battle 1
   m_TagString: Untagged
@@ -362,7 +362,7 @@ MonoBehaviour:
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
   TargetTest: {fileID: 7573896145012922052}
---- !u!114 &-3970862445707213779
+--- !u!114 &1459220100585196903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
