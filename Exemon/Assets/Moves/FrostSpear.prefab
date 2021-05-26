@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3710875403398646976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4065379008234119626}
+  - component: {fileID: 3710875403398646978}
+  m_Layer: 0
+  m_Name: FrostSpear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4065379008234119626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710875403398646976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3710875403398646978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710875403398646976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2880fd28c2ec0e148a4f6d424f950d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Accuracy: 0
+  Damage: 15
+  StunTime: 2
+  hitTime: 0
+  APCost: 0
+  type: 7
+  MoveID: 5
+  hp: 10
+  PracticalityDamageModifyer: 0
+  AIRange: 10
+  AttachedExemon: {fileID: 0}
+  ProjectileSpawn: {fileID: 0}
+  lockedTimes: []
+  NoMovementTimes: []
+  MustBeStationaryTimes: []
+  NoTurnTimes: []
+  LevelingValues: []
+  DelayTime: 1
+  MaxMoveTime: 2
+  MaxStationaryMoveDistance: 0
+  MaxAimAngle: 0
+  MinAimAngle: 0
+  AimHeightOffset: 0
+  MaxDistanceOffset: 0
+  MoveExperience: 0
+  TimesToAddForces: []
+  ProjectileData:
+  - ProjectileIndex: 0
+    projectile: {fileID: 3443028824828724162, guid: be4d1970e55ab72449ee21e05402f41d, type: 3}
+    TimeToShoot: 1
+    projectileDirection: 0
+    force: 1000
+    forceAngle: 0
+    LifeSpan: 0
+    ChanceToSpawn: 100
+  AimLockedTimes: []

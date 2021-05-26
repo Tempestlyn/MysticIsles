@@ -159,6 +159,7 @@ MonoBehaviour:
   ActiveMove: {fileID: 0}
   Moves:
   - {fileID: 6048259281238964016, guid: 43d3f10f701bfcb4cb94ebf339a68119, type: 3}
+  - {fileID: 3710875403398646978, guid: 630d97f002d83b0499f10a36ebc94478, type: 3}
   enemyExemon: {fileID: 0}
   TurnedAround: 0
   WithinReach: 0

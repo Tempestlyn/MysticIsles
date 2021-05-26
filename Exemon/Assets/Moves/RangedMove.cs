@@ -39,7 +39,6 @@ public class RangedMove : Move
         if (ProjectileSpawn == null)
         {
             ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
-            
         }
 
 
@@ -111,16 +110,24 @@ public class RangedMove : Move
     {
         if (IsStationary && MaxStationaryMoveDistance < Vector2.Distance(StartPosition, AttachedExemon.transform.position))
         {
-            //AttachedExemon.GetComponent<BattleExemon>().EndAttack();
+            AttachedExemon.GetComponent<BattleExemon>().EndAttack();
         }
 
+        CanMove = false;
         moveTime += Time.deltaTime;
-        foreach (Vector2 time in NoMovementTimes)
+        if (NoMovementTimes.Count > 0)
         {
-            if (moveTime < time[0] || moveTime > time[1])
+            foreach (Vector2 time in NoMovementTimes)
             {
-                CanMove = true;
+                if (moveTime < time[0] || moveTime > time[1])
+                {
+                    CanMove = true;
+                }
             }
+        }
+        else
+        {
+            CanMove = true;
         }
 
         foreach (Vector2 time in lockedTimes)

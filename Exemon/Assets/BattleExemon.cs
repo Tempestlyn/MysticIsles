@@ -215,7 +215,11 @@ public class BattleExemon : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.D))
             {
-                StopWalking();
+                nextState = State.Idle;
+            }
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                nextState = State.Idle;
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))

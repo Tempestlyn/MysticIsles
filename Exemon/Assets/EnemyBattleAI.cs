@@ -80,7 +80,6 @@ public class EnemyBattleAI : MonoBehaviour
 
 
                         battleExemon.EndAttack();
-                        Debug.Log("Attacking");
                         battleExemon.Attack(nextMove);
                         nextMove = null;
                         //Debug.Log("Test");

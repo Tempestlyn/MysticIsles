@@ -7,17 +7,18 @@ public class PhysicalProjectile : Projectile
     private Rigidbody2D rigidbody;
     public float DamageSpeed;
     public float MinimumCollideSpeed;
+    public bool FaceVelocity;
     private void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
     void OnCollisionEnter2D(Collision2D collider)
     {
-        Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
+
 
         if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon && gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > DamageSpeed)
         {
-            Debug.Log("Hit2");
+
             StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
             //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
             //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
@@ -59,5 +60,11 @@ public class PhysicalProjectile : Projectile
         {
             gameObject.layer = 8;
         }
+
+        if (FaceVelocity)
+        {
+            //transform.rotation = Quaternion.LookRotation(rigidbody.velocity);
+        }
     }
+
 }

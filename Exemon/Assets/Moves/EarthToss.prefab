@@ -96,7 +96,7 @@ MonoBehaviour:
   LevelingValues: []
   DelayTime: 0
   MaxMoveTime: 3
-  MaxStationaryMoveDistance: 0.1
+  MaxStationaryMoveDistance: 1
   MaxAimAngle: 80
   MinAimAngle: 0
   AimHeightOffset: 3
