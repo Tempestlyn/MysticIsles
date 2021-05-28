@@ -73,10 +73,10 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<ExemonHitbox>() && collider.gameObject.GetComponent<ExemonHitbox>().battleExemon != AttachedMove.AttachedExemon && IsActive)
+        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
         {
 
-            CurrentCollisions.Add(collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject);
+            CurrentCollisions.Add(collider.gameObject);
 
         }
         if (collider.gameObject.GetComponent<HitBox>())
@@ -90,12 +90,12 @@ public class HitBox : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collision.gameObject.GetComponent<ExemonHitbox>() && collision.gameObject.GetComponent<ExemonHitbox>().battleExemon != AttachedMove.AttachedExemon && IsActive)
+        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
         {
 
-            CurrentCollisions.Remove(collision.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject);
+            CurrentCollisions.Remove(collider.gameObject);
 
         }
     }

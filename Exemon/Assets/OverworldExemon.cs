@@ -7,6 +7,7 @@ public class OverworldExemon : MonoBehaviour
     public BaseExemon Exemon;
     // Start is called before the first frame update
     public Camera MainCamera;
+    public List<Item> DroppableItems;
 
     public void Start()
     {

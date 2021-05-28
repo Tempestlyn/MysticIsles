@@ -150,12 +150,12 @@ MonoBehaviour:
   DestroyOnHit: 0
   ForceAngle: 0
   Force: 0
-  StunDuration: 0
-  Health: 10
+  StunDuration: 1
+  Health: 5
   LifeSpan: 0
   Index: 0
   HitBox: 0
   DamageDelay: 1
-  DamageSpeed: 5
-  MinimumCollideSpeed: 3
+  DamageSpeed: 10
+  MinimumCollideSpeed: 5
   FaceVelocity: 1

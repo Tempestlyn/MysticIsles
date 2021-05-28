@@ -106,7 +106,7 @@ MonoBehaviour:
   - ProjectileIndex: 1
     time: 2
     projectileDirection: 0
-    force: 800
+    force: 1000
     doesRepeat: 0
     repeats: 0
     MustBeStationary: 1
