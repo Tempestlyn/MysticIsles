@@ -243,7 +243,7 @@ public class RangedMove : Move
                 var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
                 projectile.gameObject.transform.parent = null;
                 InstantiatedProjectiles.Add(projectile);
-                projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+                projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
                 projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
                 projectile.GetComponent<Projectile>().controllingMove = this;
                 projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
@@ -255,7 +255,7 @@ public class RangedMove : Move
                 var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
                 projectile.gameObject.transform.parent = null;
                 InstantiatedProjectiles.Add(projectile);
-                projectile.GetComponent<Rigidbody2D>().AddForce(transform.up * shootData.force);
+                projectile.GetComponent<Rigidbody2D>().velocity = (transform.up * shootData.force);
                 projectile.GetComponent<Projectile>().controllingMove = this;
                 projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
                 projectile.GetComponent<Projectile>().damage = Damage;
@@ -348,7 +348,7 @@ public class RangedMove : Move
                         float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
                         float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
 
-                        projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent));
+                        projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
                     }
                     else if (forceData.ProjectileIndex == -1)
                     {

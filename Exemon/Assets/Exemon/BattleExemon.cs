@@ -21,10 +21,10 @@ public class BattleExemon : MonoBehaviour
     public List<Move> Moves;
     public GameObject enemyExemon;
     public bool TurnedAround;
-    public bool WithinReach;
+    private bool WithinReach;
     public GameObject MoveSpawn;
     public GameObject MoveRotation;
-    public bool IsTryingToExitAttack;
+    private bool IsTryingToExitAttack;
 
     public int SelectedAttackIndex;
     public bool isAttacking;
@@ -39,6 +39,9 @@ public class BattleExemon : MonoBehaviour
 
     public Animator hairAnimator;
     public Animator RobeAnimator;
+
+    //[System.NonSerialized]
+    public BattleData BattleSystem;
     // Start is called before the first frame update
     public GameObject TargetTest;
 
@@ -75,7 +78,7 @@ public class BattleExemon : MonoBehaviour
         }
         else
         {
-            target = BattleScene.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            target = BattleSystem.BattleCam.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
         }
 
         if (target.x > transform.position.x)
@@ -208,11 +211,11 @@ public class BattleExemon : MonoBehaviour
 
         if (PlayerControlled)
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
                 nextState = State.WalkingForward;
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
                 nextState = State.Idle;
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
                 nextState = State.WalkingBackward;
 
             if (Input.GetKeyUp(KeyCode.D))
@@ -224,7 +227,7 @@ public class BattleExemon : MonoBehaviour
                 nextState = State.Idle;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKey(KeyCode.Alpha1))
                 SelectedAttackIndex = 0;
             if (Input.GetKeyDown(KeyCode.Alpha2))
                 SelectedAttackIndex = 1;

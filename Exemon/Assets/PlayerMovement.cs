@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody myRigidbody;
     public float Gravity;
     public Camera PlayerCamera;
-    public GameObject BattleScene;
     public bool CanBattle;
     public BaseExemon BaseMage;
     public List<BaseExemon> Exemon = new List<BaseExemon>();
     public Animator spriteAnimator;
 
     private GameObject Robe;
+
+    public GameObject BattleSystem;
     private void Start()
     {
         if (BaseMage.Robe != null)
@@ -34,8 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (!BattleScene.activeSelf)
-        {
+        
             if (Input.GetKeyDown(KeyCode.D))
             {
                 spriteAnimator.SetInteger("MoveDirection", 2);
@@ -85,14 +86,18 @@ public class PlayerMovement : MonoBehaviour
             float ver = Input.GetAxisRaw("Vertical");
             Vector3 playerMovement = new Vector3(hor, 0, ver).normalized * Speed * Time.deltaTime;
             transform.Translate(playerMovement, Space.Self);
-        }
+        
     }
-
+     
     void InitiateBattle(BaseExemon enemyExemon)
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
+        var battleData = Instantiate(BattleSystem).GetComponent<BattleData>();
+        battleData.P1Exemon = BaseMage.exemon;
+        battleData.P2Exemon = enemyExemon.exemon;
+        SceneManager.LoadScene("BattleScene");
+        /*
         BattleScene.SetActive(true);
         PlayerCamera.gameObject.SetActive(false);
 
@@ -108,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         BattleScene.GetComponent<BattleScene>().P1Exemon = battleExemon;
         battleExemon.PlayerControlled = true;
         battleExemon.reach = BaseMage.Reach;
-        /*
+        
         foreach (BaseExemon baseExemon in Exemon)
         {
 
@@ -120,10 +125,8 @@ public class PlayerMovement : MonoBehaviour
                 battleExemon.PlayerControlled = true;
                 battleExemon.reach = baseExemon.Reach;
 
-                
-            
         }
-        */
+        
         var EnemyExemon = Instantiate(enemyExemon.exemon, BattleScene.GetComponent<BattleScene>().ExemonStartPosition2.transform);
         PlayerExemon.GetComponent<BattleExemon>().enemyExemon = EnemyExemon;
         var enemyBattleExemon = EnemyExemon.GetComponent<BattleExemon>();
@@ -132,16 +135,14 @@ public class PlayerMovement : MonoBehaviour
         BattleScene.GetComponent<BattleScene>().OverworldCam = PlayerCamera;
         enemyBattleExemon.reach = enemyExemon.Reach;
         enemyBattleExemon.enemyExemon = PlayerExemon;
-
+        */
     }
 
     void OnCollisionEnter(Collision collider)
     {
-        if (collider.gameObject.GetComponent<OverworldExemon>() != null)
+        if (collider.gameObject.GetComponent<OverworldExemon>())
         {
-
             InitiateBattle(collider.gameObject.GetComponent<OverworldExemon>().Exemon);
-            Destroy(collider.gameObject);
         }
 
         

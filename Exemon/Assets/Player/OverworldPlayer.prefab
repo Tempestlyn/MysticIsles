@@ -80,12 +80,12 @@ MonoBehaviour:
   Speed: 5
   Gravity: 1
   PlayerCamera: {fileID: 3995785973402796055}
-  BattleScene: {fileID: 0}
   CanBattle: 0
   BaseMage: {fileID: 11400000, guid: c6e9e0eedae9a9b408e4eca31180eab0, type: 2}
   Exemon:
   - {fileID: 11400000, guid: 079aefdb7dfcd914db7fb541fa040b79, type: 2}
   spriteAnimator: {fileID: 3995785974548258973}
+  BattleSystem: {fileID: 6271546760120956211, guid: 223af46f15e911845bdc6c9c34260d3a, type: 3}
 --- !u!1 &3995785973402796054
 GameObject:
   m_ObjectHideFlags: 0

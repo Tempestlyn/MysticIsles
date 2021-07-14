@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28a3e2383f61bc459f9f7c6866b5f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerControlled: 0
+  PlayerControlled: 1
   stance: 0
   nextState: 0
   currentState: 0
@@ -162,10 +162,8 @@ MonoBehaviour:
   - {fileID: 3710875403398646978, guid: 630d97f002d83b0499f10a36ebc94478, type: 3}
   enemyExemon: {fileID: 0}
   TurnedAround: 0
-  WithinReach: 0
   MoveSpawn: {fileID: 8199044761570814682}
   MoveRotation: {fileID: 5767217743853906471}
-  IsTryingToExitAttack: 0
   SelectedAttackIndex: 0
   isAttacking: 0
   TimeStunned: 0
@@ -174,6 +172,7 @@ MonoBehaviour:
   AimLocked: 0
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
+  BattleSystem: {fileID: 0}
   TargetTest: {fileID: 2586859978258137895}
 --- !u!212 &5751090196079135221
 SpriteRenderer:

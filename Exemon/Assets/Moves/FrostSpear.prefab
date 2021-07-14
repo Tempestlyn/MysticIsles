@@ -74,7 +74,7 @@ MonoBehaviour:
     projectile: {fileID: 3443028824828724162, guid: be4d1970e55ab72449ee21e05402f41d, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
-    force: 1000
+    force: 50
     forceAngle: 0
     LifeSpan: 0
     ChanceToSpawn: 100

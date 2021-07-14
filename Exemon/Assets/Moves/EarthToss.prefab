@@ -93,20 +93,24 @@ MonoBehaviour:
   MustBeStationaryTimes:
   - {x: 0, y: 2}
   NoTurnTimes: []
-  LevelingValues: []
+  LevelingValues:
+  - MaxLevel: 0
+    MoveLearnSpeed: 0
+    levelingType: 2
+    ProjectileIndex: 0
   DelayTime: 0
   MaxMoveTime: 3
   MaxStationaryMoveDistance: 1
   MaxAimAngle: 80
   MinAimAngle: 0
-  AimHeightOffset: 3
+  AimHeightOffset: 2
   MaxDistanceOffset: 16
   MoveExperience: 0
   TimesToAddForces:
   - ProjectileIndex: 1
     time: 2
     projectileDirection: 0
-    force: 1000
+    force: 20
     doesRepeat: 0
     repeats: 0
     MustBeStationary: 1
@@ -115,8 +119,8 @@ MonoBehaviour:
     projectile: {fileID: 8345755791157914883, guid: 91a2ff52df7c80f49ac93ba477171ab7, type: 3}
     TimeToShoot: 0.5
     projectileDirection: 1
-    force: 600
+    force: 15
     forceAngle: 0
     LifeSpan: 0
-    ChanceToSpawn: 100
+    ChanceToSpawn: 200
   AimLockedTimes: []

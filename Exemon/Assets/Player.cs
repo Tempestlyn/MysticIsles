@@ -21,9 +21,6 @@ public class Player : MonoBehaviour
         if (exemon != null)
         {
 
-           
-
-
         }
 
     }
