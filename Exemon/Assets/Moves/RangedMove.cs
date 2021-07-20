@@ -19,7 +19,7 @@ public class RangedMove : Move
     public struct TimesToAddForce { public int ProjectileIndex; public float time; public SpawnDirection projectileDirection; public float force; public bool doesRepeat; public int repeats; public bool MustBeStationary; }
 
     [System.Serializable]
-    public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public float force; public float forceAngle; public float LifeSpan; public float ChanceToSpawn;
+    public class ProjectileShootData { public int ProjectileIndex; public GameObject projectile; public float TimeToShoot; public SpawnDirection projectileDirection; public ForceDirection forceDirection; public float force; public float forceAngle; public float LifeSpan; public float ChanceToSpawn;
 
 
 
@@ -78,6 +78,7 @@ public class RangedMove : Move
             //projectile.Force = projectileShootData.force;
             projectile.ForceAngle = projectileShootData.forceAngle;
             projectile.LifeSpan = projectileShootData.LifeSpan;
+            projectile.forceDirection = projectileShootData.forceDirection;
             StartCoroutine(Shoot(projectileShootData));
 
         }
@@ -170,6 +171,15 @@ public class RangedMove : Move
             
             yield return new WaitForSeconds(shootData.TimeToShoot);
 
+            var projectileObject = Instantiate(shootData.projectile, ProjectileSpawn.transform);
+            projectileObject.gameObject.transform.parent = null;
+            InstantiatedProjectiles.Add(projectileObject);
+            var projectile = projectileObject.GetComponent<Projectile>();
+            projectile.controllingMove = this;
+            projectile.controllingExemon = AttachedExemon;
+            projectile.damage = Damage;
+            projectile.forceDirection = shootData.forceDirection;
+            projectile.ForceAngle = shootData.forceAngle;
             if (shootData.projectileDirection == SpawnDirection.Mouse)
             {
                
@@ -240,25 +250,15 @@ public class RangedMove : Move
                 float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
                 float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * shootData.force;
 
-                var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-                projectile.gameObject.transform.parent = null;
-                InstantiatedProjectiles.Add(projectile);
+
                 projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
-                projectile.GetComponent<Projectile>().Index = shootData.ProjectileIndex;
-                projectile.GetComponent<Projectile>().controllingMove = this;
-                projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-                projectile.GetComponent<Projectile>().damage = Damage;
 
             }
             if (shootData.projectileDirection == SpawnDirection.Up)
             {
-                var projectile = Instantiate(shootData.projectile, ProjectileSpawn.transform);
-                projectile.gameObject.transform.parent = null;
-                InstantiatedProjectiles.Add(projectile);
+
                 projectile.GetComponent<Rigidbody2D>().velocity = (transform.up * shootData.force);
-                projectile.GetComponent<Projectile>().controllingMove = this;
-                projectile.GetComponent<Projectile>().controllingExemon = AttachedExemon;
-                projectile.GetComponent<Projectile>().damage = Damage;
+
             }
         }
 
@@ -381,4 +381,12 @@ public class RangedMove : Move
 
     }
     
+
+}
+
+public enum ForceDirection
+{
+    CustomAngle,
+    ImpactPoint,
+    ProjectileVelocity,
 }

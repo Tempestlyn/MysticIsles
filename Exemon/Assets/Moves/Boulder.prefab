@@ -146,6 +146,7 @@ MonoBehaviour:
   Index: 1
   HitBox: 0
   DamageDelay: 0
+  forceDirection: 0
   DamageSpeed: 5
   MinimumCollideSpeed: 2
   FaceVelocity: 0

@@ -65,7 +65,7 @@ public class Move : MonoBehaviour
         moveTime += Time.deltaTime;
         
     }
-    public void ResolveHitExemon(GameObject target, GameObject CollidingEntity, float Damage, float stunDuration, float force, float forceAngle)
+    public void ResolveHitExemon(GameObject target, GameObject CollidingEntity, ForceDirection forceDirection, float Damage, float stunDuration, float xcomponent, float ycomponent, float force, float forceAngle)
     {
         if (target.GetComponent<BattleExemon>())
         {
@@ -79,7 +79,7 @@ public class Move : MonoBehaviour
 
             if (!CollidingEntity.GetComponent<HitBox>())
             {
-                ApplyForce(exemon.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+                ApplyForce(exemon.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, forceDirection, force, forceAngle, xcomponent, ycomponent);
             }
             else
             {
@@ -92,7 +92,7 @@ public class Move : MonoBehaviour
         }
     }
 
-    public void ResolveHitProjectile(Projectile projectile, GameObject CollidingEntity, float Damage, float force = 0, float forceAngle = 0)
+    public void ResolveHitProjectile(Projectile projectile, GameObject CollidingEntity, ForceDirection forceDirection, float Damage, float xcomponent, float ycomponent, float force = 0, float forceAngle = 0)
     {
         
         projectile.TakeDamage(Damage);
@@ -101,7 +101,7 @@ public class Move : MonoBehaviour
         {
 
 
-            ApplyForce(projectile.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, force, forceAngle);
+            ApplyForce(projectile.gameObject, CollidingEntity.GetComponent<Rigidbody2D>().velocity, forceDirection, force, forceAngle, xcomponent, ycomponent);
         }
     }
 
@@ -111,24 +111,37 @@ public class Move : MonoBehaviour
     }
 
 
-    public void ApplyForce(GameObject target, Vector2 CollidingVelocity, float force, float forceAngle)
+    public void ApplyForce(GameObject target, Vector2 CollidingVelocity, ForceDirection forceDirection, float force, float forceAngle, float Xcomponent, float Ycomponent)
     {
         //Force = force;
         //InitialMovement = true;
         //Debug.Log(Force);
-        float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
-        if (CollidingVelocity.x < 0)
+
+        Debug.Log(force);
+
+        if (forceDirection == ForceDirection.CustomAngle)
         {
-            xcomponent = -Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
-        }
+            var xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+            var ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+            if (CollidingVelocity.x < 0)
+            {
+                xcomponent = -Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
+            }
 
 
-        float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
-        if (CollidingVelocity.y < 0)
-        {
-            ycomponent = -Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+
+            if (CollidingVelocity.y < 0)
+            {
+                //ycomponent = -Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
+            }
+
+            target.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent), ForceMode2D.Impulse);
         }
-        target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
+
+        else if (forceDirection == ForceDirection.ImpactPoint)
+        {
+            target.GetComponent<Rigidbody2D>().AddForce(new Vector2(-Xcomponent, -Ycomponent) * force, ForceMode2D.Impulse);
+        }
 
 
 
@@ -138,7 +151,7 @@ public class Move : MonoBehaviour
     {
         float xcomponent = Mathf.Cos(forceAngle * Mathf.PI / 180) * force;
         float ycomponent = Mathf.Sin(forceAngle * Mathf.PI / 180) * force;
-        target.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
+        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(xcomponent, ycomponent), ForceMode2D.Impulse);
     }
 
 

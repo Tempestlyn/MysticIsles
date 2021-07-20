@@ -54,12 +54,12 @@ public class HitBox : MonoBehaviour
                 if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
                 {
                     
-                    AttachedMove.ResolveHitExemon(exemon, gameObject, AttachedMove.Damage, AttachedMove.StunTime, -Force, -Angle);
+                    AttachedMove.ResolveHitExemon(exemon, gameObject, ForceDirection.CustomAngle, AttachedMove.Damage, AttachedMove.StunTime, 0, 0, -Force, -Angle);
                     HitObject = true;
                 }
                 else
                 {
-                    AttachedMove.ResolveHitExemon(exemon, gameObject, AttachedMove.Damage, AttachedMove.StunTime, Force, Angle);
+                    AttachedMove.ResolveHitExemon(exemon, gameObject, ForceDirection.CustomAngle, AttachedMove.Damage, AttachedMove.StunTime, 0, 0, Force, Angle);
                     HitObject = true;
                 }
             }

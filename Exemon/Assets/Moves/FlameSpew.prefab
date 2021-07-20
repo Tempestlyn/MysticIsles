@@ -104,21 +104,23 @@ MonoBehaviour:
   MinAimAngle: 0
   AimHeightOffset: 0
   MaxDistanceOffset: 0
-  MoveExperience: 50
+  MoveExperience: 0
   TimesToAddForces: []
   ProjectileData:
   - ProjectileIndex: 1
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
+    forceDirection: 1
     force: 10
-    forceAngle: -45
+    forceAngle: 90
     LifeSpan: 0
     ChanceToSpawn: 100
   - ProjectileIndex: 2
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
+    forceDirection: 1
     force: 10
     forceAngle: -45
     LifeSpan: 0
@@ -127,6 +129,7 @@ MonoBehaviour:
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1.2
     projectileDirection: 0
+    forceDirection: 1
     force: 10
     forceAngle: 45
     LifeSpan: 0
@@ -135,6 +138,7 @@ MonoBehaviour:
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1.2
     projectileDirection: 0
+    forceDirection: 1
     force: 10
     forceAngle: -45
     LifeSpan: 0
@@ -143,14 +147,7 @@ MonoBehaviour:
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1.3
     projectileDirection: 0
-    force: 10
-    forceAngle: -45
-    LifeSpan: 0
-    ChanceToSpawn: 100
-  - ProjectileIndex: 9
-    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
-    TimeToShoot: 1.3
-    projectileDirection: 0
+    forceDirection: 1
     force: 10
     forceAngle: -45
     LifeSpan: 0
@@ -159,10 +156,20 @@ MonoBehaviour:
     projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
     TimeToShoot: 1.3
     projectileDirection: 0
+    forceDirection: 1
     force: 10
     forceAngle: -45
     LifeSpan: 0
-    ChanceToSpawn: 25
+    ChanceToSpawn: 50
+  - ProjectileIndex: 9
+    projectile: {fileID: 6048882216130075492, guid: 56645be11f281704697df0e392fd8783, type: 3}
+    TimeToShoot: 1.3
+    projectileDirection: 0
+    forceDirection: 1
+    force: 10
+    forceAngle: -45
+    LifeSpan: 0
+    ChanceToSpawn: 0
   AimLockedTimes:
   - TimeStart: 1
     Duration: 1.5

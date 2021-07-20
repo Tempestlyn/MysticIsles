@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public Move controllingMove;
     public bool DestroyOnHit;
     public float ForceAngle;
+    private Vector2 vectorAngle;
     public float Force;
     public float StunDuration;
     public float Health;
@@ -17,7 +18,7 @@ public class Projectile : MonoBehaviour
     public int Index;
     public bool HitBox;
     public float DamageDelay;
-
+    public ForceDirection forceDirection;
     
     private List<GameObject> HitObjects = new List<GameObject>();
 
@@ -37,6 +38,16 @@ public class Projectile : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
         {
+            
+
+            if (forceDirection == ForceDirection.ImpactPoint)
+            {
+                var dir = collider.transform.position - transform.position;
+                // normalize force vector to get direction only and trim magnitude
+                dir = -dir.normalized;
+                vectorAngle = dir;
+            }
+
             StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
             //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
             //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
@@ -122,15 +133,17 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator ApplyDamage(float delayTime, GameObject hitObject, DamageType damageType)
     {
+
+        
         //Debug.Log("test");
         if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))
         {
-            controllingMove.ResolveHitExemon(hitObject.gameObject, gameObject, damage, StunDuration, Force, ForceAngle);
+            controllingMove.ResolveHitExemon(hitObject.gameObject, gameObject, forceDirection, damage, StunDuration, vectorAngle.x, vectorAngle.y, Force, ForceAngle);
             HitObjects.Add(hitObject);
         }
         if (damageType == DamageType.Projectile)
         {
-            controllingMove.ResolveHitProjectile(hitObject.gameObject.GetComponent<Projectile>(), gameObject, damage);
+            controllingMove.ResolveHitProjectile(hitObject.gameObject.GetComponent<Projectile>(), gameObject, forceDirection, damage, vectorAngle.x, vectorAngle.y);
         }
         yield return new WaitForSeconds(delayTime);
 
