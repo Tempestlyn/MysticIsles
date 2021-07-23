@@ -117,7 +117,6 @@ public class Move : MonoBehaviour
         //InitialMovement = true;
         //Debug.Log(Force);
 
-        Debug.Log(force);
 
         if (forceDirection == ForceDirection.CustomAngle)
         {

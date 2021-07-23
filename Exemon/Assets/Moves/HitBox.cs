@@ -15,10 +15,6 @@ public class HitBox : MonoBehaviour
     public int hitBoxIndex;
     public float Health;
 
-    public float DamageDifferencial;
-    public float ForceDifferencial;
-    public float StunDifferencial;
-
     public bool HitObject = false;
     public bool IsActive;
 

@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 2353596069996138269}
-  Force: 100
+  Force: 1
   Angle: 0
   Damage: 0
   StartTime: 0.5
@@ -80,9 +80,6 @@ MonoBehaviour:
   EndPosition: {x: 0, y: 0}
   hitBoxIndex: 1
   Health: 0
-  DamageDifferencial: 0
-  ForceDifferencial: 0
-  StunDifferencial: 0
   HitObject: 0
   IsActive: 0
   DestroyOnHit: 0

@@ -18,7 +18,7 @@ TagManager:
   - BattleEntityHitbox
   - PhysicsHitBox
   - NoEntityCollision
-  - 
+  - Platform
   - 
   - 
   - 

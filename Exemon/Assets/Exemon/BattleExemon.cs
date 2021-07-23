@@ -7,6 +7,9 @@ public class BattleExemon : MonoBehaviour
     public bool PlayerControlled;
 
     //public BaseExemon exemon;
+    [SerializeField]
+    public LayerMask platformMask;
+
     public Stance stance;
     public State nextState;
     public State currentState;
@@ -16,7 +19,7 @@ public class BattleExemon : MonoBehaviour
     public Animator animator;
     public float speed;
     public float health;
-    public float jumpHeight;
+    public float jumpForce;
     public Move ActiveMove;
     public List<Move> Moves;
     public GameObject enemyExemon;
@@ -45,6 +48,13 @@ public class BattleExemon : MonoBehaviour
     // Start is called before the first frame update
     public GameObject TargetTest;
 
+    private bool IsGrounded()
+    {
+        var collider2d = GetComponent<Collider2D>();
+        RaycastHit2D raycastHit = Physics2D.BoxCast(collider2d.bounds.center, collider2d.bounds.size, 0f, Vector2.down, 0.5f, platformMask);
+
+        return raycastHit.collider != null;
+    }
     void Start()
     {
         AIControlled = gameObject.GetComponent<EnemyBattleAI>();
@@ -175,7 +185,7 @@ public class BattleExemon : MonoBehaviour
         {
             if (CanMove)
             {
-                RunForward();
+                WalkForward();
             }
         }
         if (currentState == State.WalkingBackward)
@@ -248,6 +258,13 @@ public class BattleExemon : MonoBehaviour
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (IsGrounded())
+                {
+                    Jump();
+                }
+            }
 
             if (!Input.anyKey)
             {
@@ -328,6 +345,12 @@ public class BattleExemon : MonoBehaviour
         if (!PlayerControlled)
             TurnedAround = true;
     }
+
+    void Jump()
+    {
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+        rigidbody.AddForce(Vector2.up * 15f, ForceMode2D.Impulse);
+    }
     public void Attack(Move selectedMove)
     {
         
@@ -351,7 +374,11 @@ public class BattleExemon : MonoBehaviour
 
     void SetIdle()
     {
-        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        Debug.Log(IsGrounded());
+        if (IsGrounded())
+        {
+            rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        }
         animator.SetInteger("IsMoving", 0);
         SetChildAnimations("IsMoving", 0);
     }

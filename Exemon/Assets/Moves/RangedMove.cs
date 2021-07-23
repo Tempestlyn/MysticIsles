@@ -244,7 +244,7 @@ public class RangedMove : Move
 
                 baseAngle += (Random.Range(-Accuracy, Accuracy));
 
-                
+                Debug.Log(baseAngle);
 
 
                 float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * shootData.force;
@@ -281,81 +281,86 @@ public class RangedMove : Move
             {
 
 
-                foreach (GameObject projectile in InstantiatedProjectiles)
-                {
-                    var projectileData = projectile.GetComponent<Projectile>();
-                    if (projectileData.Index == forceData.ProjectileIndex)
+                    foreach (GameObject projectile in InstantiatedProjectiles)
                     {
-                        
+                    if (projectile != null)
+                    {
+                        var projectileData = projectile.GetComponent<Projectile>();
+                        if (projectileData.Index == forceData.ProjectileIndex)
+                        {
 
-                        Vector2 position = projectile.gameObject.transform.position;
-                        var target = AttachedExemon.GetComponent<BattleExemon>().target;
-                        Vector2 difference = target - position;
-                        float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < position.y) ? -1.0f : 1.0f;
-                        var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
-                        //Debug.Log(baseAngle);
-                        //baseAngle = baseAngle + (Mathf.Abs(AttachedExemon.transform.position.x - target.x) * AimHeightOffset);
-                        var distance = Mathf.Abs(AttachedExemon.transform.position.x - target.x);
+
+                            Vector2 position = projectile.gameObject.transform.position;
+                            var target = AttachedExemon.GetComponent<BattleExemon>().target;
+                            Vector2 difference = target - position;
+                            float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < position.y) ? -1.0f : 1.0f;
+                            var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
+                            //Debug.Log(baseAngle);
+                            //baseAngle = baseAngle + (Mathf.Abs(AttachedExemon.transform.position.x - target.x) * AimHeightOffset);
+                            var distance = Mathf.Abs(AttachedExemon.transform.position.x - target.x);
                             if (distance > MaxDistanceOffset)
                             {
                                 distance = MaxDistanceOffset;
                             }
-                        if (target.x > AttachedExemon.transform.position.x)
-                        {
-                            
-                            baseAngle += distance * AimHeightOffset;
-                            
-                        }
-                        else if (target.x < AttachedExemon.transform.position.y)
-                        {
-                           
-                            baseAngle -= distance * AimHeightOffset;
-                            
-                        }
-
-
-                        
-                        if ((baseAngle < MinAimAngle && baseAngle > (-180 + MinAimAngle)))
-                        {
-                            
                             if (target.x > AttachedExemon.transform.position.x)
                             {
-                                baseAngle = MinAimAngle;
+
+                                baseAngle += distance * AimHeightOffset;
+
                             }
-                            else
+                            else if (target.x < AttachedExemon.transform.position.y)
                             {
-                                baseAngle = -180 + MinAimAngle;
+
+                                baseAngle -= distance * AimHeightOffset;
 
                             }
 
+
+
+                            if ((baseAngle < MinAimAngle && baseAngle > (-180 + MinAimAngle)))
+                            {
+
+                                if (target.x > AttachedExemon.transform.position.x)
+                                {
+                                    baseAngle = MinAimAngle;
+                                }
+                                else
+                                {
+                                    baseAngle = -180 + MinAimAngle;
+
+                                }
+
+                            }
+                            else if (((baseAngle > MaxAimAngle && baseAngle < (180 - MaxAimAngle))))
+                            {
+
+
+
+                                if (target.x > AttachedExemon.transform.position.x)
+                                {
+                                    baseAngle = MaxAimAngle;
+                                }
+                                else
+                                {
+                                    baseAngle = 180 - MaxAimAngle;
+
+                                }
+                            }
+                            baseAngle += (Random.Range(-Accuracy, Accuracy));
+                            float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
+                            float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
+
+                            projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
                         }
-                        else if (((baseAngle > MaxAimAngle && baseAngle < (180 - MaxAimAngle))))
+                        else if (forceData.ProjectileIndex == -1)
                         {
-
-                            
-                            
-                            if (target.x > AttachedExemon.transform.position.x)
-                            {
-                                baseAngle = MaxAimAngle;
-                            }
-                            else
-                            {
-                                baseAngle = 180 - MaxAimAngle;
-
-                            }
+                            //Make EVERY projectile change direction;
                         }
-                        baseAngle += (Random.Range(-Accuracy, Accuracy));
-                        float xcomponent = Mathf.Cos(baseAngle * Mathf.PI / 180) * forceData.force;
-                        float ycomponent = Mathf.Sin(baseAngle * Mathf.PI / 180) * forceData.force;
-
-                        projectile.GetComponent<Rigidbody2D>().velocity = (new Vector2(xcomponent, ycomponent));
-                    }
-                    else if (forceData.ProjectileIndex == -1)
-                    {
-                        //Make EVERY projectile change direction;
                     }
 
+                    
                 }
+
 
             }
             if (forceData.doesRepeat && forceData.repeats != 0)

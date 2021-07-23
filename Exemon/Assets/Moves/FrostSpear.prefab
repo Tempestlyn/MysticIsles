@@ -64,7 +64,7 @@ MonoBehaviour:
   MaxMoveTime: 2
   MaxStationaryMoveDistance: 0
   MaxAimAngle: 25
-  MinAimAngle: -25
+  MinAimAngle: -5
   AimHeightOffset: 0
   MaxDistanceOffset: 0
   MoveExperience: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
     projectile: {fileID: 3443028824828724162, guid: be4d1970e55ab72449ee21e05402f41d, type: 3}
     TimeToShoot: 1
     projectileDirection: 0
+    forceDirection: 0
     force: 50
     forceAngle: 0
     LifeSpan: 0
