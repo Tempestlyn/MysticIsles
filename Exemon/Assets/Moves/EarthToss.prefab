@@ -110,7 +110,7 @@ MonoBehaviour:
   - ProjectileIndex: 1
     time: 2
     projectileDirection: 0
-    force: 20
+    force: 14
     doesRepeat: 0
     repeats: 0
     MustBeStationary: 1
@@ -119,6 +119,7 @@ MonoBehaviour:
     projectile: {fileID: 8345755791157914883, guid: 91a2ff52df7c80f49ac93ba477171ab7, type: 3}
     TimeToShoot: 0.5
     projectileDirection: 1
+    forceDirection: 0
     force: 15
     forceAngle: 0
     LifeSpan: 0
