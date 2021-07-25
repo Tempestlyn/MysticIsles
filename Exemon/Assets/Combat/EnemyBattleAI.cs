@@ -8,7 +8,7 @@ public class EnemyBattleAI : MonoBehaviour
 {
 
     private BattleExemon battleExemon;
-    private float nextMoveDelay;
+    private float nextMoveDelay = 0.5f;
     public bool AttacksUnprovoked;
     public float HostileRange;
     public Move nextMove;

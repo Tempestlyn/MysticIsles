@@ -273,7 +273,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   speed: 1
   health: 50
-  jumpHeight: 0
+  jumpForce: 0
   ActiveMove: {fileID: 0}
   Moves:
   - {fileID: 7843450618338039677, guid: ac6acabc9769fe14e891a6ff1645a626, type: 3}
@@ -292,6 +292,7 @@ MonoBehaviour:
   RobeAnimator: {fileID: 0}
   BattleSystem: {fileID: 0}
   TargetTest: {fileID: 7573896145012922052}
+  AirGravity: 2
 --- !u!114 &1459220100585196903
 MonoBehaviour:
   m_ObjectHideFlags: 0

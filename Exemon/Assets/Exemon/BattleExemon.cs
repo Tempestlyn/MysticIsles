@@ -47,7 +47,7 @@ public class BattleExemon : MonoBehaviour
     public BattleData BattleSystem;
     // Start is called before the first frame update
     public GameObject TargetTest;
-
+    public float AirGravity;
     private bool IsGrounded()
     {
         var collider2d = GetComponent<Collider2D>();
@@ -72,9 +72,12 @@ public class BattleExemon : MonoBehaviour
         //health = exemon.baseHP;
     }
 
-
-        // Update is called once per frame
-        void Update()
+    private void FixedUpdate()
+    {
+        PhysicsUpdate();
+    }
+    // Update is called once per frame
+    void Update()
         {
 
         if (AimLocked)
@@ -266,6 +269,8 @@ public class BattleExemon : MonoBehaviour
                 }
             }
 
+
+
             if (!Input.anyKey)
             {
                 nextState = State.Idle;
@@ -313,6 +318,18 @@ public class BattleExemon : MonoBehaviour
         health -= damage;
     }
 
+    public void PhysicsUpdate()
+    {
+        if (IsGrounded())
+        {
+            rigidbody.gravityScale = 0;
+        }
+        else
+        {
+            rigidbody.gravityScale = AirGravity;
+        }
+
+    }
     void WalkForward()
     {
         rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
@@ -374,7 +391,7 @@ public class BattleExemon : MonoBehaviour
 
     void SetIdle()
     {
-        Debug.Log(IsGrounded());
+
         if (IsGrounded())
         {
             rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);

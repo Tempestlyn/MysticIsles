@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     public int Index;
     public bool HitBox;
     public float DamageDelay;
+    public Vector3 StartPosition;
     public ForceDirection forceDirection;
     
     private List<GameObject> HitObjects = new List<GameObject>();

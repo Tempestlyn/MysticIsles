@@ -85,7 +85,8 @@ public class BattleData : MonoBehaviour
         var player = P1Exemon.GetComponent<BattleExemon>();
         player.BattleSystem = this;
         player.PlayerControlled = true;
-        var SpawnedPlayer = Instantiate(P1Exemon, playerStart.transform);
+        var SpawnedPlayer = Instantiate(P1Exemon, playerStart);
+        SpawnedPlayer.transform.position = new Vector2(playerStart.transform.position.x, SpawnedPlayer.transform.position.y + (SpawnedPlayer.GetComponent<Collider2D>().bounds.size.y / 2));
         VC.Follow = SpawnedPlayer.transform;
         VC.m_Lens.OrthographicSize = 15;
 
@@ -94,7 +95,9 @@ public class BattleData : MonoBehaviour
         enemy.BattleSystem = this;
         enemy.PlayerControlled = false;
         enemy.enemyExemon = SpawnedPlayer;
-        enemyEntities.Add(Instantiate(P2Exemon, enemyStart.transform).GetComponent<BattleExemon>());
+        var spawnedEnemy = (Instantiate(P2Exemon, enemyStart.transform).GetComponent<BattleExemon>());
+        spawnedEnemy.transform.position = new Vector2(enemyStart.transform.position.x, spawnedEnemy.transform.position.y + (spawnedEnemy.GetComponent<Collider2D>().bounds.size.y / 2));
+        enemyEntities.Add(spawnedEnemy);
 
         BattleStarted = true;
         
