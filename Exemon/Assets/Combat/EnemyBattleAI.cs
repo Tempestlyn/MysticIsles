@@ -14,6 +14,8 @@ public class EnemyBattleAI : MonoBehaviour
     public Move nextMove;
     private bool WasAttackingLastFrame;
     public Vector2 Target = new Vector2(0, 0);
+
+    public float FrontCastDist;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,11 @@ public class EnemyBattleAI : MonoBehaviour
         if (nextMove == null)
         {
             nextMove = battleExemon.Moves[UnityEngine.Random.Range(0, battleExemon.Moves.Count)];
+        }
+
+        if (MustJump())
+        {
+            battleExemon.Jump();
         }
 
         var reach = nextMove.AIRange;
@@ -103,6 +110,25 @@ public class EnemyBattleAI : MonoBehaviour
         nextMoveDelay = time;
     }
     
+    public bool MustJump()
+    {
+        if(Physics2D.Linecast(transform.position, new Vector2((transform.position.x + FrontCastDist), transform.position.y), 1 << LayerMask.NameToLayer("Platform"))) 
+        {
+            if (battleExemon.IsGrounded() && battleExemon.currentState != State.Idle)
+            {
+                return true;
+            }
+        }
+        else if (Physics2D.Linecast(transform.position, new Vector2((transform.position.x - FrontCastDist), transform.position.y), 1 << LayerMask.NameToLayer("Platform")))
+        {
+            if (battleExemon.IsGrounded() && battleExemon.currentState != State.Idle)
+            {
+                return true;
+            }
+        }
+            return false;
+    }
+
 
 
 }

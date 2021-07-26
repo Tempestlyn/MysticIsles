@@ -48,7 +48,7 @@ public class BattleExemon : MonoBehaviour
     // Start is called before the first frame update
     public GameObject TargetTest;
     public float AirGravity;
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         var collider2d = GetComponent<Collider2D>();
         RaycastHit2D raycastHit = Physics2D.BoxCast(collider2d.bounds.center, collider2d.bounds.size, 0f, Vector2.down, 0.5f, platformMask);
@@ -363,10 +363,10 @@ public class BattleExemon : MonoBehaviour
             TurnedAround = true;
     }
 
-    void Jump()
+    public void Jump()
     {
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
-        rigidbody.AddForce(Vector2.up * 15f, ForceMode2D.Impulse);
+        rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
     public void Attack(Move selectedMove)
     {

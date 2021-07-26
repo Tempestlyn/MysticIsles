@@ -273,7 +273,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   speed: 1
   health: 50
-  jumpForce: 0
+  jumpForce: 15
   ActiveMove: {fileID: 0}
   Moves:
   - {fileID: 7843450618338039677, guid: ac6acabc9769fe14e891a6ff1645a626, type: 3}
@@ -309,3 +309,4 @@ MonoBehaviour:
   HostileRange: 0
   nextMove: {fileID: 0}
   Target: {x: 0, y: 0}
+  FrontCastDist: 0.8
