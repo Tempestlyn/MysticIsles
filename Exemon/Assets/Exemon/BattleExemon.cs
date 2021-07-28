@@ -7,47 +7,61 @@ public class BattleExemon : MonoBehaviour
     public bool PlayerControlled;
 
     //public BaseExemon exemon;
-    [SerializeField]
-    public LayerMask platformMask;
+    
 
-    public Stance stance;
-    public State nextState;
-    public State currentState;
+
     public float reach;
-    public GameObject move1;
-    private Rigidbody2D rigidbody;
     public Animator animator;
-    public float speed;
     public float health;
+    public float speed;
     public float jumpForce;
-    public Move ActiveMove;
     public List<Move> Moves;
-    public GameObject enemyExemon;
-    public bool TurnedAround;
-    private bool WithinReach;
     public GameObject MoveSpawn;
     public GameObject MoveRotation;
-    private bool IsTryingToExitAttack;
-
-    public int SelectedAttackIndex;
-    public bool isAttacking;
-
-    public float TimeStunned;
-    public float AttackLockTime;
-
     public Vector2 target;
-    public bool AimLocked;
-    private Vector2 AimLockedPosition = new Vector2(0, 0);
-    private bool AIControlled;
-
+    public float AirGravity;
+    
     public Animator hairAnimator;
     public Animator RobeAnimator;
 
-    //[System.NonSerialized]
+
+
     public BattleData BattleSystem;
-    // Start is called before the first frame update
+    public GameObject enemyExemon;
     public GameObject TargetTest;
-    public float AirGravity;
+    
+
+    [SerializeField]
+    public LayerMask platformMask;
+
+    private bool AIControlled;
+    private Rigidbody2D rigidbody;
+
+    [System.NonSerialized]
+    public State nextState;
+    [System.NonSerialized]
+    public State currentState;
+    [System.NonSerialized]
+    public bool isAttacking;
+    [System.NonSerialized]
+    public float AttackLockTime;
+    [System.NonSerialized]
+    public float TimeStunned;
+    [System.NonSerialized]
+    public int SelectedAttackIndex;
+    [System.NonSerialized]
+    private bool IsTryingToExitAttack;
+    [System.NonSerialized]
+    private bool WithinReach;
+    [System.NonSerialized]
+    public Move ActiveMove;
+    [System.NonSerialized]
+    public bool TurnedAround;
+    [System.NonSerialized]
+    public bool AimLocked;
+    [System.NonSerialized]
+    private Vector2 AimLockedPosition = new Vector2(0, 0);
+
     public bool IsGrounded()
     {
         var collider2d = GetComponent<Collider2D>();
@@ -60,7 +74,7 @@ public class BattleExemon : MonoBehaviour
         AIControlled = gameObject.GetComponent<EnemyBattleAI>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        //stance = exemon.defaultStance;
+
         
     }
 
@@ -74,6 +88,9 @@ public class BattleExemon : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(!PlayerControlled)
+            
+
         PhysicsUpdate();
     }
     // Update is called once per frame
@@ -468,16 +485,6 @@ public class BattleExemon : MonoBehaviour
     }
 
 }
-
-
-
-    public enum Stance
-    {
-        Attack,
-        Defend,
-        StayAway,
-        
-    }
 
 
 

@@ -75,7 +75,7 @@ MonoBehaviour:
     TimeToShoot: 1
     projectileDirection: 0
     forceDirection: 0
-    force: 50
+    force: 30
     forceAngle: 0
     LifeSpan: 0
     ChanceToSpawn: 100

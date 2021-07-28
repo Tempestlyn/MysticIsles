@@ -35,7 +35,7 @@ public class BaseExemon : ScriptableObject
 
     public GameObject exemon;
 
-    public Stance defaultStance;
+
     public Animation[] AttackAnimations;
 
     /*

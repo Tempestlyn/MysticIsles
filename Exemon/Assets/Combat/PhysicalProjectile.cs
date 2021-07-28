@@ -8,6 +8,8 @@ public class PhysicalProjectile : Projectile
     public float DamageSpeed;
     public float MinimumCollideSpeed;
     public bool FaceVelocity;
+
+    private float TimeLowerThanCollideSpeed;
     private void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
@@ -16,7 +18,7 @@ public class PhysicalProjectile : Projectile
     {
 
 
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon && gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > DamageSpeed)
+        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon && collider.relativeVelocity.magnitude > DamageSpeed)
         {
 
             StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
@@ -35,7 +37,6 @@ public class PhysicalProjectile : Projectile
             {
                 if (collider.gameObject.GetComponent<Projectile>().controllingExemon != controllingExemon)
                 {
-                    Debug.Log("TEst");
                     StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Projectile));
                 }
 
@@ -48,23 +49,30 @@ public class PhysicalProjectile : Projectile
         }
 
 
+
     }
     private void FixedUpdate()
     {
+
+
+
         if (rigidbody.velocity.magnitude < MinimumCollideSpeed)
         {
+            TimeLowerThanCollideSpeed += Time.deltaTime;
 
-            gameObject.layer = 11;
+            if (TimeLowerThanCollideSpeed > 1)
+            {
+                gameObject.layer = 11;
+            }
         }
         else
         {
+            TimeLowerThanCollideSpeed = 0;
             gameObject.layer = 8;
         }
-
-        if (FaceVelocity)
-        {
-            //transform.rotation = Quaternion.LookRotation(rigidbody.velocity);
-        }
     }
+
+
+
 
 }

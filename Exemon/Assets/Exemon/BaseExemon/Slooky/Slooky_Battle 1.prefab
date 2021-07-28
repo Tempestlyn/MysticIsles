@@ -214,7 +214,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
@@ -262,37 +262,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerControlled: 0
-  platformMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  stance: 0
-  nextState: 0
-  currentState: 0
   reach: 3.5
-  move1: {fileID: 0}
   animator: {fileID: 0}
-  speed: 1
   health: 50
+  speed: 1
   jumpForce: 15
-  ActiveMove: {fileID: 0}
   Moves:
   - {fileID: 7843450618338039677, guid: ac6acabc9769fe14e891a6ff1645a626, type: 3}
   - {fileID: 2768713184587787268, guid: 36622ad0182b7db44bc365dfb102eb4b, type: 3}
-  enemyExemon: {fileID: 0}
-  TurnedAround: 0
   MoveSpawn: {fileID: 0}
   MoveRotation: {fileID: 0}
-  SelectedAttackIndex: 0
-  isAttacking: 0
-  TimeStunned: 0
-  AttackLockTime: 0
   target: {x: 0, y: 0}
-  AimLocked: 0
+  AirGravity: 2
   hairAnimator: {fileID: 0}
   RobeAnimator: {fileID: 0}
   BattleSystem: {fileID: 0}
+  enemyExemon: {fileID: 0}
   TargetTest: {fileID: 7573896145012922052}
-  AirGravity: 2
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &1459220100585196903
 MonoBehaviour:
   m_ObjectHideFlags: 0
