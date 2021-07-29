@@ -67,9 +67,9 @@ public class Move : MonoBehaviour
     }
     public void ResolveHitExemon(GameObject target, GameObject CollidingEntity, ForceDirection forceDirection, float Damage, float stunDuration, float xcomponent, float ycomponent, float force, float forceAngle)
     {
-        if (target.GetComponent<BattleExemon>())
+        if (target.GetComponent<BattleEntity>())
         {
-            var exemon = target.GetComponent<BattleExemon>();
+            var exemon = target.GetComponent<BattleEntity>();
             exemon.TakeDamage(Damage);
             if (stunDuration > 0)
             {
@@ -209,7 +209,7 @@ public class Move : MonoBehaviour
  
 public enum DamageType
 {
-    Exemon,
+    BattleEntity,
     Projectile,
     HitBox,
 

@@ -19,7 +19,7 @@ public class BattleData : MonoBehaviour
     public TMP_Text PlayerHealth;
     public TMP_Text EnemyHealth;
 
-    public List<BattleExemon> enemyEntities = new List<BattleExemon>();
+    public List<BattleEntity> enemyEntities = new List<BattleEntity>();
 
     public Camera BattleCam;
     public CinemachineVirtualCamera VC;
@@ -40,7 +40,7 @@ public class BattleData : MonoBehaviour
     void Update()
     {
         EnemyDefeated = true;
-        foreach (BattleExemon entity in enemyEntities)
+        foreach (BattleEntity entity in enemyEntities)
         {
             if (entity.health > 0)
             {
@@ -53,7 +53,7 @@ public class BattleData : MonoBehaviour
         {
             EndBattle();
         }
-        var enemyData = P2Exemon.GetComponent<BattleExemon>();
+        var enemyData = P2Exemon.GetComponent<BattleEntity>();
         if (enemyData.health <= 0)
         {
             enemyData.health = 0;
@@ -82,7 +82,7 @@ public class BattleData : MonoBehaviour
     public void InitiateBattle(Transform playerStart, Transform enemyStart)
     {
         
-        var player = P1Exemon.GetComponent<BattleExemon>();
+        var player = P1Exemon.GetComponent<BattleEntity>();
         player.BattleSystem = this;
         player.PlayerControlled = true;
         var SpawnedPlayer = Instantiate(P1Exemon, playerStart);
@@ -91,11 +91,11 @@ public class BattleData : MonoBehaviour
         VC.m_Lens.OrthographicSize = 15;
 
 
-        var enemy = P2Exemon.GetComponent<BattleExemon>();
+        var enemy = P2Exemon.GetComponent<BattleEntity>();
         enemy.BattleSystem = this;
         enemy.PlayerControlled = false;
         enemy.enemyExemon = SpawnedPlayer;
-        var spawnedEnemy = (Instantiate(P2Exemon, enemyStart.transform).GetComponent<BattleExemon>());
+        var spawnedEnemy = (Instantiate(P2Exemon, enemyStart.transform).GetComponent<BattleEntity>());
         spawnedEnemy.transform.position = new Vector2(enemyStart.transform.position.x, spawnedEnemy.transform.position.y + (spawnedEnemy.GetComponent<Collider2D>().bounds.size.y / 2));
         enemyEntities.Add(spawnedEnemy);
 

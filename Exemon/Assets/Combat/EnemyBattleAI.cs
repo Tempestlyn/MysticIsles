@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyBattleAI : MonoBehaviour
 {
 
-    private BattleExemon battleExemon;
+    private BattleEntity battleExemon;
     private float nextMoveDelay = 0.5f;
     public bool AttacksUnprovoked;
     public float HostileRange;
@@ -19,7 +19,7 @@ public class EnemyBattleAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        battleExemon = gameObject.GetComponent<BattleExemon>();
+        battleExemon = gameObject.GetComponent<BattleEntity>();
     }
 
     // Update is called once per frame

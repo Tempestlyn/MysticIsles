@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OverworldExemon : MonoBehaviour
 {
-    public BaseExemon Exemon;
+    public BaseBattleEntity Exemon;
     // Start is called before the first frame update
     public Camera MainCamera;
     public List<Item> DroppableItems;
@@ -24,11 +24,6 @@ public class OverworldExemon : MonoBehaviour
         }
     }
 
-
-    public void GetExemonStats()
-    {
-        
-    }
 
 
 }

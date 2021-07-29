@@ -13,24 +13,24 @@ public class RotateToMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (!gameObject.GetComponentInParent<BattleExemon>().AimLocked)
+        var parentEntity = gameObject.GetComponentInParent<BattleEntity>();
+        if (!parentEntity.AimLocked)
         {
 
 
             Vector2 pos = transform.position;
-            Vector3 dir = gameObject.GetComponentInParent<BattleExemon>().target - pos;
+            Vector3 dir = parentEntity.target - pos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
 
-            if (gameObject.GetComponentInParent<BattleExemon>().ActiveMove != null)
+            if (gameObject.GetComponentInParent<BattleEntity>().ActiveMove != null)
             {
-                var activeMove = gameObject.GetComponentInParent<BattleExemon>().ActiveMove;
+                var activeMove = parentEntity.ActiveMove;
 
 
                 if ((angle < activeMove.MinAimAngle && activeMove.MinAimAngle > (-180 + activeMove.MinAimAngle)))
                 {
-                    if (!gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
+                    if (!parentEntity.TurnedAround)
                     {
                         angle = activeMove.MinAimAngle;
                     }
@@ -42,7 +42,7 @@ public class RotateToMouse : MonoBehaviour
                 }
                 else if (((angle > activeMove.MaxAimAngle && angle < (180 - activeMove.MaxAimAngle))))
                 {
-                    if (!gameObject.GetComponentInParent<BattleExemon>().TurnedAround)
+                    if (!parentEntity.TurnedAround)
                     {
                         angle = activeMove.MaxAimAngle;
                         

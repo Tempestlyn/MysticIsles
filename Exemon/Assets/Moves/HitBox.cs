@@ -34,7 +34,7 @@ public class HitBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().ActiveMove != AttachedMove)
+        if (AttachedMove.AttachedExemon.GetComponent<BattleEntity>().ActiveMove != AttachedMove)
         {
             //Debug.Log(IsActive);
             IsActive = false;
@@ -47,7 +47,7 @@ public class HitBox : MonoBehaviour
         {
             foreach (GameObject exemon in CurrentCollisions)
             {
-                if (AttachedMove.AttachedExemon.GetComponent<BattleExemon>().TurnedAround)
+                if (AttachedMove.AttachedExemon.GetComponent<BattleEntity>().TurnedAround)
                 {
                     
                     AttachedMove.ResolveHitExemon(exemon, gameObject, ForceDirection.CustomAngle, AttachedMove.Damage, AttachedMove.StunTime, 0, 0, -Force, -Angle);
@@ -69,7 +69,7 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
+        if (collider.gameObject.GetComponent<BattleEntity>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
         {
 
             CurrentCollisions.Add(collider.gameObject);
@@ -88,7 +88,7 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
+        if (collider.gameObject.GetComponent<BattleEntity>() && collider.gameObject != AttachedMove.AttachedExemon && IsActive)
         {
 
             CurrentCollisions.Remove(collider.gameObject);

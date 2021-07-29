@@ -38,7 +38,7 @@ public class RangedMove : Move
         StartPosition = AttachedExemon.transform.position;
         if (ProjectileSpawn == null)
         {
-            ProjectileSpawn = AttachedExemon.GetComponent<BattleExemon>().MoveSpawn;
+            ProjectileSpawn = AttachedExemon.GetComponent<BattleEntity>().MoveSpawn;
         }
 
 
@@ -69,7 +69,7 @@ public class RangedMove : Move
 
         if (MoveRotation == null)
         {
-            MoveRotation = AttachedExemon.GetComponent<BattleExemon>().MoveRotation;
+            MoveRotation = AttachedExemon.GetComponent<BattleEntity>().MoveRotation;
         }
         foreach(ProjectileShootData projectileShootData in ProjectileData)
         {
@@ -84,7 +84,7 @@ public class RangedMove : Move
         }
         foreach(AimLockedTime aimLockedTime in AimLockedTimes)
         {
-            StartCoroutine(AttachedExemon.GetComponent<BattleExemon>().LockAim(aimLockedTime));
+            StartCoroutine(AttachedExemon.GetComponent<BattleEntity>().LockAim(aimLockedTime));
         }
 
         foreach(TimesToAddForce timesToAddForce in TimesToAddForces)
@@ -111,7 +111,7 @@ public class RangedMove : Move
     {
         if (IsStationary && MaxStationaryMoveDistance < Vector2.Distance(StartPosition, AttachedExemon.transform.position))
         {
-            AttachedExemon.GetComponent<BattleExemon>().EndAttack();
+            AttachedExemon.GetComponent<BattleEntity>().EndAttack();
         }
 
         CanMove = false;
@@ -144,24 +144,15 @@ public class RangedMove : Move
 
         }
 
-        if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleExemon>().ActiveMove != this)
+        if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleEntity>().ActiveMove != this)
         {
             Destroy(gameObject);
         }
 
 
-
-
-
         DelayTime -= Time.deltaTime;
 
-
-
-
     }
-
-
-
 
 
     IEnumerator Shoot(ProjectileShootData shootData)
@@ -186,10 +177,10 @@ public class RangedMove : Move
                
 
                 Vector2 myPos = ProjectileSpawn.transform.position;
-                var target = AttachedExemon.GetComponent<BattleExemon>().target;
+                var target = AttachedExemon.GetComponent<BattleEntity>().target;
                 Vector2 difference = target - myPos;
                 
-                float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < myPos.y) ? -1.0f : 1.0f;
+                float sign = (AttachedExemon.GetComponent<BattleEntity>().target.y < myPos.y) ? -1.0f : 1.0f;
                 var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
 
                 var distance = Mathf.Abs(AttachedExemon.transform.position.x - target.x);
@@ -290,9 +281,9 @@ public class RangedMove : Move
                             if (Vector2.Distance(projectile.GetComponent<Projectile>().transform.position, AttachedExemon.transform.position) < 2){
 
                                 Vector2 position = projectile.gameObject.transform.position;
-                                var target = AttachedExemon.GetComponent<BattleExemon>().target;
+                                var target = AttachedExemon.GetComponent<BattleEntity>().target;
                                 Vector2 difference = target - position;
-                                float sign = (AttachedExemon.GetComponent<BattleExemon>().target.y < position.y) ? -1.0f : 1.0f;
+                                float sign = (AttachedExemon.GetComponent<BattleEntity>().target.y < position.y) ? -1.0f : 1.0f;
                                 var baseAngle = Vector2.Angle(Vector2.right, difference) * sign;
                                 //Debug.Log(baseAngle);
                                 //baseAngle = baseAngle + (Mathf.Abs(AttachedExemon.transform.position.x - target.x) * AimHeightOffset);

@@ -18,20 +18,18 @@ public class PhysicalProjectile : Projectile
     {
 
 
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon && collider.relativeVelocity.magnitude > DamageSpeed)
+        if (collider.gameObject.GetComponent<BattleEntity>() && collider.gameObject != controllingMove.AttachedExemon && collider.relativeVelocity.magnitude > DamageSpeed)
         {
 
-            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
-            //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
-            //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
+            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.BattleEntity));
 
             if (DestroyOnHit)
             {
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
 
         }
-        else if (!collider.gameObject.GetComponent<BattleExemon>())
+        else if (!collider.gameObject.GetComponent<BattleEntity>())
         {
             if (collider.gameObject.GetComponent<Projectile>())
             {
@@ -60,7 +58,7 @@ public class PhysicalProjectile : Projectile
         {
             TimeLowerThanCollideSpeed += Time.deltaTime;
 
-            if (TimeLowerThanCollideSpeed > 1)
+            if (TimeLowerThanCollideSpeed > .5)
             {
                 gameObject.layer = 11;
             }

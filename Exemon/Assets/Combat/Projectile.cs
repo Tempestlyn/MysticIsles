@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.GetComponent<BattleExemon>() && collider.gameObject != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
+        if (collider.gameObject.GetComponent<BattleEntity>() && collider.gameObject != controllingMove.AttachedExemon /* && !HitObjects.Contains(collider.gameObject)*/)
         {
             
 
@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
                 vectorAngle = dir;
             }
 
-            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.Exemon));
+            StartCoroutine(ApplyDamage(DamageDelay, collider.gameObject, DamageType.BattleEntity));
             //var exemon = collider.gameObject.GetComponent<ExemonHitbox>().battleExemon.gameObject.GetComponent<BattleExemon>();
             //controllingMove.ResolveHit(exemon, damage, StunDuration, Force, ForceAngle);
 
@@ -137,7 +137,7 @@ public class Projectile : MonoBehaviour
 
         
         //Debug.Log("test");
-        if (damageType == DamageType.Exemon && !HitObjects.Contains(hitObject))
+        if (damageType == DamageType.BattleEntity && !HitObjects.Contains(hitObject))
         {
             controllingMove.ResolveHitExemon(hitObject.gameObject, gameObject, forceDirection, damage, StunDuration, vectorAngle.x, vectorAngle.y, Force, ForceAngle);
             HitObjects.Add(hitObject);

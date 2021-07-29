@@ -42,7 +42,7 @@ public class MeleeAttack : Move
 
             HitDelay -= Time.deltaTime;
 
-        if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleExemon>().ActiveMove != this)
+        if (moveTime >= MaxMoveTime || AttachedExemon.GetComponent<BattleEntity>().ActiveMove != this)
         {
             Destroy(gameObject);
         }
