@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 public class OverworldData : MonoBehaviour
 {
     public static OverworldData Instance { get; private set; }
@@ -12,6 +12,9 @@ public class OverworldData : MonoBehaviour
     public int LandPrefabToGenerate;
     public int NumberOfInitialSpawnZones;
     public BaseBattleEntity Player;
+
+
+    public IslandData currentIsland;
     //[System.Serializable]
     //public class EntityPosition { GameObject entity; Vector3 position; }
     public Transform InitialPlayerSpawn;
@@ -36,6 +39,11 @@ public class OverworldData : MonoBehaviour
         //TODO: update player stats when save/load is finished
 
         
+    }
+
+    public void Save()
+    {
+
     }
 
 
@@ -91,6 +99,7 @@ public class OverworldData : MonoBehaviour
     }
 
 }
+
 
 [System.Serializable]
 public struct SpawnZoneData
