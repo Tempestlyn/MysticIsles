@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MythicIsles.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\ringe\Documents\GitHub\Mystic Isles\MythicIsles 5.1\Intermediate\Build\Win64\MythicIslesEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h.obj"
+"C:\Users\ringe\Documents\GitHub\Mystic Isles\MythicIsles 5.1\Intermediate\Build\Win64\UnrealEditor\Development\MythicIsles\MyClass.cpp.obj"
+"C:\Users\ringe\Documents\GitHub\Mystic Isles\MythicIsles 5.1\Intermediate\Build\Win64\UnrealEditor\Development\MythicIsles\MythicIsles.cpp.obj"
+"C:\Users\ringe\Documents\GitHub\Mystic Isles\MythicIsles 5.1\Intermediate\Build\Win64\UnrealEditor\Development\MythicIsles\Default.rc2.res"
+/OUT:"C:\Users\ringe\Documents\GitHub\Mystic Isles\MythicIsles 5.1\Intermediate\Build\Win64\UnrealEditor\Development\MythicIsles\UnrealEditor-MythicIsles.lib"

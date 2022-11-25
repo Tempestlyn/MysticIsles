@@ -1,0 +1,42 @@
+[
+	{
+		"file": "C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MyClass.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe",
+			"@C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\.vscode\\compileCommands_Default\\MythicIsles.261.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MyClass.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe",
+			"@C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\.vscode\\compileCommands_Default\\MythicIsles.261.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MythicIsles.Build.cs",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe",
+			"@C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\.vscode\\compileCommands_Default\\MythicIsles.261.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MythicIsles.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe",
+			"@C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\.vscode\\compileCommands_Default\\MythicIsles.261.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MythicIsles.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe",
+			"@C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\.vscode\\compileCommands_Default\\MythicIsles.261.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Source"
+	}
+]

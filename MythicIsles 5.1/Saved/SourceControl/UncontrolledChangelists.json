@@ -1,0 +1,24 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/Man/Outline.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/Entity.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/NPC.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/Levels/TestLevel.umap",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/ControllerPosition.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/PlayerEntity.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/ThirdPerson/Blueprints/BP_ThirdPersonGameMode.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/HumanMan.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/AIRandomLocation.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/NPC_AI.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/PlayerStartCharacter.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/PlayerController.uasset",
+				"C:/Users/ringe/Documents/GitHub/Mystic Isles/MythicIsles 5.1/Content/NPC/HumanEntity.uasset"
+			]
+		}
+	]
+}
