@@ -1,0 +1,13 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "c:\\users\\ringe\\documents\\github\\mystic isles\\mythicisles 5.1\\intermediate\\build\\win64\\unrealeditor\\inc\\mythicisles\\uht\\mythicisles.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\ringe\\documents\\github\\mystic isles\\mythicisles 5.1\\intermediate\\build\\win64\\mythicisleseditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_0.h.pch",
+        "Includes": [
+            "c:\\users\\ringe\\documents\\github\\mystic isles\\mythicisles 5.1\\intermediate\\build\\win64\\unrealeditor\\development\\mythicisles\\definitions.mythicisles.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
