@@ -1,9 +1,0 @@
-{
-	"SourceFiles": [
-		"C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles\\MythicIsles.Build.cs",
-		"C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Plugins\\OpenAI-Api-Unreal\\Source\\OpenAIAPI\\OpenAIAPI.Build.cs",
-		"C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIsles.Target.cs",
-		"C:\\Users\\ringe\\Documents\\GitHub\\Mystic Isles\\MythicIsles 5.1\\Source\\MythicIslesEditor.Target.cs"
-	],
-	"EngineVersion": "5.1.1"
-}
